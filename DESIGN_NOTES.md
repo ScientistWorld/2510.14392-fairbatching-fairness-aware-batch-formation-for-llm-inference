@@ -1,0 +1,48 @@
+# Design Notes
+
+Checked the train/test split, wrapper scripts, scoring schema, and paper context
+for the FairBatching scheduler benchmark.
+
+Changes made:
+
+- Fixed a gameability issue in `eval/train/evaluate.py` and
+  `eval/test/evaluate.py`: both slices now recompute SLO success from
+  per-request `ttft_ms`, `max_envelope_tpot_ms`, and per-request SLO fields
+  instead of trusting the method-emitted `slo_met` summary flag.
+- Reduced trust in method summary fields by recomputing offered request rate
+  from per-request arrival times when available, instead of using only the
+  method-emitted `offered_rps`.
+- Added separate `ttft_slo_violation_rate` and
+  `envelope_tpot_slo_violation_rate` metrics so a method cannot hide whether it
+  gained goodput by sacrificing first-token latency or envelope TPOT.
+- Added P95 tail metrics for TTFT, raw TPOT, and envelope TPOT alongside the
+  existing P99 metrics. This gives the train/test split more tail-shape
+  triangulation and makes single-threshold tuning easier to detect.
+- Updated `scoring/reference.json` so all active metrics have
+  `higher_is_better`, `coefficient`, and `description`, and so train/test
+  evaluators retain the newly computed metrics instead of filtering them out.
+
+Checks performed:
+
+- `scripts/evaluate_train.sh` and `scripts/evaluate_test.sh` pass `bash -n`.
+- `evaluate_test.sh` references `eval/test/` and writes
+  `scoring/scores_test.json`; `evaluate_train.sh` references `eval/train/` and
+  writes `scoring/scores_train.json`.
+- No `scoring/scores_train.json` or `scoring/scores_test.json` stub exists.
+- Grepped for train/test cross-imports. Only explanatory docstring mentions
+  were found, not imports.
+- Grepped for forbidden paper-agreement metric names. No metric names match the
+  forbidden patterns.
+
+Runtime concerns for the runner iteration:
+
+- The split still scores method-authored per-request latency records. This is
+  appropriate for a method-agnostic artifact evaluator, but a malicious method
+  can fabricate records unless the runner later cross-checks record IDs,
+  arrivals, and SLO fields against the trace named in the artifact.
+- `single_node_burstgpt_trace` remains in `scoring/reference.json` with nonzero
+  weight, but the checked-in default `outputs/` currently only contains
+  `single_node_qwen_trace`. If the runner wants BurstGPT to be active in
+  train/test scores, the method run must emit a matching output directory.
+- I did not run the evaluators or regenerate scores, per the design-only
+  iteration rules.

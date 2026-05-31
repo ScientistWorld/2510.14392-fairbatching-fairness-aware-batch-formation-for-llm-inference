@@ -112,25 +112,43 @@ def aggregate_metrics(path: Path, experiment: str) -> dict[str, float]:
     if not rows:
         raise ValueError(f"{path} has no records selected for the {SLICE} slice")
 
-    slo_flags = [bool(row.get("slo_met", False)) for row in rows]
+    ttft_values = [float(row["ttft_ms"]) for row in rows]
+    tpot_values = [float(row["max_tpot_ms"]) for row in rows]
+    envelope_values = [
+        float(row.get("max_envelope_tpot_ms", row["max_tpot_ms"]))
+        for row in rows
+    ]
+    ttft_flags = [
+        ttft <= float(row.get("ttft_slo_ms", data.get("ttft_slo_ms", 500.0)))
+        for ttft, row in zip(ttft_values, rows)
+    ]
+    envelope_flags = [
+        envelope <= float(row.get("tpot_slo_ms", data.get("tpot_slo_ms", 50.0)))
+        for envelope, row in zip(envelope_values, rows)
+    ]
+    slo_flags = [ttft_ok and tpot_ok for ttft_ok, tpot_ok in zip(ttft_flags, envelope_flags)]
     success_fraction = sum(1 for flag in slo_flags if flag) / len(rows)
-    offered_rps = float(data.get("offered_rps", 0.0))
+
+    all_arrivals = [float(row["arrival_ms"]) for row in records if "arrival_ms" in row]
+    if len(all_arrivals) >= 2:
+        arrival_span_s = max(1e-9, (max(all_arrivals) - min(all_arrivals)) / 1000.0)
+        offered_rps = len(records) / arrival_span_s
+    else:
+        offered_rps = float(data.get("offered_rps", 0.0))
 
     return {
         "effective_rps": offered_rps * success_fraction,
         "slo_violation_rate": 1.0 - success_fraction,
-        "ttft_p95_ms": percentile([float(row["ttft_ms"]) for row in rows], 95),
-        "ttft_p99_ms": percentile([float(row["ttft_ms"]) for row in rows], 99),
-        "tpot_p95_ms": percentile([float(row["max_tpot_ms"]) for row in rows], 95),
-        "tpot_p99_ms": percentile([float(row["max_tpot_ms"]) for row in rows], 99),
-        "envelope_tpot_p95_ms": percentile(
-            [float(row.get("max_envelope_tpot_ms", row["max_tpot_ms"])) for row in rows],
-            95,
+        "ttft_slo_violation_rate": 1.0 - (sum(1 for flag in ttft_flags if flag) / len(rows)),
+        "envelope_tpot_slo_violation_rate": 1.0 - (
+            sum(1 for flag in envelope_flags if flag) / len(rows)
         ),
-        "envelope_tpot_p99_ms": percentile(
-            [float(row.get("max_envelope_tpot_ms", row["max_tpot_ms"])) for row in rows],
-            99,
-        ),
+        "ttft_p95_ms": percentile(ttft_values, 95),
+        "ttft_p99_ms": percentile(ttft_values, 99),
+        "tpot_p95_ms": percentile(tpot_values, 95),
+        "tpot_p99_ms": percentile(tpot_values, 99),
+        "envelope_tpot_p95_ms": percentile(envelope_values, 95),
+        "envelope_tpot_p99_ms": percentile(envelope_values, 99),
     }
 
 
