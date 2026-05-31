@@ -4,6 +4,16 @@
 
 ## Progress Log
 
+### [2026-05-31 10:19] - core_claim
+- Added a second default experiment, `qwen_slo_1000_100`, to probe the paper's
+  SLO-versatility claim at TTFT=1000ms and TPOT=100ms.
+- Hardened `scripts/evaluate.sh`'s evaluator to require per-request timing
+  records rather than trusting aggregate-only self-reported metrics.
+- Local `scripts/reproduce.sh "" outputs`, train/test scoring, and
+  `python validate.py --compare` pass with two scored experiments. Keeping the
+  milestone at `core_claim` until a fresh packaged CPU job verifies this
+  expanded setup.
+
 ### [2026-05-31 10:13] - core_claim
 - Final verification kept the milestone at `core_claim`.
 - Confirmed `scripts/evaluate.sh outputs` regenerates `scoring/scores.json`

@@ -1,5 +1,61 @@
 {
   "experiments": {
+    "qwen_slo_1000_100": {
+      "results": {
+        "fairbatching": {
+          "effective_rps": 6.73114178076918,
+          "slo_violation_rate": 0.0,
+          "ttft_slo_violation_rate": 0.0,
+          "envelope_tpot_slo_violation_rate": 0.0,
+          "ttft_p95_ms": 228.29944000000313,
+          "ttft_p99_ms": 260.65067600000594,
+          "tpot_p95_ms": 165.0659750000003,
+          "tpot_p99_ms": 209.70260000000053,
+          "envelope_tpot_p95_ms": 99.28186576371135,
+          "envelope_tpot_p99_ms": 99.68614601374583,
+          "goodput_improvement_pct": 13.207547169811317
+        },
+        "fairbatching_pab": {
+          "effective_rps": 6.73114178076918,
+          "slo_violation_rate": 0.0,
+          "ttft_slo_violation_rate": 0.0,
+          "envelope_tpot_slo_violation_rate": 0.0,
+          "ttft_p95_ms": 228.29944000000313,
+          "ttft_p99_ms": 260.65067600000594,
+          "tpot_p95_ms": 165.0659750000003,
+          "tpot_p99_ms": 209.70260000000053,
+          "envelope_tpot_p95_ms": 99.28186576371135,
+          "envelope_tpot_p99_ms": 99.68614601374583,
+          "goodput_improvement_pct": 13.207547169811317
+        },
+        "vllm_sarathi": {
+          "effective_rps": 5.6466800494230345,
+          "slo_violation_rate": 0.1611111111111111,
+          "ttft_slo_violation_rate": 0.1611111111111111,
+          "envelope_tpot_slo_violation_rate": 0.1611111111111111,
+          "ttft_p95_ms": 4504.281800000042,
+          "ttft_p99_ms": 6208.204278000043,
+          "tpot_p95_ms": 99.99543999999987,
+          "tpot_p99_ms": 99.99879999999978,
+          "envelope_tpot_p95_ms": 3604.26469000004,
+          "envelope_tpot_p99_ms": 5308.191774000044,
+          "goodput_improvement_pct": -5.031446540880502
+        },
+        "vllm_vanilla": {
+          "effective_rps": 5.945841906346109,
+          "slo_violation_rate": 0.1166666666666667,
+          "ttft_slo_violation_rate": 0.0,
+          "envelope_tpot_slo_violation_rate": 0.1166666666666667,
+          "ttft_p95_ms": 228.29944000000313,
+          "ttft_p99_ms": 260.65067600000594,
+          "tpot_p95_ms": 168.47030000000086,
+          "tpot_p99_ms": 209.70260000000053,
+          "envelope_tpot_p95_ms": 102.14153181748763,
+          "envelope_tpot_p99_ms": 102.80478914807037,
+          "goodput_improvement_pct": 0.0
+        }
+      }
+    },
     "single_node_qwen_trace": {
       "results": {
         "fairbatching": {

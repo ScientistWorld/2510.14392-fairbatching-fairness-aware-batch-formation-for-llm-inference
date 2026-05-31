@@ -111,7 +111,13 @@ def _lognormal_params(mean: float, p90: float) -> tuple[float, float]:
     return mu, sigma
 
 
-def generate_trace(spec: WorkloadSpec, seed: int = 7, rps: float | None = None) -> list[dict]:
+def generate_trace(
+    spec: WorkloadSpec,
+    seed: int = 7,
+    rps: float | None = None,
+    ttft_slo_ms: float | None = None,
+    tpot_slo_ms: float | None = None,
+) -> list[dict]:
     rng = random.Random(seed)
     rps = spec.default_rps if rps is None else rps
     prompt_mu, prompt_sigma = _lognormal_params(spec.avg_prompt, spec.p90_prompt)
@@ -135,18 +141,31 @@ def generate_trace(spec: WorkloadSpec, seed: int = 7, rps: float | None = None) 
                 "arrival_ms": round(now, 3),
                 "prompt_len": prompt,
                 "output_len": output,
-                "ttft_slo_ms": spec.ttft_slo_ms,
-                "tpot_slo_ms": spec.tpot_slo_ms,
+                "ttft_slo_ms": spec.ttft_slo_ms if ttft_slo_ms is None else ttft_slo_ms,
+                "tpot_slo_ms": spec.tpot_slo_ms if tpot_slo_ms is None else tpot_slo_ms,
             }
         )
     return rows
 
 
-def write_trace(name: str, output: Path, seed: int = 7, rps: float | None = None) -> None:
+def write_trace(
+    name: str,
+    output: Path,
+    seed: int = 7,
+    rps: float | None = None,
+    ttft_slo_ms: float | None = None,
+    tpot_slo_ms: float | None = None,
+) -> None:
     if name == "decode_slack_burst":
         rows = generate_decode_slack_burst()
     else:
-        rows = generate_trace(SPECS[name], seed=seed, rps=rps)
+        rows = generate_trace(
+            SPECS[name],
+            seed=seed,
+            rps=rps,
+            ttft_slo_ms=ttft_slo_ms,
+            tpot_slo_ms=tpot_slo_ms,
+        )
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
@@ -160,8 +179,10 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=Path("data/qwen_synthetic.csv"))
     parser.add_argument("--seed", type=int, default=7)
     parser.add_argument("--rps", type=float, default=None)
+    parser.add_argument("--ttft-slo-ms", type=float, default=None)
+    parser.add_argument("--tpot-slo-ms", type=float, default=None)
     args = parser.parse_args()
-    write_trace(args.name, args.output, args.seed, args.rps)
+    write_trace(args.name, args.output, args.seed, args.rps, args.ttft_slo_ms, args.tpot_slo_ms)
 
 
 if __name__ == "__main__":

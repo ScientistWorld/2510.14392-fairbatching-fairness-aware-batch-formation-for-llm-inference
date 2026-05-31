@@ -32,13 +32,14 @@
 ## Data
 - [x] Synthetic trace generator in `data/`
 - [x] QwenTrace-like scored trace
+- [x] QwenTrace-like relaxed-SLO scored trace
 - [x] BurstGPT-like custom trace generator retained but not scored by default
 - [x] No pretrained models needed
 
 ## Milestones
 - [x] `method_runs`
 - [x] `core_claim`
-- [ ] `core_claim_plus`
+- [ ] `core_claim_plus` pending packaged verification of the second scored setting
 - [ ] `secondary_claims`
 - [ ] `majority`
 - [ ] `near_complete`

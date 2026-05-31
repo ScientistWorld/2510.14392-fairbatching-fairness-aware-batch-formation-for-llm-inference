@@ -60,6 +60,20 @@ def load_reference_metrics(path: Path) -> dict[str, set[str]]:
     }
 
 
+def load_reference_types(path: Path) -> dict[str, dict[str, str]]:
+    if not path.exists():
+        return {}
+    reference = json.loads(path.read_text())
+    return {
+        name: {
+            method: result.get("type", "")
+            for method, result in spec.get("results", {}).items()
+            if isinstance(result, dict)
+        }
+        for name, spec in reference.get("experiments", {}).items()
+    }
+
+
 def discover_experiment_dirs(outputs: Path, experiment_name: str | None) -> dict[str, Path]:
     flat_name = experiment_name or outputs.name
     if flat_name in ("", "."):
@@ -159,7 +173,9 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    reference_metrics = load_reference_metrics(Path("scoring/reference.json"))
+    reference_path = Path("scoring/reference.json")
+    reference_metrics = load_reference_metrics(reference_path)
+    reference_types = load_reference_types(reference_path)
     experiment_dirs = discover_experiment_dirs(args.outputs, args.experiment_name)
 
     experiments: dict[str, dict[str, Any]] = {}
@@ -168,7 +184,26 @@ def main() -> None:
             continue
         results: dict[str, dict[str, float]] = {}
         for method_name, path in method_files(outdir).items():
-            metrics = aggregate_metrics(path, experiment)
+            results[method_name] = aggregate_metrics(path, experiment)
+        baseline_methods = [
+            method
+            for method in results
+            if reference_types.get(experiment, {}).get(method) == "baseline"
+        ]
+        if not baseline_methods:
+            baseline_methods = [
+                method
+                for method in results
+                if method.startswith("vllm_") or "baseline" in method
+            ]
+        if baseline_methods:
+            best_baseline = max(results[m]["effective_rps"] for m in baseline_methods)
+            if best_baseline > 0:
+                for metrics in results.values():
+                    metrics["goodput_improvement_pct"] = (
+                        metrics["effective_rps"] / best_baseline - 1.0
+                    ) * 100.0
+        for method_name, metrics in list(results.items()):
             if experiment in reference_metrics:
                 metrics = {k: v for k, v in metrics.items() if k in reference_metrics[experiment]}
             results[method_name] = metrics

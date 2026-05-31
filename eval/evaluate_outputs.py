@@ -68,18 +68,7 @@ def load_metrics(path: Path) -> dict[str, float]:
             "envelope_tpot_p99_ms": percentile(envelope_values, 99),
         }
 
-    return {
-        "effective_rps": float(data["effective_rps"]),
-        "slo_violation_rate": float(data["slo_violation_rate"]),
-        "ttft_slo_violation_rate": float(data.get("ttft_slo_violation_rate", data["slo_violation_rate"])),
-        "envelope_tpot_slo_violation_rate": float(data.get("envelope_tpot_slo_violation_rate", data["slo_violation_rate"])),
-        "ttft_p95_ms": float(data.get("ttft_p95_ms", data["ttft_p99_ms"])),
-        "ttft_p99_ms": float(data["ttft_p99_ms"]),
-        "tpot_p95_ms": float(data.get("tpot_p95_ms", data["tpot_p99_ms"])),
-        "tpot_p99_ms": float(data["tpot_p99_ms"]),
-        "envelope_tpot_p95_ms": float(data.get("envelope_tpot_p95_ms", data.get("envelope_tpot_p99_ms", data["tpot_p99_ms"]))),
-        "envelope_tpot_p99_ms": float(data.get("envelope_tpot_p99_ms", data["tpot_p99_ms"])),
-    }
+    raise ValueError(f"{path} does not contain non-empty per-request records")
 
 
 def method_files(outdir: Path) -> dict[str, Path]:
@@ -102,10 +91,19 @@ def main() -> None:
     args = parser.parse_args()
     reference_path = Path("scoring/reference.json")
     reference_metrics = {}
+    reference_types = {}
     if reference_path.exists():
         reference = json.loads(reference_path.read_text())
         reference_metrics = {
             name: set(spec.get("metrics", {}))
+            for name, spec in reference.get("experiments", {}).items()
+        }
+        reference_types = {
+            name: {
+                method: result.get("type")
+                for method, result in spec.get("results", {}).items()
+                if isinstance(result, dict)
+            }
             for name, spec in reference.get("experiments", {}).items()
         }
 
@@ -123,7 +121,26 @@ def main() -> None:
     for experiment, outdir in experiment_dirs.items():
         results = {}
         for method, path in method_files(outdir).items():
-            metrics = load_metrics(path)
+            results[method] = load_metrics(path)
+        baseline_methods = [
+            method
+            for method in results
+            if reference_types.get(experiment, {}).get(method) == "baseline"
+        ]
+        if not baseline_methods:
+            baseline_methods = [
+                method
+                for method in results
+                if method.startswith("vllm_") or "baseline" in method
+            ]
+        if baseline_methods:
+            best_baseline = max(results[m]["effective_rps"] for m in baseline_methods)
+            if best_baseline > 0:
+                for metrics in results.values():
+                    metrics["goodput_improvement_pct"] = (
+                        metrics["effective_rps"] / best_baseline - 1.0
+                    ) * 100.0
+        for method, metrics in list(results.items()):
             if experiment in reference_metrics:
                 metrics = {k: v for k, v in metrics.items() if k in reference_metrics[experiment]}
             results[method] = metrics

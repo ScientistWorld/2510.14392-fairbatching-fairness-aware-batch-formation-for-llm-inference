@@ -1,6 +1,11 @@
 # Targets
 
-Primary target: increase `effective_rps` on `single_node_qwen_trace`.
+Primary targets:
+
+- increase `effective_rps` on `single_node_qwen_trace`;
+- increase `goodput_improvement_pct` on `qwen_slo_1000_100`, the relaxed-SLO
+  QwenTrace-like setting corresponding to Table 5's TTFT=1000ms, TPOT=100ms
+  entry.
 
 Constraint targets:
 

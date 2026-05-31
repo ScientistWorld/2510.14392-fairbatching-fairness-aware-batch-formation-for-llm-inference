@@ -13,7 +13,8 @@ in the packaged container after the continuation audit fixes. The audit
 confirmed that `eval/` reads output artifacts and does not import from
 `method/`. The public `scripts/evaluate.sh` path now discovers arbitrary
 candidate `*.json` outputs and recomputes all declared metrics from per-request
-records instead of using a fixed method list.
+records instead of using a fixed method list. It now requires those
+per-request records, so aggregate-only self-reported scheduler JSON is rejected.
 
 Compute job `048586e6-92a` verified the initial packaged workflow in the
 container with exit code 0 after the baseline import-path fix. CPU container
@@ -25,13 +26,18 @@ packaged environment.
 
 ## Results
 
-Latest local audited run on `single_node_qwen_trace` after fixing effective RPS:
+Latest local audited run after adding the relaxed-SLO setting:
 
 - vLLM-vanilla: effective RPS 2.219, SLO violation 0.244, TTFT P99 168.5 ms, raw TPOT P99 119.5 ms, envelope TPOT P99 54.9 ms.
 - vLLM-sarathi: effective RPS 2.170, SLO violation 0.261, TTFT P99 4640.7 ms, raw TPOT P99 50.0 ms, envelope TPOT P99 4190.7 ms.
 - FairBatching: effective RPS 2.937, SLO violation 0.000, TTFT P99 174.9 ms, raw TPOT P99 160.1 ms, envelope TPOT P99 50.0 ms.
 - FairBatching-PAB: effective RPS 2.937, SLO violation 0.000, TTFT P99 174.9 ms, raw TPOT P99 160.1 ms, envelope TPOT P99 50.0 ms.
-- The regenerated score file also reports TTFT SLO violation rate, envelope
+- On `qwen_slo_1000_100`, vLLM-vanilla is the best baseline at 5.946
+  effective RPS with 0.117 SLO violation rate. FairBatching reaches 6.731
+  effective RPS, 0.000 SLO violation rate, and +13.2% goodput improvement over
+  the best baseline; the paper's corresponding Table 5 FairBatching-vanilla
+  entry reports +8.1%.
+- The regenerated score files also report TTFT SLO violation rate, envelope
   TPOT SLO violation rate, and P95 TTFT/TPOT/envelope TPOT for each method.
 
 This supports the core claim on a scaled trace: FairBatching improves effective
@@ -50,9 +56,10 @@ away from the paper's reported BurstGPT scale, so including it in
 
 ## Remaining
 
-The environment is complete for the core claim. Final verification confirmed
-that the public evaluator can regenerate `scoring/scores.json` from existing
-artifacts and that `python validate.py --compare` passes.
+The environment is locally ready for `core_claim_plus` because the same
+FairBatching computation now supports an additional relaxed-SLO setting.
+Submitting a fresh CPU packaged job before updating the milestone, so the
+current claimed milestone remains `core_claim` until that job returns.
 
 Add model-parameter profiles or a richer load-control simulation so auxiliary
 settings become non-trivial enough to move beyond the core single-node claim.

@@ -13,9 +13,11 @@ Metrics:
 - `envelope_tpot_p99_ms`: 99th percentile TPOT under the monotonic envelope
   deadline accounting used by the evaluator.
 
-The main experiment is `single_node_qwen_trace`, a single-node workload using a
-synthetic trace shaped from the paper's QwenTrace aggregate length and SLO
-statistics at a scaled 2.4 RPS generator load point. SLO satisfaction is checked
-against request TTFT and deadline-envelope TPOT. The reported `tpot_p99_ms` is
-post-first-token decode speed, so it remains comparable to the paper's latency
-table while the envelope metric captures deadline compliance.
+The default experiments are `single_node_qwen_trace`, a single-node workload
+using a synthetic trace shaped from the paper's QwenTrace aggregate length and
+SLO statistics at a scaled 2.4 RPS generator load point, and
+`qwen_slo_1000_100`, a relaxed-SLO variant with TTFT=1000ms and TPOT=100ms.
+SLO satisfaction is checked against request TTFT and deadline-envelope TPOT.
+The reported `tpot_p99_ms` is post-first-token decode speed, so it remains
+comparable to the paper's latency table while the envelope metric captures
+deadline compliance.

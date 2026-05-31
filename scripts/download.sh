@@ -7,6 +7,7 @@ cd "$(dirname "$0")/.."
 mkdir -p data/downloads
 touch data/downloads/.gitkeep
 python data/workloads.py --name qwen_synthetic --output data/qwen_synthetic.csv --rps 2.4
+python data/workloads.py --name qwen_synthetic --output data/qwen_slo_1000_100.csv --rps 5.5 --ttft-slo-ms 1000 --tpot-slo-ms 100
 python data/workloads.py --name burstgpt_synthetic --output data/burstgpt_synthetic.csv
 python data/workloads.py --name azure_synthetic --output data/azure_synthetic.csv
 python data/workloads.py --name decode_slack_burst --output data/decode_slack_burst.csv

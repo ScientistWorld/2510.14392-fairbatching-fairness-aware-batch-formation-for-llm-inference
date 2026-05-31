@@ -4,6 +4,68 @@
     "split": "request_hash_v1"
   },
   "experiments": {
+    "qwen_slo_1000_100": {
+      "slice": "train",
+      "split": {
+        "type": "request_hash_v1",
+        "bucket": 0,
+        "buckets": 2
+      },
+      "results": {
+        "fairbatching": {
+          "effective_rps": 6.73114178076918,
+          "slo_violation_rate": 0.0,
+          "ttft_slo_violation_rate": 0.0,
+          "envelope_tpot_slo_violation_rate": 0.0,
+          "ttft_p95_ms": 217.7965500000064,
+          "ttft_p99_ms": 275.53942000000507,
+          "tpot_p95_ms": 166.4993750000005,
+          "tpot_p99_ms": 209.70260000000053,
+          "envelope_tpot_p95_ms": 99.2973521337407,
+          "envelope_tpot_p99_ms": 99.57983980562726,
+          "goodput_improvement_pct": 16.455696202531644
+        },
+        "fairbatching_pab": {
+          "effective_rps": 6.73114178076918,
+          "slo_violation_rate": 0.0,
+          "ttft_slo_violation_rate": 0.0,
+          "envelope_tpot_slo_violation_rate": 0.0,
+          "ttft_p95_ms": 217.7965500000064,
+          "ttft_p99_ms": 275.53942000000507,
+          "tpot_p95_ms": 166.4993750000005,
+          "tpot_p99_ms": 209.70260000000053,
+          "envelope_tpot_p95_ms": 99.2973521337407,
+          "envelope_tpot_p99_ms": 99.57983980562726,
+          "goodput_improvement_pct": 16.455696202531644
+        },
+        "vllm_sarathi": {
+          "effective_rps": 5.6466800494230345,
+          "slo_violation_rate": 0.14130434782608692,
+          "ttft_slo_violation_rate": 0.14130434782608692,
+          "envelope_tpot_slo_violation_rate": 0.14130434782608692,
+          "ttft_p95_ms": 4274.548160000031,
+          "ttft_p99_ms": 5039.7489500000465,
+          "tpot_p95_ms": 99.99725000000089,
+          "tpot_p99_ms": 99.99879999999956,
+          "envelope_tpot_p95_ms": 3374.5450800000326,
+          "envelope_tpot_p99_ms": 4139.282504000048,
+          "goodput_improvement_pct": -2.3066104078762306
+        },
+        "vllm_vanilla": {
+          "effective_rps": 5.780002181312666,
+          "slo_violation_rate": 0.14130434782608692,
+          "ttft_slo_violation_rate": 0.0,
+          "envelope_tpot_slo_violation_rate": 0.14130434782608692,
+          "ttft_p95_ms": 217.7965500000064,
+          "ttft_p99_ms": 275.53942000000507,
+          "tpot_p95_ms": 171.83994500000028,
+          "tpot_p99_ms": 209.70260000000053,
+          "envelope_tpot_p95_ms": 102.2442754894181,
+          "envelope_tpot_p99_ms": 102.70288037263177,
+          "goodput_improvement_pct": 0.0
+        }
+      }
+    },
     "single_node_qwen_trace": {
       "slice": "train",
       "split": {

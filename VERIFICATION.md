@@ -29,12 +29,13 @@ method outputs, train/test scoring artifacts were present, and
 
 ## Final Judgment
 
-The workspace is ready to serve as a core-claim research gym. From-scratch
-agents can use the problem, data, and evaluator without seeing method internals,
-and improve-mode agents can build on the implemented scheduler and baselines.
-The main limitation is scale and fidelity, not fabrication: the method code
-implements the paper's scheduling computation, but the experiment is a synthetic
-single-node simulator rather than the paper's full vLLM deployment.
+The workspace is ready to serve as a core-claim research gym and has a local
+two-experiment extension ready for packaged verification. From-scratch agents
+can use the problem, data, and evaluator without seeing method internals, and
+improve-mode agents can build on the implemented scheduler and baselines. The
+main limitation is scale and fidelity, not fabrication: the method code
+implements the paper's scheduling computation, but the experiment is a
+synthetic single-node simulator rather than the paper's full vLLM deployment.
 
 - Milestone: core_claim
 - Ready for gym use: yes
