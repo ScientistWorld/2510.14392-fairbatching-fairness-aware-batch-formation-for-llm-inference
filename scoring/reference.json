@@ -2,7 +2,7 @@
   "experiments": {
     "single_node_qwen_trace": {
       "description": "Single-node QwenTrace hybrid reference: peak effective RPS from Table 3 plus Qwen3-14B/RPS=2.5 latency tails from Table 4.",
-      "notes": "The paper reports Table 3 peak goodput as a geometric mean across models and Table 4 latency on Qwen3-14B at RPS=2.5. The paper does not separately tabulate deadline-envelope TPOT, so the reference uses the reported TPOT tail values for that auxiliary constraint.",
+      "notes": "The paper reports Table 3 peak goodput as a geometric mean across models and Table 4 latency on Qwen3-14B at RPS=2.5. The paper does not separately tabulate deadline-based TPOT, so the reference uses the reported TPOT tail values for that auxiliary constraint.",
       "weight": 0.7,
       "primary_metric": "effective_rps",
       "metrics": {
@@ -14,7 +14,7 @@
         "slo_violation_rate": {
           "higher_is_better": false,
           "coefficient": -1.0,
-          "description": "Fraction of requests that violate either the TTFT SLO or the envelope TPOT SLO."
+          "description": "Fraction of requests that violate either the TTFT SLO or the deadline-based TPOT SLO."
         },
         "ttft_slo_violation_rate": {
           "higher_is_better": false,
@@ -24,7 +24,7 @@
         "envelope_tpot_slo_violation_rate": {
           "higher_is_better": false,
           "coefficient": -0.7,
-          "description": "Fraction of requests whose envelope-line TPOT exceeds that request's TPOT SLO."
+          "description": "Fraction of requests whose deadline-based TPOT exceeds that request's TPOT SLO."
         },
         "ttft_p95_ms": {
           "higher_is_better": false,
@@ -39,7 +39,7 @@
         "tpot_p95_ms": {
           "higher_is_better": false,
           "coefficient": -0.15,
-          "description": "P95 raw per-output-token latency, tracking token delivery smoothness outside the envelope formulation."
+          "description": "P95 raw per-output-token latency, tracking token delivery smoothness outside the deadline-based SLO check."
         },
         "tpot_p99_ms": {
           "higher_is_better": false,
@@ -49,12 +49,12 @@
         "envelope_tpot_p95_ms": {
           "higher_is_better": false,
           "coefficient": -0.25,
-          "description": "P95 envelope-line TPOT latency, probing whether accumulated slack is used without broad TPOT regressions."
+          "description": "P95 deadline-based TPOT latency, probing whether accumulated slack is used without broad TPOT regressions."
         },
         "envelope_tpot_p99_ms": {
           "higher_is_better": false,
           "coefficient": -0.6,
-          "description": "P99 envelope-line TPOT latency, the scheduler's monotonic TPOT SLO formulation."
+          "description": "P99 deadline-based TPOT latency used for SLO compliance."
         }
       },
       "results": {
@@ -115,7 +115,7 @@
         "slo_violation_rate": {
           "higher_is_better": false,
           "coefficient": -1.0,
-          "description": "Fraction of requests that violate either the TTFT SLO or the envelope TPOT SLO."
+          "description": "Fraction of requests that violate either the TTFT SLO or the deadline-based TPOT SLO."
         },
         "ttft_slo_violation_rate": {
           "higher_is_better": false,
@@ -125,7 +125,7 @@
         "envelope_tpot_slo_violation_rate": {
           "higher_is_better": false,
           "coefficient": -0.7,
-          "description": "Fraction of requests whose envelope-line TPOT exceeds that request's TPOT SLO."
+          "description": "Fraction of requests whose deadline-based TPOT exceeds that request's TPOT SLO."
         },
         "ttft_p95_ms": {
           "higher_is_better": false,
@@ -150,12 +150,12 @@
         "envelope_tpot_p95_ms": {
           "higher_is_better": false,
           "coefficient": -0.2,
-          "description": "P95 envelope-line TPOT latency."
+          "description": "P95 deadline-based TPOT latency."
         },
         "envelope_tpot_p99_ms": {
           "higher_is_better": false,
           "coefficient": -0.5,
-          "description": "P99 envelope-line TPOT latency."
+          "description": "P99 deadline-based TPOT latency."
         }
       },
       "results": {

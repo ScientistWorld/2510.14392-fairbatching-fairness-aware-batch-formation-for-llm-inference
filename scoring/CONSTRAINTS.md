@@ -9,7 +9,7 @@ for `slo_violation_rate`.
 
 Raw `tpot_p99_ms` is a paper-style latency constraint, while
 `envelope_tpot_p99_ms` and `envelope_tpot_slo_violation_rate` measure the
-deadline-envelope SLO accounting used by the evaluator. Improvements should
+deadline-based TPOT SLO accounting used by the evaluator. Improvements should
 preserve both views unless the change is explicitly documented as a metric
 trade-off.
 

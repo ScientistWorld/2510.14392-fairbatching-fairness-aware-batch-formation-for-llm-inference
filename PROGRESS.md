@@ -11,7 +11,9 @@ The end-to-end scripts generate traces, run baselines and method variants, and
 write `scoring/scores.json`. `python validate.py --compare` passes locally and
 in the packaged container after the continuation audit fixes. The audit
 confirmed that `eval/` reads output artifacts and does not import from
-`method/`. The public `scripts/evaluate.sh` path now discovers arbitrary
+`method/`. Final verification also moved the reusable baseline simulator
+support into `data/`, so baseline code no longer imports from `method/`. The
+public `scripts/evaluate.sh` path now discovers arbitrary
 candidate `*.json` outputs and recomputes all declared metrics from per-request
 records instead of using a fixed method list. It now requires those
 per-request records, so aggregate-only self-reported scheduler JSON is rejected.
@@ -56,10 +58,11 @@ away from the paper's reported BurstGPT scale, so including it in
 
 ## Remaining
 
-The environment is locally ready for `core_claim_plus` because the same
-FairBatching computation now supports an additional relaxed-SLO setting.
-Submitting a fresh CPU packaged job before updating the milestone, so the
-current claimed milestone remains `core_claim` until that job returns.
+The environment remains at `core_claim`. A second relaxed-SLO setting is
+implemented and scored locally, but no fresh packaged job result was present
+during final verification, and the current trace does not separately reproduce
+the PAB-specific gain. Do not promote beyond `core_claim` without a packaged
+run and stronger auxiliary evidence.
 
 Add model-parameter profiles or a richer load-control simulation so auxiliary
 settings become non-trivial enough to move beyond the core single-node claim.

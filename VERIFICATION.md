@@ -2,42 +2,50 @@
 
 ## Initial Assessment
 
-The workspace already had a working `core_claim` reproduction: the method
-artifacts existed, `scripts/evaluate.sh` regenerated `scoring/scores.json` from
-method outputs, train/test scoring artifacts were present, and
-`python validate.py --compare` passed. The claimed milestone was justified.
+The workspace started from a claimed `core_claim` reproduction with method
+outputs, reusable scoring artifacts, and train/test evaluation files already in
+place. The milestone was justified by the existing single-node scheduling
+result: the paper method improves effective request goodput while preserving
+the SLO constraints that the reproduced baselines violate.
+
+I did not find a fresh packaged job result for the latest two-experiment
+extension, so I did not promote the milestone beyond `core_claim`.
 
 ## Issues Found
 
-- Minor: method-agnostic documentation still named paper-specific scheduler and
-  baseline behavior in `briefing/evaluation.md`, `scoring/EXPERIMENTS.md`,
-  `scoring/TARGETS.md`, and `scoring/DIRECTION.md`.
-- Minor: `scoring/reference.json` used an auxiliary deadline-envelope TPOT
-  reference value derived from reported TPOT tails without an explicit note.
-- Residual limitation: the gym uses a deterministic trace-driven simulator and
-  synthetic QwenTrace-like data, so absolute raw latency tails do not match the
-  paper's full deployment.
+- Minor: `baseline/run_baseline.py` imported the simulator from `method/`,
+  which weakened problem/solution separation for from-scratch users.
+- Minor: several method-agnostic or high-level documents used paper-specific
+  deadline/envelope wording where plain SLO terminology was sufficient.
+- Residual limitation: the benchmark uses synthetic QwenTrace-like traces and a
+  deterministic trace-driven simulator rather than the paper's full vLLM
+  deployment.
+- Residual limitation: the current outputs demonstrate the core scheduling
+  gain, but the PAB-specific gain is not separately reproduced.
 
 ## Fixes Applied
 
-- Removed method-specific language from the method-agnostic problem/evaluation
-  and scoring guide files while preserving the experiment and metric contract.
-- Added a `notes` field to `scoring/reference.json` explaining the source of the
-  auxiliary envelope TPOT reference value.
-- Ran `bash scripts/evaluate.sh outputs` and `python validate.py --compare`;
-  both completed successfully.
+- Added `data/serving_sim.py` as a method-agnostic simulation substrate for
+  baseline schedulers and updated `baseline/run_baseline.py` so it no longer
+  imports from `method/`.
+- Reworded `briefing/evaluation.md`, `scoring/TARGETS.md`,
+  `scoring/CONSTRAINTS.md`, and metric descriptions in
+  `scoring/reference.json` to describe deadline-based SLO checks without
+  leaking paper-specific formulation details.
+- Ran interface checks for the method and baseline entry points.
+- Ran `python validate.py --compare`; all scoring, import-separation,
+  train/test, and shared-path checks passed.
 
 ## Final Judgment
 
-The workspace is ready to serve as a core-claim research gym and has a local
-two-experiment extension ready for packaged verification. From-scratch agents
-can use the problem, data, and evaluator without seeing method internals, and
-improve-mode agents can build on the implemented scheduler and baselines. The
-main limitation is scale and fidelity, not fabrication: the method code
-implements the paper's scheduling computation, but the experiment is a
-synthetic single-node simulator rather than the paper's full vLLM deployment.
+The workspace is ready to serve as a core-claim research gym. From-scratch
+agents can use the problem, data, baseline, and evaluator without importing or
+seeing method internals. Improve-mode agents have a working paper-method
+implementation and scored artifacts to build on. The main limitation is
+experimental fidelity and scale, not fabrication.
 
 - Milestone: core_claim
 - Ready for gym use: yes
 - Confidence: medium
-- Key limitation: synthetic trace-driven simulator with raw TPOT mismatch
+- Key limitation: synthetic trace-driven simulator rather than full vLLM
+  deployment; PAB-specific gains are not separately reproduced.

@@ -4,6 +4,14 @@
 
 ## Progress Log
 
+### [2026-05-31 10:25] - core_claim
+- Final verification kept the milestone at `core_claim`; no fresh packaged job
+  result was present to justify promotion.
+- Moved baseline simulation support to method-agnostic `data/` code so
+  baselines no longer import from `method/`.
+- Rechecked `python validate.py --compare`; scoring, import separation,
+  train/test artifacts, and shared-path checks all passed.
+
 ### [2026-05-31 10:19] - core_claim
 - Added a second default experiment, `qwen_slo_1000_100`, to probe the paper's
   SLO-versatility claim at TTFT=1000ms and TPOT=100ms.
