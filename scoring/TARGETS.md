@@ -11,8 +11,11 @@ Constraint targets:
   post-first-token delivery constraint; the envelope metric is the scheduler's
   monotonic SLO formulation, while raw TPOT shows any remaining mismatch with
   the latency table.
+- track `ttft_slo_violation_rate`, `envelope_tpot_slo_violation_rate`, and P95
+  tail metrics so methods cannot hide broad SLO regressions behind one P99
+  value.
 
-Every target above is represented in `scoring/reference.json` and
+Every target above is represented in `scoring/reference.json` and the current
 `scoring/scores.json`. The paper's BurstGPT numbers remain in
 `scoring/reference.json` for context, but the synthetic BurstGPT sanity check is
 not part of the default target set because its reproduced effective RPS is more

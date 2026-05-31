@@ -11,7 +11,9 @@ The end-to-end scripts generate traces, run baselines and method variants, and
 write `scoring/scores.json`. `python validate.py --compare` passes locally and
 in the packaged container after the continuation audit fixes. The audit
 confirmed that `eval/` reads output artifacts and does not import from
-`method/`.
+`method/`. The public `scripts/evaluate.sh` path now discovers arbitrary
+candidate `*.json` outputs and recomputes all declared metrics from per-request
+records instead of using a fixed method list.
 
 Compute job `048586e6-92a` verified the initial packaged workflow in the
 container with exit code 0 after the baseline import-path fix. CPU container
@@ -29,12 +31,17 @@ Latest local audited run on `single_node_qwen_trace` after fixing effective RPS:
 - vLLM-sarathi: effective RPS 2.170, SLO violation 0.261, TTFT P99 4640.7 ms, raw TPOT P99 50.0 ms, envelope TPOT P99 4190.7 ms.
 - FairBatching: effective RPS 2.937, SLO violation 0.000, TTFT P99 174.9 ms, raw TPOT P99 160.1 ms, envelope TPOT P99 50.0 ms.
 - FairBatching-PAB: effective RPS 2.937, SLO violation 0.000, TTFT P99 174.9 ms, raw TPOT P99 160.1 ms, envelope TPOT P99 50.0 ms.
+- The regenerated score file also reports TTFT SLO violation rate, envelope
+  TPOT SLO violation rate, and P95 TTFT/TPOT/envelope TPOT for each method.
 
 This supports the core claim on a scaled trace: FairBatching improves effective
 RPS while maintaining the envelope SLO that combines TTFT and TPOT deadlines.
 The raw TPOT diagnostic is higher for FairBatching on this synthetic trace
-because requests can consume accumulated first-token slack; the envelope metric
-is the monotonic SLO formulation used by the paper's scheduler.
+because requests can consume accumulated first-token slack under the paper's
+envelope-deadline formulation. This is the main reason the reproduction is
+stopped at `core_claim` rather than a higher milestone: it validates the
+scheduler's central envelope-SLO mechanism and goodput improvement, but it does
+not match the paper's Table 4 raw TPOT tail value.
 
 The earlier BurstGPT-like trace is omitted from default scoring. It remains
 available as a custom trace, but its reproduced effective RPS was more than 2x
@@ -43,8 +50,8 @@ away from the paper's reported BurstGPT scale, so including it in
 
 ## Remaining
 
-The environment is complete for the core claim and is marked done at
-`core_claim`.
+The environment is complete for the core claim. A final CPU verification job is
+being submitted after the evaluator hardening change.
 
 Add model-parameter profiles or a richer load-control simulation so auxiliary
 settings become non-trivial enough to move beyond the core single-node claim.

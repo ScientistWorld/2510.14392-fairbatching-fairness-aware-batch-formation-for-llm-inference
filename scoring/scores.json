@@ -2,33 +2,53 @@
   "experiments": {
     "single_node_qwen_trace": {
       "results": {
-        "vllm_vanilla": {
-          "effective_rps": 2.2192370220691533,
-          "slo_violation_rate": 0.24444444444444446,
-          "ttft_p99_ms": 168.5100620000479,
-          "tpot_p99_ms": 119.54999999999927,
-          "envelope_tpot_p99_ms": 54.93238031257798
-        },
-        "vllm_sarathi": {
-          "effective_rps": 2.170283264229393,
-          "slo_violation_rate": 0.26111111111111107,
-          "ttft_p99_ms": 4640.666594000036,
-          "tpot_p99_ms": 49.99924199999885,
-          "envelope_tpot_p99_ms": 4190.653948000036
-        },
         "fairbatching": {
           "effective_rps": 2.9372254703856444,
           "slo_violation_rate": 0.0,
+          "ttft_slo_violation_rate": 0.0,
+          "envelope_tpot_slo_violation_rate": 0.0,
+          "ttft_p95_ms": 127.33995000004751,
           "ttft_p99_ms": 174.93113600003156,
+          "tpot_p95_ms": 93.81386999999945,
           "tpot_p99_ms": 160.09875999999934,
+          "envelope_tpot_p95_ms": 49.96626060836299,
           "envelope_tpot_p99_ms": 49.9931531698412
         },
         "fairbatching_pab": {
           "effective_rps": 2.9372254703856444,
           "slo_violation_rate": 0.0,
+          "ttft_slo_violation_rate": 0.0,
+          "envelope_tpot_slo_violation_rate": 0.0,
+          "ttft_p95_ms": 127.33995000004751,
           "ttft_p99_ms": 174.93113600003156,
+          "tpot_p95_ms": 93.81386999999945,
           "tpot_p99_ms": 160.09875999999934,
+          "envelope_tpot_p95_ms": 49.96626060836299,
           "envelope_tpot_p99_ms": 49.9931531698412
+        },
+        "vllm_sarathi": {
+          "effective_rps": 2.170283264229393,
+          "slo_violation_rate": 0.26111111111111107,
+          "ttft_slo_violation_rate": 0.26111111111111107,
+          "envelope_tpot_slo_violation_rate": 0.26111111111111107,
+          "ttft_p95_ms": 4097.334470000033,
+          "ttft_p99_ms": 4640.666594000036,
+          "tpot_p95_ms": 49.99600333333256,
+          "tpot_p99_ms": 49.99924199999885,
+          "envelope_tpot_p95_ms": 3647.313020000033,
+          "envelope_tpot_p99_ms": 4190.653948000036
+        },
+        "vllm_vanilla": {
+          "effective_rps": 2.2192370220691533,
+          "slo_violation_rate": 0.24444444444444446,
+          "ttft_slo_violation_rate": 0.0,
+          "envelope_tpot_slo_violation_rate": 0.24444444444444446,
+          "ttft_p95_ms": 132.8013100000555,
+          "ttft_p99_ms": 168.5100620000479,
+          "tpot_p95_ms": 72.82018500000329,
+          "tpot_p99_ms": 119.54999999999927,
+          "envelope_tpot_p95_ms": 54.37642125603927,
+          "envelope_tpot_p99_ms": 54.93238031257798
         }
       }
     }

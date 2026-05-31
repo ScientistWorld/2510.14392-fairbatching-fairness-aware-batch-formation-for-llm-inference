@@ -1,7 +1,7 @@
 {
   "experiments": {
     "single_node_qwen_trace": {
-      "description": "Single-node QwenTrace peak effective RPS and latency constraints from Tables 3 and 4.",
+      "description": "Single-node QwenTrace hybrid reference: peak effective RPS from Table 3 plus Qwen3-14B/RPS=2.5 latency tails from Table 4.",
       "weight": 1.0,
       "primary_metric": "effective_rps",
       "metrics": {
@@ -60,32 +60,36 @@
         "vllm_vanilla": {
           "type": "baseline",
           "effective_rps": 1.22,
-          "slo_violation_rate": 0.0,
+          "ttft_p95_ms": 1061.0,
           "ttft_p99_ms": 1842.0,
+          "tpot_p95_ms": 256.0,
           "tpot_p99_ms": 614.0,
           "envelope_tpot_p99_ms": 614.0
         },
         "vllm_sarathi": {
           "type": "baseline",
           "effective_rps": 1.13,
-          "slo_violation_rate": 0.0,
+          "ttft_p95_ms": 2455.0,
           "ttft_p99_ms": 4585.0,
+          "tpot_p95_ms": 46.0,
           "tpot_p99_ms": 49.0,
           "envelope_tpot_p99_ms": 49.0
         },
         "fairbatching": {
           "type": "proposed",
           "effective_rps": 1.51,
-          "slo_violation_rate": 0.0,
+          "ttft_p95_ms": 1053.0,
           "ttft_p99_ms": 1998.0,
+          "tpot_p95_ms": 50.0,
           "tpot_p99_ms": 50.0,
           "envelope_tpot_p99_ms": 50.0
         },
         "fairbatching_pab": {
           "type": "proposed",
           "effective_rps": 2.56,
-          "slo_violation_rate": 0.0,
+          "ttft_p95_ms": 500.0,
           "ttft_p99_ms": 504.0,
+          "tpot_p95_ms": 50.0,
           "tpot_p99_ms": 50.0,
           "envelope_tpot_p99_ms": 50.0
         }

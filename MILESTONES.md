@@ -4,6 +4,17 @@
 
 ## Progress Log
 
+### [2026-05-31 10:08] - core_claim
+- Tightened `scripts/evaluate.sh`'s default evaluator so it scores arbitrary
+  `*.json` method outputs instead of a fixed method list, and recomputes all
+  declared metrics from per-request records.
+- Regenerated `scoring/scores.json`; it now includes TTFT SLO violation rate,
+  envelope TPOT SLO violation rate, and P95 metrics for every scored method.
+- Kept the milestone at `core_claim` because the implemented scheduler matches
+  FairBatching's envelope-deadline algorithm and improves effective RPS with no
+  envelope SLO violations on the QwenTrace-like trace. The remaining raw TPOT
+  mismatch is documented as a limit, so no higher milestone is claimed.
+
 ### [2026-05-31 09:45] - method_runs
 - Continued from a reset audit one level below the previous `core_claim`.
 - Confirmed the method code still implements FairBatching's actual scheduler
