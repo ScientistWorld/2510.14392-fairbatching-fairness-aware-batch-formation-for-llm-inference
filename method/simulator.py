@@ -318,6 +318,7 @@ def run_simulation(trace_path: Path, policy: str, output_path: Path, params: Mod
                 "output_len": req.output_len,
                 "ttft_ms": ttft,
                 "max_tpot_ms": max_tpot,
+                "max_envelope_tpot_ms": slo_tpot if req.output_times else max_tpot,
                 "ttft_slo_ms": req.ttft_slo_ms,
                 "tpot_slo_ms": req.tpot_slo_ms,
                 "slo_met": slo_met,
@@ -340,6 +341,8 @@ def run_simulation(trace_path: Path, policy: str, output_path: Path, params: Mod
         "ttft_p99_ms": percentile([r["ttft_ms"] for r in rows], 99),
         "tpot_p95_ms": percentile([r["max_tpot_ms"] for r in rows], 95),
         "tpot_p99_ms": percentile([r["max_tpot_ms"] for r in rows], 99),
+        "envelope_tpot_p95_ms": percentile([r["max_envelope_tpot_ms"] for r in rows], 95),
+        "envelope_tpot_p99_ms": percentile([r["max_envelope_tpot_ms"] for r in rows], 99),
         "records": rows,
     }
     output_path.parent.mkdir(parents=True, exist_ok=True)

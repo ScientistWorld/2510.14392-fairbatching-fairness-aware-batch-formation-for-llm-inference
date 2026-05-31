@@ -26,6 +26,7 @@ def load_metrics(path: Path) -> dict[str, float]:
         "slo_violation_rate": float(data["slo_violation_rate"]),
         "ttft_p99_ms": float(data["ttft_p99_ms"]),
         "tpot_p99_ms": float(data["tpot_p99_ms"]),
+        "envelope_tpot_p99_ms": float(data.get("envelope_tpot_p99_ms", data["tpot_p99_ms"])),
     }
 
 
@@ -34,20 +35,42 @@ def main() -> None:
     parser.add_argument("--outputs", type=Path, default=Path("outputs"))
     parser.add_argument("--scores", type=Path, default=Path("scoring/scores.json"))
     args = parser.parse_args()
+    reference_path = Path("scoring/reference.json")
+    reference_metrics = {}
+    if reference_path.exists():
+        reference = json.loads(reference_path.read_text())
+        reference_metrics = {
+            name: set(spec.get("metrics", {}))
+            for name, spec in reference.get("experiments", {}).items()
+        }
 
-    results = {}
-    for method, filename in METHOD_FILES.items():
-        path = args.outputs / filename
-        if path.exists():
-            results[method] = load_metrics(path)
-    if not results:
+    experiment_dirs = {
+        "single_node_qwen_trace": args.outputs,
+    }
+    for child in sorted(args.outputs.iterdir()) if args.outputs.exists() else []:
+        if child.is_dir():
+            experiment_dirs[child.name] = child
+
+    experiments = {}
+    for experiment, outdir in experiment_dirs.items():
+        results = {}
+        for method, filename in METHOD_FILES.items():
+            path = outdir / filename
+            if path.exists():
+                metrics = load_metrics(path)
+                if experiment in reference_metrics:
+                    metrics = {k: v for k, v in metrics.items() if k in reference_metrics[experiment]}
+                results[method] = metrics
+        if results:
+            experiments[experiment] = {"results": results}
+
+    if not experiments:
         raise SystemExit(f"No output JSON files found in {args.outputs}")
 
     scores = {
         "experiments": {
-            "single_node_qwen_trace": {
-                "results": results,
-            }
+            key: experiments[key]
+            for key in sorted(experiments)
         }
     }
     args.scores.parent.mkdir(parents=True, exist_ok=True)

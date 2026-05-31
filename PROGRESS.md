@@ -11,7 +11,9 @@ The end-to-end scripts generate traces, run baselines and method variants, and
 write `scoring/scores.json`. `python validate.py --compare` passes.
 
 Compute job `048586e6-92a` verified the packaged workflow in the container with
-exit code 0 after the baseline import-path fix.
+exit code 0 after the baseline import-path fix. The local workflow now also
+runs a second BurstGPT-like trace and exposes envelope TPOT as the scheduler
+constraint metric.
 
 ## Results
 
@@ -19,16 +21,26 @@ Latest audited run on `single_node_qwen_trace`:
 
 - vLLM-vanilla: effective RPS 1.623, SLO violation 0.244, TTFT P99 168.5 ms, TPOT P99 119.5 ms.
 - vLLM-sarathi: effective RPS 1.573, SLO violation 0.261, TTFT P99 4640.7 ms, TPOT P99 50.0 ms.
-- FairBatching: effective RPS 2.144, SLO violation 0.000, TTFT P99 174.9 ms, TPOT P99 160.1 ms.
-- FairBatching-PAB: effective RPS 2.144, SLO violation 0.000, TTFT P99 174.9 ms, TPOT P99 160.1 ms.
+- FairBatching: effective RPS 2.144, SLO violation 0.000, TTFT P99 174.9 ms, raw TPOT P99 160.1 ms, envelope TPOT P99 50.0 ms.
+- FairBatching-PAB: effective RPS 2.144, SLO violation 0.000, TTFT P99 174.9 ms, raw TPOT P99 160.1 ms, envelope TPOT P99 50.0 ms.
 
 This supports the core claim on a scaled trace: FairBatching improves effective
 RPS while maintaining the envelope SLO that combines TTFT and TPOT deadlines.
+The raw TPOT diagnostic is higher for FairBatching on this synthetic trace
+because requests can consume accumulated first-token slack; the envelope metric
+is the monotonic SLO formulation used by the paper's scheduler.
+
+Additional BurstGPT-like trace:
+
+- vLLM-vanilla: effective RPS 2.993, SLO violation 0.000, envelope TPOT P99 21.8 ms.
+- vLLM-sarathi: effective RPS 2.992, SLO violation 0.000, envelope TPOT P99 21.9 ms.
+- FairBatching: effective RPS 2.993, SLO violation 0.000, envelope TPOT P99 21.8 ms.
+- FairBatching-PAB: effective RPS 2.993, SLO violation 0.000, envelope TPOT P99 21.8 ms.
 
 ## Remaining
 
-Add additional load points and model configurations to move beyond the core
-single-node claim.
+Add heavier BurstGPT and Azure-like load points or model-parameter profiles to
+move beyond the core single-node claim.
 
 ## Issues
 

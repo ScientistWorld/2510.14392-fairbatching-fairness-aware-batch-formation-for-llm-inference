@@ -2,5 +2,5 @@
 set -euo pipefail
 
 cd /home/user
-scripts/reproduce.sh data/qwen_synthetic.csv outputs
+scripts/reproduce.sh "" outputs
 python validate.py --compare
