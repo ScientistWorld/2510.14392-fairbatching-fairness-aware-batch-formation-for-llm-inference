@@ -16,5 +16,6 @@
 ### [2026-05-31 00:00] - core_claim
 - Fixed the FairBatching urgent-decode threshold to match Algorithm 1.
 - Evaluated a scaled QwenTrace-like load point where FairBatching improves effective RPS over both baselines while satisfying envelope SLOs.
+- Fixed the compute-container baseline import path after job `73b67506-68e` failed before running experiments.
 
 ## Stop Justification

@@ -32,6 +32,11 @@ single-node claim.
 The synthetic workload is still a simulator rather than a vLLM deployment, so
 absolute latency values should be interpreted as scaled reproduction numbers.
 
+Job `73b67506-68e` failed because `baseline/run_baseline.py` could not import
+`method.simulator` in the container's clean Python environment. Fixed
+`scripts/baseline.sh` to set `PYTHONPATH` to the workspace root before running
+baseline scripts.
+
 ## Deviations from Paper
 
 The paper evaluates production traces and a modified vLLM engine on large GPU

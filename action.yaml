@@ -5,4 +5,4 @@ action: submit
 gpus: 0
 test: true
 milestone: core_claim
-notes: "CPU verification: rerun scaled QwenTrace FairBatching core-claim reproduction and validate scores."
+notes: "Retry CPU verification after fixing PYTHONPATH for baseline imports; reruns reproduction and validate.py --compare."
