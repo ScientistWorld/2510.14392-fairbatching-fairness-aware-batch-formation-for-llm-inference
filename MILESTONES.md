@@ -24,4 +24,4 @@
 - Final reproduced core-claim result: FairBatching effective RPS 2.144 with 0.000 SLO violation versus vanilla effective RPS 1.623 with 0.244 SLO violation on the scaled QwenTrace-like workload.
 
 ## Stop Justification
-- Stopping at `core_claim`: the core scheduler claim is reproduced and the reusable environment is packaged. Higher milestones would require additional load/model sweeps beyond the minimum verified reproduction.
+- Completed at milestone `core_claim`.
