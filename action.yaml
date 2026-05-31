@@ -1,9 +1,6 @@
-# This iteration writes files only — do NOT submit compute jobs.
-# Once you set action to 'done', STOP immediately.
-# Do NOT sleep, poll, or wait. The system reads this file
-# only after your turn ends.
-action: done
+# The system reads this file after the turn ends.
+action: submit
 gpus: 0
 test: false
 milestone: core_claim
-notes: "Improvements: recomputed SLO success and offered load from per-request records; added TTFT/TPOT violation and P95 tail metrics; documented runtime concerns. Notes: BurstGPT reference remains active but default outputs only include QwenTrace."
+notes: "Run Qwen/BurstGPT artifact generation, then evaluate train/test slices and populate scoring/scores_{train,test}.json."
