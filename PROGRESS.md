@@ -10,6 +10,9 @@ and Sarathi-style decode-priority scheduling run through the same simulator.
 The end-to-end scripts generate traces, run baselines and method variants, and
 write `scoring/scores.json`. `python validate.py --compare` passes.
 
+Compute job `048586e6-92a` verified the packaged workflow in the container with
+exit code 0 after the baseline import-path fix.
+
 ## Results
 
 Latest audited run on `single_node_qwen_trace`:
@@ -35,7 +38,8 @@ absolute latency values should be interpreted as scaled reproduction numbers.
 Job `73b67506-68e` failed because `baseline/run_baseline.py` could not import
 `method.simulator` in the container's clean Python environment. Fixed
 `scripts/baseline.sh` to set `PYTHONPATH` to the workspace root before running
-baseline scripts.
+baseline scripts. Retry job `048586e6-92a` completed successfully and reproduced
+the scores above.
 
 ## Deviations from Paper
 

@@ -18,4 +18,10 @@
 - Evaluated a scaled QwenTrace-like load point where FairBatching improves effective RPS over both baselines while satisfying envelope SLOs.
 - Fixed the compute-container baseline import path after job `73b67506-68e` failed before running experiments.
 
+### [2026-05-31 09:22] - core_claim
+- Retry job `048586e6-92a` completed with exit code 0.
+- The packaged `scripts/reproduce.sh` workflow reran baselines, FairBatching, evaluation, and `validate.py --compare` successfully.
+- Final reproduced core-claim result: FairBatching effective RPS 2.144 with 0.000 SLO violation versus vanilla effective RPS 1.623 with 0.244 SLO violation on the scaled QwenTrace-like workload.
+
 ## Stop Justification
+- Stopping at `core_claim`: the core scheduler claim is reproduced and the reusable environment is packaged. Higher milestones would require additional load/model sweeps beyond the minimum verified reproduction.
