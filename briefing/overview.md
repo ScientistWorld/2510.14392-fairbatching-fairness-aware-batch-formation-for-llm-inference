@@ -1,14 +1,9 @@
 # Overview
 
-- **Paper ID:** <!-- e.g. 1706.03762 -->
-- **Title:** <!-- e.g. Attention Is All You Need -->
-- **Domain:** <!-- e.g. Computer Vision / Object Detection -->
-- **TL;DR:** <!-- One sentence: what this paper does and why it matters -->
+FairBatching is an LLM inference scheduling paper. It argues that strict
+decode-prioritizing schedulers over-serve decode work, waste accumulated TPOT
+slack, and starve prefill bursts, causing poor TTFT tail latency.
 
-## Short Summary
-
-<!-- 3-5 sentences covering the problem, approach, and main findings -->
-
-## Key Results
-
-<!-- 2-3 bullet points: main findings or numbers in bullet points -->
+This workspace packages a trace-driven reproduction of the scheduler logic and
+scores it against prefill-priority and Sarathi-style baselines on request-level
+TTFT, TPOT, SLO violation rate, and effective RPS.

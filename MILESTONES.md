@@ -1,21 +1,16 @@
 # Reproduction Milestones
 
-**Current: none**
-
-<!-- Milestone levels (update "Current" above as you progress):
-  none             — just started, no meaningful progress yet
-  method_runs      — the paper's method executes end-to-end without errors
-  core_claim       — minimum experiment supports the paper's central claim
-  core_claim_plus  — core claim reproduced on additional settings
-  secondary_claims — secondary results or contributions reproduced
-  majority         — more than half of reported results reproduced
-  near_complete    — most results reproduced, only minor gaps remain
-  full             — all reported results reproduced
--->
+**Current: method_runs**
 
 ## Progress Log
 
-<!-- Write your progress here -->
+### [2026-05-31 00:00] - none
+- Started reproduction work.
+- Read the paper and identified FairBatching's scheduler as the core algorithm.
+
+### [2026-05-31 00:00] - method_runs
+- Implemented FairBatching's envelope-deadline slack tracking, adaptive time budget, three-stage batch construction, and PAB estimate.
+- Implemented prefill-priority and Sarathi-style baselines.
+- End-to-end scripts run and produce `scoring/scores.json`.
 
 ## Stop Justification
-- Completed at milestone `none`.

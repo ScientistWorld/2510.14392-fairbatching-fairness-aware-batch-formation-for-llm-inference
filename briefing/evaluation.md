@@ -1,15 +1,15 @@
 # Evaluation
 
-How success is measured. Describe only the metrics, targets, and evaluation procedure — do NOT describe the paper's method or how they achieved these results. Think of this as a general evaluation protocal for other scientists trying to solve the same problem, where they should not see this paper's solution.
+The reusable evaluator reads JSON artifacts produced by schedulers in
+`outputs/`. It does not import or execute code from `method/`.
 
-## Metrics
+Metrics:
 
-<!-- What metrics are used? How are they computed? What does higher/lower mean? -->
+- `effective_rps`: SLO-satisfied requests divided by trace makespan.
+- `slo_violation_rate`: fraction of requests violating TTFT or TPOT.
+- `ttft_p99_ms`: 99th percentile time to first token.
+- `tpot_p99_ms`: 99th percentile worst per-request TPOT.
 
-## Baselines and Targets
-
-<!-- What performance levels exist as reference points? Include the paper's reported numbers as targets, and any standard baselines. A scientist agent should know what "good" looks like. -->
-
-## Evaluation Protocol
-
-<!-- How should evaluation be run? What data split, what conditions? Any important details about how to compare fairly (e.g., fixed seeds, specific test sets, averaging over runs). -->
+The main experiment is `single_node_qwen_trace`, a single-node workload using a
+synthetic trace shaped from the paper's QwenTrace aggregate length and SLO
+statistics.

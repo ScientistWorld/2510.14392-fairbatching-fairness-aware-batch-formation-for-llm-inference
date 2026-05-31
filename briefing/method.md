@@ -1,15 +1,17 @@
-# Paper's Method
+# Method
 
-How the paper approaches the problem, i.e. the paper's core contributions.
+FairBatching replaces static token-budget scheduling with SLO-aware batch
+formation.
 
-## Key Contribution
+The implementation in `method/simulator.py` follows the paper's computation:
 
-<!-- What is the paper's main contribution? -->
+- envelope-line deadlines for each request's next token;
+- slack calculation from current time to the next deadline;
+- adaptive time budget based on decode-request slack and TPOT SLO;
+- linear batch-time estimator `a + b * total_new_tokens + c * total_context`;
+- three-stage packing of urgent decode tasks, prefill tasks, and non-urgent
+  decode tasks;
+- the PAB admission-control estimate from Appendix A for the PAB variant.
 
-## Approach
-
-<!-- How does the paper solve the problem? Key ideas, architecture, algorithm. -->
-
-## Main Claims
-
-<!-- What are the paper's central claims? Which are primary vs. secondary? -->
+Baselines implement prefill-prioritizing continuous batching and Sarathi-style
+decode-prioritizing stall-free batching.
