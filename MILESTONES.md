@@ -13,3 +13,8 @@
 - Audited the continuing workspace after milestone reset; the method is not a surrogate and the evaluator remains independent from `method/`.
 - Added an AzureTrace-like secondary workload from the paper's aggregate trace statistics and Table 3 reference values.
 - Kept the milestone at `core_claim`: QwenTrace-like results support the core claim, while BurstGPT/Azure synthetic settings are currently sanity checks rather than strong additional claim reproductions.
+
+### [2026-05-31 09:28] - core_claim
+- CPU container job `1bb3aa42-356` completed with exit code 0.
+- The job regenerated all tracked synthetic traces, ran baselines and FairBatching variants, wrote `scoring/scores.json`, and passed `python validate.py --compare` inside the packaged container.
+- Final milestone remains `core_claim`.

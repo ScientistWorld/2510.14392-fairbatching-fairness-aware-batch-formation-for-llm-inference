@@ -12,10 +12,11 @@ write `scoring/scores.json`. `python validate.py --compare` passes. The
 continuation audit confirmed that `eval/` reads output artifacts and does not
 import from `method/`.
 
-Compute job `048586e6-92a` verified the packaged workflow in the container with
-exit code 0 after the baseline import-path fix. The local workflow now also
-runs a second BurstGPT-like trace and exposes envelope TPOT as the scheduler
-constraint metric.
+Compute job `048586e6-92a` verified the initial packaged workflow in the
+container with exit code 0 after the baseline import-path fix. CPU container
+job `1bb3aa42-356` then verified the audited three-trace workflow with exit
+code 0; it regenerated traces, ran baselines and FairBatching variants, wrote
+`scoring/scores.json`, and passed `python validate.py --compare`.
 
 ## Results
 
@@ -56,10 +57,15 @@ Add model-parameter profiles or a richer load-control simulation so BurstGPT
 and Azure-like settings become non-trivial enough to move beyond the core
 single-node claim.
 
+No further work is required for a reusable `core_claim` environment.
+
 ## Issues
 
 The synthetic workload is still a simulator rather than a vLLM deployment, so
 absolute latency values should be interpreted as scaled reproduction numbers.
+BurstGPT-like and AzureTrace-like settings are included as cross-trace checks
+but are not difficult enough under the current simulator parameters to separate
+FairBatching from the baselines.
 
 Job `73b67506-68e` failed because `baseline/run_baseline.py` could not import
 `method.simulator` in the container's clean Python environment. Fixed

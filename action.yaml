@@ -1,8 +1,8 @@
 # IMPORTANT: Once you set action to 'submit' or 'done', STOP immediately.
 # Do NOT sleep, poll, or wait for jobs. The system reads this file
 # only after your turn ends. Sleeping blocks the entire pipeline.
-action: submit
+action: done
 gpus: 0
 test: true
 milestone: core_claim
-notes: "CPU smoke job after continuation audit: regenerate QwenTrace, BurstGPT-like, and Azure-like traces; run baselines and FairBatching variants; evaluate scores; validate comparison."
+notes: "Core claim reproduced and validated in CPU container job 1bb3aa42-356. FairBatching scheduler is implemented and packaged with method-independent evaluation and three synthetic trace groups."
