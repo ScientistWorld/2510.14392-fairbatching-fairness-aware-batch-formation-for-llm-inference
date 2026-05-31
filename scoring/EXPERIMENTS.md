@@ -12,3 +12,10 @@ decode-first, and FairBatching-style schedulers at a scaled 2.4 RPS load point.
 This experiment repeats the same single-node scoring interface on a
 BurstGPT-like request length distribution. It is a lighter sanity check for
 cross-trace portability rather than the main core-claim benchmark.
+
+## single_node_azure_trace
+
+This experiment repeats the single-node scoring interface on an AzureTrace-like
+distribution with longer prompts and a looser first-token latency target. It
+checks whether the scheduler still has room to allocate prefill bursts fairly
+when request shape changes.

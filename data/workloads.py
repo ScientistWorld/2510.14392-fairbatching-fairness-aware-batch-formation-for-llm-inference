@@ -51,6 +51,17 @@ SPECS = {
         tpot_slo_ms=50.0,
         default_rps=3.0,
     ),
+    "azure_synthetic": WorkloadSpec(
+        name="azure_synthetic",
+        requests=180,
+        avg_prompt=1604,
+        p90_prompt=3561,
+        avg_output=114,
+        p90_output=392,
+        ttft_slo_ms=2000.0,
+        tpot_slo_ms=50.0,
+        default_rps=1.35,
+    ),
 }
 
 

@@ -8,7 +8,9 @@ batch formation, and PAB admission estimation. Baselines for prefill-priority
 and Sarathi-style decode-priority scheduling run through the same simulator.
 
 The end-to-end scripts generate traces, run baselines and method variants, and
-write `scoring/scores.json`. `python validate.py --compare` passes.
+write `scoring/scores.json`. `python validate.py --compare` passes. The
+continuation audit confirmed that `eval/` reads output artifacts and does not
+import from `method/`.
 
 Compute job `048586e6-92a` verified the packaged workflow in the container with
 exit code 0 after the baseline import-path fix. The local workflow now also
@@ -37,10 +39,22 @@ Additional BurstGPT-like trace:
 - FairBatching: effective RPS 2.993, SLO violation 0.000, envelope TPOT P99 21.8 ms.
 - FairBatching-PAB: effective RPS 2.993, SLO violation 0.000, envelope TPOT P99 21.8 ms.
 
+Additional AzureTrace-like trace:
+
+- vLLM-vanilla: effective RPS 1.541, SLO violation 0.000, envelope TPOT P99 10.2 ms.
+- vLLM-sarathi: effective RPS 1.541, SLO violation 0.000, envelope TPOT P99 10.4 ms.
+- FairBatching: effective RPS 1.541, SLO violation 0.000, envelope TPOT P99 10.2 ms.
+- FairBatching-PAB: effective RPS 1.541, SLO violation 0.000, envelope TPOT P99 10.2 ms.
+
+The BurstGPT-like and AzureTrace-like traces are useful portability checks, but
+they are too easy under the current simulator parameters to justify a
+`core_claim_plus` milestone.
+
 ## Remaining
 
-Add heavier BurstGPT and Azure-like load points or model-parameter profiles to
-move beyond the core single-node claim.
+Add model-parameter profiles or a richer load-control simulation so BurstGPT
+and Azure-like settings become non-trivial enough to move beyond the core
+single-node claim.
 
 ## Issues
 
