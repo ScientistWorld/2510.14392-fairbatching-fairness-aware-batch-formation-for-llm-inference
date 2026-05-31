@@ -61,8 +61,4 @@
   non-discriminative portability check rather than a stronger claim.
 
 ## Stop Justification
-- Stopping at `core_claim`. The verified environment reproduces the central
-  single-node scheduling claim. Higher milestones would require a richer
-  cluster/load-control model to demonstrate the paper's PAB-specific gains and
-  additional production-trace settings beyond the synthetic traces available
-  here.
+- Completed at milestone `core_claim`.
