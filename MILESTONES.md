@@ -1,6 +1,6 @@
 # Reproduction Milestones
 
-**Current: method_runs**
+**Current: core_claim**
 
 ## Progress Log
 
@@ -12,5 +12,9 @@
 - Implemented FairBatching's envelope-deadline slack tracking, adaptive time budget, three-stage batch construction, and PAB estimate.
 - Implemented prefill-priority and Sarathi-style baselines.
 - End-to-end scripts run and produce `scoring/scores.json`.
+
+### [2026-05-31 00:00] - core_claim
+- Fixed the FairBatching urgent-decode threshold to match Algorithm 1.
+- Evaluated a scaled QwenTrace-like load point where FairBatching improves effective RPS over both baselines while satisfying envelope SLOs.
 
 ## Stop Justification

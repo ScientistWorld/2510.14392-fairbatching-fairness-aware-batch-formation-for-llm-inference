@@ -54,6 +54,42 @@ SPECS = {
 }
 
 
+def generate_decode_slack_burst() -> list[dict]:
+    """A compact version of the paper's Figure 1/2 unfairness pattern.
+
+    Long decode requests arrive first and accumulate TPOT slack. A prompt burst
+    then arrives while those decodes are still active.
+    """
+    rows: list[dict] = []
+    rid = 0
+    for i in range(20):
+        rows.append(
+            {
+                "request_id": rid,
+                "arrival_ms": i * 8.0,
+                "prompt_len": 96,
+                "output_len": 650,
+                "ttft_slo_ms": 500.0,
+                "tpot_slo_ms": 50.0,
+            }
+        )
+        rid += 1
+    for wave, base in enumerate([2200.0, 2400.0, 2600.0]):
+        for i in range(16):
+            rows.append(
+                {
+                    "request_id": rid,
+                    "arrival_ms": base + i * 3.0,
+                    "prompt_len": 850 + (i % 5) * 90,
+                    "output_len": 80,
+                    "ttft_slo_ms": 500.0,
+                    "tpot_slo_ms": 50.0,
+                }
+            )
+            rid += 1
+    return rows
+
+
 def _lognormal_params(mean: float, p90: float) -> tuple[float, float]:
     z90 = 1.2815515655446004
     # Solve ln(p90)=mu+z*sigma and ln(mean)=mu+sigma^2/2.
@@ -96,7 +132,10 @@ def generate_trace(spec: WorkloadSpec, seed: int = 7, rps: float | None = None) 
 
 
 def write_trace(name: str, output: Path, seed: int = 7, rps: float | None = None) -> None:
-    rows = generate_trace(SPECS[name], seed=seed, rps=rps)
+    if name == "decode_slack_burst":
+        rows = generate_decode_slack_burst()
+    else:
+        rows = generate_trace(SPECS[name], seed=seed, rps=rps)
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
@@ -106,7 +145,7 @@ def write_trace(name: str, output: Path, seed: int = 7, rps: float | None = None
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--name", choices=sorted(SPECS), default="qwen_synthetic")
+    parser.add_argument("--name", choices=sorted([*SPECS, "decode_slack_burst"]), default="qwen_synthetic")
     parser.add_argument("--output", type=Path, default=Path("data/qwen_synthetic.csv"))
     parser.add_argument("--seed", type=int, default=7)
     parser.add_argument("--rps", type=float, default=None)

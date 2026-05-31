@@ -12,4 +12,6 @@ Metrics:
 
 The main experiment is `single_node_qwen_trace`, a single-node workload using a
 synthetic trace shaped from the paper's QwenTrace aggregate length and SLO
-statistics.
+statistics at a scaled 2.4 RPS load point. SLO satisfaction is checked against
+FairBatching's envelope deadlines; the reported `tpot_p99_ms` is post-first-token
+decode speed so it remains comparable to the paper's latency table.

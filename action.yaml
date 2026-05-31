@@ -4,5 +4,5 @@
 action: submit
 gpus: 0
 test: true
-milestone: method_runs
-notes: "CPU smoke test: run synthetic FairBatching reproduction end-to-end and validate scores."
+milestone: core_claim
+notes: "CPU verification: rerun scaled QwenTrace FairBatching core-claim reproduction and validate scores."

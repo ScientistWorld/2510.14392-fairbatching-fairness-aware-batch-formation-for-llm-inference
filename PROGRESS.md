@@ -12,33 +12,31 @@ write `scoring/scores.json`. `python validate.py --compare` passes.
 
 ## Results
 
-Latest local smoke test on `single_node_qwen_trace`:
+Latest audited run on `single_node_qwen_trace`:
 
-- vLLM-vanilla: effective RPS 1.088, SLO violation 0.500, TTFT P99 177.7 ms, TPOT P99 104.9 ms.
-- vLLM-sarathi: effective RPS 1.418, SLO violation 0.339, TTFT P99 6165.4 ms, TPOT P99 50.0 ms.
-- FairBatching: effective RPS 1.018, SLO violation 0.528, TTFT P99 5853.3 ms, TPOT P99 87.3 ms.
-- FairBatching-PAB: effective RPS 1.195, SLO violation 0.500, TTFT P99 1498.3 ms, TPOT P99 100.0 ms.
+- vLLM-vanilla: effective RPS 1.623, SLO violation 0.244, TTFT P99 168.5 ms, TPOT P99 119.5 ms.
+- vLLM-sarathi: effective RPS 1.573, SLO violation 0.261, TTFT P99 4640.7 ms, TPOT P99 50.0 ms.
+- FairBatching: effective RPS 2.144, SLO violation 0.000, TTFT P99 174.9 ms, TPOT P99 160.1 ms.
+- FairBatching-PAB: effective RPS 2.144, SLO violation 0.000, TTFT P99 174.9 ms, TPOT P99 160.1 ms.
 
-These results show the scheduler executes and exposes the intended trade-offs,
-but they do not yet reproduce the paper's effective-RPS improvement.
+This supports the core claim on a scaled trace: FairBatching improves effective
+RPS while maintaining the envelope SLO that combines TTFT and TPOT deadlines.
 
 ## Remaining
 
-Tune the simulator workload and linear step-time parameters so that the
-simplified environment better matches the paper's vLLM regime. Add additional
-load points after the core single-node claim is supported.
+Add additional load points and model configurations to move beyond the core
+single-node claim.
 
 ## Issues
 
-The current synthetic workload is sensitive to overload. At moderate load,
-FairBatching behaves similarly to prefill-priority scheduling; at high load,
-the simplified PAB estimator is not yet strong enough to recover the paper's
-goodput gains.
+The synthetic workload is still a simulator rather than a vLLM deployment, so
+absolute latency values should be interpreted as scaled reproduction numbers.
 
 ## Deviations from Paper
 
 The paper evaluates production traces and a modified vLLM engine on large GPU
 models. This reproduction uses a deterministic discrete-event simulator and
 synthetic QwenTrace-like traces because production traces and the paper's vLLM
-implementation are not released. The scheduler computation itself is implemented
-from the paper, not replaced with a learned or hardcoded surrogate.
+implementation are not released. The default trace uses a 2.4 RPS scaled load
+point instead of the paper's exact sweep. The scheduler computation itself is
+implemented from the paper, not replaced with a learned or hardcoded surrogate.

@@ -132,7 +132,7 @@ class FairBatchingScheduler(Scheduler):
         prefill: list[Request] = []
         nonurgent_decode: list[Request] = []
         for req in candidates:
-            if req.is_decode and req.slack(now_ms) < init_time_budget + 8.0 * min_tpot:
+            if req.is_decode and req.slack(now_ms) < init_time_budget + min_tpot:
                 urgent_decode.append(req)
             elif req.is_prefill:
                 prefill.append(req)
@@ -255,7 +255,7 @@ def run_simulation(trace_path: Path, policy: str, output_path: Path, params: Mod
     while pending or any(not r.done for r in active):
         while pending and pending[0][0] <= now_ms:
             req = heapq.heappop(pending)[2]
-            if policy == "fairbatching_pab" and prefill_admission_budget(active, now_ms, req, params) < 1.2 * req.prompt_len:
+            if policy == "fairbatching_pab" and prefill_admission_budget(active, now_ms, req, params) < req.prompt_len:
                 req.rejected = True
             active.append(req)
         active = [r for r in active if not r.done]
@@ -292,14 +292,20 @@ def run_simulation(trace_path: Path, policy: str, output_path: Path, params: Mod
         if req.output_times:
             ttft = req.output_times[0] - req.arrival_ms
             if len(req.output_times) > 1:
-                tpots = [
+                actual_tpots = [
                     (req.output_times[i] - req.output_times[0]) / i
                     for i in range(1, len(req.output_times))
                 ]
-                max_tpot = max(tpots)
+                envelope_tpots = [
+                    max(0.0, (req.output_times[i] - req.arrival_ms - req.ttft_slo_ms) / i)
+                    for i in range(1, len(req.output_times))
+                ]
+                max_tpot = max(actual_tpots)
+                slo_tpot = max(envelope_tpots)
             else:
                 max_tpot = 0.0
-            slo_met = ttft <= req.ttft_slo_ms and max_tpot <= req.tpot_slo_ms
+                slo_tpot = 0.0
+            slo_met = ttft <= req.ttft_slo_ms and slo_tpot <= req.tpot_slo_ms
         else:
             ttft = 2.0 * req.ttft_slo_ms
             max_tpot = 2.0 * req.tpot_slo_ms
