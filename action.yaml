@@ -1,6 +1,6 @@
 # The system reads this file after the turn ends.
-action: done
+action: submit
 gpus: 0
-test: false
+test: true
 milestone: core_claim
-notes: "Packaging audit passed: no external pre-existing artifacts, synthetic data regenerates deterministically, and no shared paths are referenced."
+notes: "CPU smoke job after hardening the public evaluator: regenerate traces, run baselines and FairBatching, score full/train/test outputs, and run validate.py --compare."
