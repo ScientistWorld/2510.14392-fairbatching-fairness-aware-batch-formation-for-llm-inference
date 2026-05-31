@@ -57,12 +57,16 @@ Metrics:
 - `slo_violation_rate`: fraction of requests violating TTFT or TPOT.
 - `ttft_p99_ms`: 99th percentile time to first token.
 - `tpot_p99_ms`: 99th percentile worst per-request TPOT.
+- `envelope_tpot_p99_ms`: 99th percentile TPOT under the monotonic envelope
+  deadline formulation used by the scheduler.
 
 The main experiment is `single_node_qwen_trace`, a single-node workload using a
 synthetic trace shaped from the paper's QwenTrace aggregate length and SLO
 statistics at a scaled 2.4 RPS load point. SLO satisfaction is checked against
 FairBatching's envelope deadlines; the reported `tpot_p99_ms` is post-first-token
-decode speed so it remains comparable to the paper's latency table.
+decode speed so it remains comparable to the paper's latency table. The
+reproduction also includes `single_node_burstgpt_trace` as a secondary
+cross-trace check.
 
 ---
 
@@ -120,12 +124,34 @@ decode speed so it remains comparable to the paper's latency table.
 
 </details>
 
+### Iteration 2: gpt-5.5
+- **Milestone**: `core_claim` | **Status**: done
+- **Working time**: 4m | **GPU**: 0.0h
+- **Jobs**: 3 total (2 completed, 1 failed)
+
+<details>
+<summary>Progress Log</summary>
+
+### [2026-05-31 09:24] - core_claim
+- Implemented FairBatching's envelope-deadline scheduler, adaptive time budget, linear batch-time model, three-stage batch packing, and PAB admission estimate in a trace-driven simulator.
+- Verified the packaged reproduction locally with `scripts/reproduce.sh "" outputs` and `python validate.py --compare`.
+- On the QwenTrace-like core experiment, FairBatching improves effective RPS over both baselines while keeping the envelope TPOT constraint at roughly 50 ms and eliminating SLO violations.
+
+### [2026-05-31 09:26] - core_claim
+- Audited the continuing workspace after milestone reset; the method is not a surrogate and the evaluator remains independent from `method/`.
+- Added an AzureTrace-like secondary workload from the paper's aggregate trace statistics and Table 3 reference values.
+- Kept the milestone at `core_claim`: QwenTrace-like results support the core claim, while BurstGPT/Azure synthetic settings are currently sanity checks rather than strong additional claim reproductions.
+
+### [2026-05-31 09:28] - core_claim
+- CPU container job `1bb3aa42-356` completed with exit code 0.
+- The job regenerated all tracked synthetic traces, ran baselines and FairBatching variants, wrote `scoring/scores.json`, and passed `python validate.py --compare` inside the packaged container.
+- Final milestone remains `core_claim`.
+
+</details>
+
 
 ---
 
 # Reproduction Milestones
 
-**Current: method_runs**
-
-## Stop Justification
-- Completed at milestone `method_runs`.
+**Current: core_claim**
