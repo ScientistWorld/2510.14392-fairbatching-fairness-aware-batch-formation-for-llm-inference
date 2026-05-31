@@ -1,4 +1,4 @@
 # The system reads this file after the turn ends.
 action: done
 milestone: core_claim
-notes: "Final verification passed; workspace is ready as a core-claim gym with documented synthetic-simulator limitations."
+notes: "Validation passed after restricting default scoring to the reproduced core-claim experiment."

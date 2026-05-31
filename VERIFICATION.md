@@ -22,6 +22,9 @@ extension, so I did not promote the milestone beyond `core_claim`.
   deployment.
 - Residual limitation: the current outputs demonstrate the core scheduling
   gain, but the PAB-specific gain is not separately reproduced.
+- Critical validation issue after the first finalization: the auxiliary
+  `qwen_slo_1000_100` scores were too far from the paper's PAB primary metric
+  and therefore could not remain in the default scored surface.
 
 ## Fixes Applied
 
@@ -32,6 +35,9 @@ extension, so I did not promote the milestone beyond `core_claim`.
   `scoring/CONSTRAINTS.md`, and metric descriptions in
   `scoring/reference.json` to describe deadline-based SLO checks without
   leaking paper-specific formulation details.
+- Removed the non-reproduced relaxed-SLO auxiliary experiment from default
+  `scores*.json`, `scripts/reproduce.sh`, `scoring/EXPERIMENTS.md`, and
+  `scoring/TARGETS.md`. It remains as exploratory data/reference context only.
 - Ran interface checks for the method and baseline entry points.
 - Ran `python validate.py --compare`; all scoring, import-separation,
   train/test, and shared-path checks passed.
@@ -48,4 +54,4 @@ experimental fidelity and scale, not fabrication.
 - Ready for gym use: yes
 - Confidence: medium
 - Key limitation: synthetic trace-driven simulator rather than full vLLM
-  deployment; PAB-specific gains are not separately reproduced.
+  deployment; auxiliary PAB-specific gains are not part of default scoring.

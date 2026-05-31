@@ -2,9 +2,7 @@
 
 Primary targets:
 
-- increase `effective_rps` on `single_node_qwen_trace`;
-- increase `goodput_improvement_pct` on `qwen_slo_1000_100`, the relaxed-SLO
-  QwenTrace-like setting with TTFT=1000ms and TPOT=100ms.
+- increase `effective_rps` on `single_node_qwen_trace`.
 
 Constraint targets:
 
@@ -21,5 +19,5 @@ Constraint targets:
 
 Every target above is represented in `scoring/reference.json` and the current
 `scoring/scores.json`. Additional synthetic traces are available in `data/` for
-exploratory checks, but only experiments present in `scoring/scores.json` are
-part of the default target set.
+exploratory checks, but only `single_node_qwen_trace` is part of the default
+target set.

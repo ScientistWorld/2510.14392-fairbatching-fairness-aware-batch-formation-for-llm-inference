@@ -28,17 +28,12 @@ packaged environment.
 
 ## Results
 
-Latest local audited run after adding the relaxed-SLO setting:
+Latest local audited default run:
 
 - vLLM-vanilla: effective RPS 2.219, SLO violation 0.244, TTFT P99 168.5 ms, raw TPOT P99 119.5 ms, envelope TPOT P99 54.9 ms.
 - vLLM-sarathi: effective RPS 2.170, SLO violation 0.261, TTFT P99 4640.7 ms, raw TPOT P99 50.0 ms, envelope TPOT P99 4190.7 ms.
 - FairBatching: effective RPS 2.937, SLO violation 0.000, TTFT P99 174.9 ms, raw TPOT P99 160.1 ms, envelope TPOT P99 50.0 ms.
 - FairBatching-PAB: effective RPS 2.937, SLO violation 0.000, TTFT P99 174.9 ms, raw TPOT P99 160.1 ms, envelope TPOT P99 50.0 ms.
-- On `qwen_slo_1000_100`, vLLM-vanilla is the best baseline at 5.946
-  effective RPS with 0.117 SLO violation rate. FairBatching reaches 6.731
-  effective RPS, 0.000 SLO violation rate, and +13.2% goodput improvement over
-  the best baseline; the paper's corresponding Table 5 FairBatching-vanilla
-  entry reports +8.1%.
 - The regenerated score files also report TTFT SLO violation rate, envelope
   TPOT SLO violation rate, and P95 TTFT/TPOT/envelope TPOT for each method.
 
@@ -56,13 +51,16 @@ available as a custom trace, but its reproduced effective RPS was more than 2x
 away from the paper's reported BurstGPT scale, so including it in
 `scoring/scores.json` would overclaim an auxiliary result.
 
+The relaxed-SLO `qwen_slo_1000_100` trace is also omitted from default scoring.
+It is useful as exploratory data, but the current reproduction does not match
+the paper's PAB-specific goodput-improvement claim, so scoring it by default
+would overclaim an auxiliary result and fail paper-consistency validation.
+
 ## Remaining
 
-The environment remains at `core_claim`. A second relaxed-SLO setting is
-implemented and scored locally, but no fresh packaged job result was present
-during final verification, and the current trace does not separately reproduce
-the PAB-specific gain. Do not promote beyond `core_claim` without a packaged
-run and stronger auxiliary evidence.
+The environment remains at `core_claim`. The current trace does not separately
+reproduce the PAB-specific gain. Do not promote beyond `core_claim` without a
+packaged run and stronger auxiliary evidence.
 
 Add model-parameter profiles or a richer load-control simulation so auxiliary
 settings become non-trivial enough to move beyond the core single-node claim.

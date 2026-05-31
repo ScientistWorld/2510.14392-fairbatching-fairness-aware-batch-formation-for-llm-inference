@@ -4,6 +4,13 @@
 
 ## Progress Log
 
+### [2026-05-31 10:27] - core_claim
+- Removed the relaxed-SLO auxiliary experiment from the default scored surface
+  after validation showed its PAB primary metric was too far from the paper
+  reference.
+- Kept `core_claim` because the default `single_node_qwen_trace` result still
+  demonstrates the central goodput/SLO trade-off.
+
 ### [2026-05-31 10:25] - core_claim
 - Final verification kept the milestone at `core_claim`; no fresh packaged job
   result was present to justify promotion.
