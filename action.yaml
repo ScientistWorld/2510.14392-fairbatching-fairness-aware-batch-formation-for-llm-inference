@@ -1,4 +1,4 @@
 # The system reads this file after the turn ends.
 action: done
 milestone: core_claim
-notes: "Final verification passed; docs and scoring notes were cleaned up while preserving the core_claim milestone."
+notes: "Final verification passed; workspace is ready as a core-claim gym with documented synthetic-simulator limitations."
