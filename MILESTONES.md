@@ -1,8 +1,31 @@
 # Reproduction Milestones
 
-**Current: method_runs**
+**Current: core_claim**
 
 ## Progress Log
 
+### [2026-05-31 09:24] - core_claim
+- Implemented FairBatching's envelope-deadline scheduler, adaptive time budget,
+  linear batch-time model, three-stage batch packing, and PAB admission estimate
+  in a trace-driven simulator.
+- Verified the packaged reproduction with `scripts/reproduce.sh "" outputs` and
+  `python validate.py --compare`.
+- On the QwenTrace-like core experiment, FairBatching improves effective RPS
+  over both baselines while keeping the envelope TPOT constraint near 50 ms and
+  eliminating SLO violations.
+
+### [2026-05-31 09:28] - core_claim
+- CPU container job `1bb3aa42-356` completed with exit code 0.
+- The job regenerated the synthetic traces, ran baselines and FairBatching
+  variants, wrote `scoring/scores.json`, and passed `python validate.py
+  --compare` inside the packaged container.
+
+### [2026-05-31 09:32] - core_claim
+- Re-audited the implementation against the paper's algorithm and confirmed the
+  evaluator reads scheduler artifacts without importing `method/`.
+- Kept the milestone at `core_claim`: the main QwenTrace-like result supports
+  the central single-node claim, while the BurstGPT-like trace remains a
+  non-discriminative portability check rather than a stronger claim.
+
 ## Stop Justification
-- Completed at milestone `method_runs`.
+- Completed at milestone `core_claim`.

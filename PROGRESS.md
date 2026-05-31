@@ -23,7 +23,7 @@ code 0; it regenerated traces, ran baselines and FairBatching variants, wrote
 Latest audited run on `single_node_qwen_trace`:
 
 - vLLM-vanilla: effective RPS 1.623, SLO violation 0.244, TTFT P99 168.5 ms, TPOT P99 119.5 ms.
-- vLLM-sarathi: effective RPS 1.573, SLO violation 0.261, TTFT P99 4640.7 ms, TPOT P99 50.0 ms.
+- vLLM-sarathi: effective RPS 1.573, SLO violation 0.261, TTFT P99 4640.7 ms, raw TPOT P99 50.0 ms, envelope TPOT P99 4190.7 ms.
 - FairBatching: effective RPS 2.144, SLO violation 0.000, TTFT P99 174.9 ms, raw TPOT P99 160.1 ms, envelope TPOT P99 50.0 ms.
 - FairBatching-PAB: effective RPS 2.144, SLO violation 0.000, TTFT P99 174.9 ms, raw TPOT P99 160.1 ms, envelope TPOT P99 50.0 ms.
 
