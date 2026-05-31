@@ -45,5 +45,9 @@ Runtime concerns for the runner iteration:
   saturated. Its weight is now zero in `scoring/reference.json`; the active
   train/test target is the non-saturated QwenTrace split.
 - The first runner job regenerated both QwenTrace and BurstGPT artifacts, then
-  wrote `scoring/scores_train.json` and `scoring/scores_test.json`; the
-  follow-up job should overwrite those files with active QwenTrace scores only.
+  wrote `scoring/scores_train.json` and `scoring/scores_test.json`. The
+  follow-up job overwrote those files with active QwenTrace scores only.
+- Final train/test check: both slices score the same four method identifiers on
+  the same ten metrics. QwenTrace train/test goodput is stable for the proposed
+  method, while baseline SLO and tail-latency values differ enough to confirm
+  the held-out split is not a copy of the visible slice.

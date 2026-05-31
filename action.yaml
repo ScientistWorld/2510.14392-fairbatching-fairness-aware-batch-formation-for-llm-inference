@@ -1,6 +1,6 @@
 # The system reads this file after the turn ends.
-action: submit
+action: done
 gpus: 0
 test: false
 milestone: core_claim
-notes: "Re-run active Qwen-only train/test scores after deactivating saturated BurstGPT context experiment."
+notes: "Request-hash split; 40 train metrics and 40 test metrics over QwenTrace; proposed goodput 2.937/2.937 with zero SLO violations, baselines differ across train/test; BurstGPT kept as zero-weight context after saturation."
