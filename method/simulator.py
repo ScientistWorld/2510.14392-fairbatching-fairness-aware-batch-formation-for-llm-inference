@@ -325,18 +325,20 @@ def run_simulation(trace_path: Path, policy: str, output_path: Path, params: Mod
             }
         )
 
-    last_output = max((r.output_times[-1] for r in requests if r.output_times), default=requests[-1].arrival_ms)
-    makespan_s = max(1e-9, (last_output - requests[0].arrival_ms) / 1000.0)
+    arrival_span_s = max(1e-9, (requests[-1].arrival_ms - requests[0].arrival_ms) / 1000.0)
+    offered_rps = len(requests) / arrival_span_s
+    success_fraction = sum(1 for r in rows if r["slo_met"]) / len(rows)
     summary = {
         "policy": policy,
         "trace": str(trace_path),
         "requests": len(requests),
+        "offered_rps": offered_rps,
         "steps": steps,
         "prefill_tokens": prefill_tokens,
         "decode_tokens": decode_tokens,
         "mean_step_ms": total_step_time / max(steps, 1),
-        "effective_rps": sum(1 for r in rows if r["slo_met"]) / makespan_s,
-        "slo_violation_rate": 1.0 - sum(1 for r in rows if r["slo_met"]) / len(rows),
+        "effective_rps": offered_rps * success_fraction,
+        "slo_violation_rate": 1.0 - success_fraction,
         "ttft_p95_ms": percentile([r["ttft_ms"] for r in rows], 95),
         "ttft_p99_ms": percentile([r["ttft_ms"] for r in rows], 99),
         "tpot_p95_ms": percentile([r["max_tpot_ms"] for r in rows], 95),

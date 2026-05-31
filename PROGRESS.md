@@ -8,9 +8,9 @@ batch formation, and PAB admission estimation. Baselines for prefill-priority
 and Sarathi-style decode-priority scheduling run through the same simulator.
 
 The end-to-end scripts generate traces, run baselines and method variants, and
-write `scoring/scores.json`. `python validate.py --compare` passes. The
-continuation audit confirmed that `eval/` reads output artifacts and does not
-import from `method/`.
+write `scoring/scores.json`. `python validate.py --compare` passes locally
+after the continuation audit fixes. The audit confirmed that `eval/` reads
+output artifacts and does not import from `method/`.
 
 Compute job `048586e6-92a` verified the initial packaged workflow in the
 container with exit code 0 after the baseline import-path fix. CPU container
@@ -20,12 +20,12 @@ code 0; it regenerated traces, ran baselines and FairBatching variants, wrote
 
 ## Results
 
-Latest audited run on `single_node_qwen_trace`:
+Latest local audited run on `single_node_qwen_trace` after fixing effective RPS:
 
-- vLLM-vanilla: effective RPS 1.623, SLO violation 0.244, TTFT P99 168.5 ms, TPOT P99 119.5 ms.
-- vLLM-sarathi: effective RPS 1.573, SLO violation 0.261, TTFT P99 4640.7 ms, raw TPOT P99 50.0 ms, envelope TPOT P99 4190.7 ms.
-- FairBatching: effective RPS 2.144, SLO violation 0.000, TTFT P99 174.9 ms, raw TPOT P99 160.1 ms, envelope TPOT P99 50.0 ms.
-- FairBatching-PAB: effective RPS 2.144, SLO violation 0.000, TTFT P99 174.9 ms, raw TPOT P99 160.1 ms, envelope TPOT P99 50.0 ms.
+- vLLM-vanilla: effective RPS 2.219, SLO violation 0.244, TTFT P99 168.5 ms, raw TPOT P99 119.5 ms, envelope TPOT P99 54.9 ms.
+- vLLM-sarathi: effective RPS 2.170, SLO violation 0.261, TTFT P99 4640.7 ms, raw TPOT P99 50.0 ms, envelope TPOT P99 4190.7 ms.
+- FairBatching: effective RPS 2.937, SLO violation 0.000, TTFT P99 174.9 ms, raw TPOT P99 160.1 ms, envelope TPOT P99 50.0 ms.
+- FairBatching-PAB: effective RPS 2.937, SLO violation 0.000, TTFT P99 174.9 ms, raw TPOT P99 160.1 ms, envelope TPOT P99 50.0 ms.
 
 This supports the core claim on a scaled trace: FairBatching improves effective
 RPS while maintaining the envelope SLO that combines TTFT and TPOT deadlines.
@@ -35,20 +35,21 @@ is the monotonic SLO formulation used by the paper's scheduler.
 
 Additional BurstGPT-like trace:
 
-- vLLM-vanilla: effective RPS 2.993, SLO violation 0.000, envelope TPOT P99 21.8 ms.
-- vLLM-sarathi: effective RPS 2.992, SLO violation 0.000, envelope TPOT P99 21.9 ms.
-- FairBatching: effective RPS 2.993, SLO violation 0.000, envelope TPOT P99 21.8 ms.
-- FairBatching-PAB: effective RPS 2.993, SLO violation 0.000, envelope TPOT P99 21.8 ms.
+- vLLM-vanilla: effective RPS 3.672, SLO violation 0.000, envelope TPOT P99 21.8 ms.
+- vLLM-sarathi: effective RPS 3.672, SLO violation 0.000, envelope TPOT P99 21.9 ms.
+- FairBatching: effective RPS 3.672, SLO violation 0.000, envelope TPOT P99 21.8 ms.
+- FairBatching-PAB: effective RPS 3.672, SLO violation 0.000, envelope TPOT P99 21.8 ms.
 
 The BurstGPT-like trace is a portability check, but it is too easy under the
 current simulator parameters to justify a `core_claim_plus` milestone.
 
 ## Remaining
 
+Run the submitted CPU container job after the continuation fixes. If it passes,
+restore the milestone to `core_claim`.
+
 Add model-parameter profiles or a richer load-control simulation so auxiliary
 settings become non-trivial enough to move beyond the core single-node claim.
-
-No further work is required for a reusable `core_claim` environment.
 
 ## Issues
 
@@ -59,6 +60,21 @@ difficult enough under the current simulator parameters to separate
 FairBatching from the baselines. An AzureTrace-like setting was prototyped but
 removed from scoring because its synthetic RPS scale was more than 2x away from
 the paper's reference values, causing validation to fail.
+
+The QwenTrace-like core result supports the paper's envelope-deadline SLO
+claim, but raw post-first-token TPOT P99 for FairBatching remains above the
+paper's Table 4 value. This is now represented as an explicit scored constraint
+metric rather than hidden inside the SLO satisfaction calculation.
+
+FairBatching-PAB is implemented, but the current scored traces do not show a
+separate PAB improvement because the main trace is already fully admitted under
+the envelope SLO. PAB should be evaluated with a richer cluster/load-balancing
+simulation before claiming secondary or PAB-specific milestones.
+
+The runtime exposes tracked root files `README.md` and `manifest.json` as busy
+character devices. Attempts to remove or move them failed with "Device or
+resource busy"; source deliverables in the standard reproduction directories
+remain editable and validated.
 
 Job `73b67506-68e` failed because `baseline/run_baseline.py` could not import
 `method.simulator` in the container's clean Python environment. Fixed

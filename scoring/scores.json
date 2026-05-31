@@ -3,22 +3,22 @@
     "single_node_burstgpt_trace": {
       "results": {
         "vllm_vanilla": {
-          "effective_rps": 2.992862979510026,
+          "effective_rps": 3.671531867937936,
           "slo_violation_rate": 0.0,
           "envelope_tpot_p99_ms": 21.823441257851407
         },
         "vllm_sarathi": {
-          "effective_rps": 2.9918928082197067,
+          "effective_rps": 3.671531867937936,
           "slo_violation_rate": 0.0,
           "envelope_tpot_p99_ms": 21.882192897809595
         },
         "fairbatching": {
-          "effective_rps": 2.992862979510026,
+          "effective_rps": 3.671531867937936,
           "slo_violation_rate": 0.0,
           "envelope_tpot_p99_ms": 21.823441257851407
         },
         "fairbatching_pab": {
-          "effective_rps": 2.992862979510026,
+          "effective_rps": 3.671531867937936,
           "slo_violation_rate": 0.0,
           "envelope_tpot_p99_ms": 21.823441257851407
         }
@@ -27,28 +27,28 @@
     "single_node_qwen_trace": {
       "results": {
         "vllm_vanilla": {
-          "effective_rps": 1.6225655149302936,
+          "effective_rps": 2.2192370220691533,
           "slo_violation_rate": 0.24444444444444446,
           "ttft_p99_ms": 168.5100620000479,
           "tpot_p99_ms": 119.54999999999927,
           "envelope_tpot_p99_ms": 54.93238031257798
         },
         "vllm_sarathi": {
-          "effective_rps": 1.573309199795423,
+          "effective_rps": 2.170283264229393,
           "slo_violation_rate": 0.26111111111111107,
           "ttft_p99_ms": 4640.666594000036,
           "tpot_p99_ms": 49.99924199999885,
           "envelope_tpot_p99_ms": 4190.653948000036
         },
         "fairbatching": {
-          "effective_rps": 2.143584170051058,
+          "effective_rps": 2.9372254703856444,
           "slo_violation_rate": 0.0,
           "ttft_p99_ms": 174.93113600003156,
           "tpot_p99_ms": 160.09875999999934,
           "envelope_tpot_p99_ms": 49.9931531698412
         },
         "fairbatching_pab": {
-          "effective_rps": 2.143584170051058,
+          "effective_rps": 2.9372254703856444,
           "slo_violation_rate": 0.0,
           "ttft_p99_ms": 174.93113600003156,
           "tpot_p99_ms": 160.09875999999934,

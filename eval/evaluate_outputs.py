@@ -34,6 +34,11 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--outputs", type=Path, default=Path("outputs"))
     parser.add_argument("--scores", type=Path, default=Path("scoring/scores.json"))
+    parser.add_argument(
+        "--experiment-name",
+        default=None,
+        help="Experiment name to use when --outputs contains method JSON files directly.",
+    )
     args = parser.parse_args()
     reference_path = Path("scoring/reference.json")
     reference_metrics = {}
@@ -44,9 +49,12 @@ def main() -> None:
             for name, spec in reference.get("experiments", {}).items()
         }
 
-    experiment_dirs = {
-        "single_node_qwen_trace": args.outputs,
-    }
+    flat_name = args.experiment_name or args.outputs.name
+    if flat_name in ("", "."):
+        flat_name = "custom_trace"
+    experiment_dirs = {}
+    if any((args.outputs / filename).exists() for filename in METHOD_FILES.values()):
+        experiment_dirs[flat_name] = args.outputs
     for child in sorted(args.outputs.iterdir()) if args.outputs.exists() else []:
         if child.is_dir():
             experiment_dirs[child.name] = child

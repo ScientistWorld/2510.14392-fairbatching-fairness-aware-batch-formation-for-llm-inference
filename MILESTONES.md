@@ -1,8 +1,23 @@
 # Reproduction Milestones
 
-**Current: core_claim**
+**Current: method_runs**
 
 ## Progress Log
+
+### [2026-05-31 09:45] - method_runs
+- Continued from a reset audit one level below the previous `core_claim`.
+- Confirmed the method code still implements FairBatching's actual scheduler
+  mechanics rather than a surrogate: envelope deadlines, slack tracking,
+  adaptive time budget, linear step-time estimation, three-stage packing, and
+  PAB admission estimation.
+- Fixed effective RPS to use offered trace request rate times SLO satisfaction,
+  matching the paper's goodput definition and avoiding inflated PAB scores when
+  requests are rejected.
+- Fixed standalone flat-output evaluation so custom traces are not mislabeled
+  as `single_node_qwen_trace`.
+- Local `scripts/reproduce.sh "" outputs && python validate.py --compare`
+  passes after the fixes; submitting a CPU container job before restoring
+  `core_claim`.
 
 ### [2026-05-31 09:24] - core_claim
 - Implemented FairBatching's envelope-deadline scheduler, adaptive time budget,
@@ -28,4 +43,4 @@
   non-discriminative portability check rather than a stronger claim.
 
 ## Stop Justification
-- Completed at milestone `core_claim`.
+- Not stopped. A CPU verification job is being submitted for the audited fixes.
