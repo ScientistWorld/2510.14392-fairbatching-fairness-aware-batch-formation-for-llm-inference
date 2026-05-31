@@ -37,7 +37,7 @@
           "envelope_tpot_p99_ms": 49.99297612029464
         },
         "vllm_sarathi": {
-          "effective_rps": 2.190036534936665,
+          "effective_rps": 2.170283264229393,
           "slo_violation_rate": 0.2543859649122807,
           "ttft_slo_violation_rate": 0.2543859649122807,
           "envelope_tpot_slo_violation_rate": 0.2543859649122807,

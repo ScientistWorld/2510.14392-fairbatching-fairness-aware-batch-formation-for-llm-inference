@@ -49,7 +49,7 @@
           "envelope_tpot_p99_ms": 4362.709300000046
         },
         "vllm_vanilla": {
-          "effective_rps": 2.447687891988037,
+          "effective_rps": 2.2192370220691533,
           "slo_violation_rate": 0.16666666666666663,
           "ttft_slo_violation_rate": 0.0,
           "envelope_tpot_slo_violation_rate": 0.16666666666666663,

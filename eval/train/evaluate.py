@@ -110,6 +110,21 @@ def aggregate_metrics(path: Path, experiment: str) -> dict[str, float]:
     slo_flags = [ttft_ok and tpot_ok for ttft_ok, tpot_ok in zip(ttft_flags, envelope_flags)]
     success_fraction = sum(1 for flag in slo_flags if flag) / len(rows)
 
+    all_ttft_flags = [
+        float(row["ttft_ms"]) <= float(row.get("ttft_slo_ms", data.get("ttft_slo_ms", 500.0)))
+        for row in records
+    ]
+    all_envelope_flags = [
+        float(row.get("max_envelope_tpot_ms", row["max_tpot_ms"]))
+        <= float(row.get("tpot_slo_ms", data.get("tpot_slo_ms", 50.0)))
+        for row in records
+    ]
+    whole_success_fraction = sum(
+        1
+        for ttft_ok, tpot_ok in zip(all_ttft_flags, all_envelope_flags)
+        if ttft_ok and tpot_ok
+    ) / len(records)
+
     all_arrivals = [float(row["arrival_ms"]) for row in records if "arrival_ms" in row]
     if len(all_arrivals) >= 2:
         arrival_span_s = max(1e-9, (max(all_arrivals) - min(all_arrivals)) / 1000.0)
@@ -118,7 +133,7 @@ def aggregate_metrics(path: Path, experiment: str) -> dict[str, float]:
         offered_rps = float(data.get("offered_rps", 0.0))
 
     return {
-        "effective_rps": offered_rps * success_fraction,
+        "effective_rps": offered_rps * min(success_fraction, whole_success_fraction),
         "slo_violation_rate": 1.0 - success_fraction,
         "ttft_slo_violation_rate": 1.0 - (sum(1 for flag in ttft_flags if flag) / len(rows)),
         "envelope_tpot_slo_violation_rate": 1.0 - (

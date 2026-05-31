@@ -42,7 +42,7 @@ Runtime concerns for the runner iteration:
   arrivals, and SLO fields against the trace named in the artifact.
 - Runner update: `single_node_burstgpt_trace` was executed and all methods met
   every SLO on both train and test, leaving goodput and violation metrics
-  saturated. Its weight is now zero in `scoring/reference.json`; the active
+  saturated. It was removed from active reference scoring; the active
   train/test target is the non-saturated QwenTrace split.
 - The first runner job regenerated both QwenTrace and BurstGPT artifacts, then
   wrote `scoring/scores_train.json` and `scoring/scores_test.json`. The
@@ -51,3 +51,6 @@ Runtime concerns for the runner iteration:
   the same ten metrics. QwenTrace train/test goodput is stable for the proposed
   method, while baseline SLO and tail-latency values differ enough to confirm
   the held-out split is not a copy of the visible slice.
+- Validation follow-up: split effective RPS is capped by the recomputed
+  whole-trace success fraction so a lucky hash bucket cannot report higher
+  capacity than the method achieved on the full trace.
