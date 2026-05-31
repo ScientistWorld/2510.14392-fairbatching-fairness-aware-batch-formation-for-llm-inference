@@ -2,6 +2,7 @@
   "experiments": {
     "single_node_qwen_trace": {
       "description": "Single-node QwenTrace hybrid reference: peak effective RPS from Table 3 plus Qwen3-14B/RPS=2.5 latency tails from Table 4.",
+      "notes": "The paper reports Table 3 peak goodput as a geometric mean across models and Table 4 latency on Qwen3-14B at RPS=2.5. The paper does not separately tabulate deadline-envelope TPOT, so the reference uses the reported TPOT tail values for that auxiliary constraint.",
       "weight": 1.0,
       "primary_metric": "effective_rps",
       "metrics": {

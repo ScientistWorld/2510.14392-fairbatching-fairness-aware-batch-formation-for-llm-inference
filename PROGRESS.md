@@ -50,8 +50,9 @@ away from the paper's reported BurstGPT scale, so including it in
 
 ## Remaining
 
-The environment is complete for the core claim. A final CPU verification job is
-being submitted after the evaluator hardening change.
+The environment is complete for the core claim. Final verification confirmed
+that the public evaluator can regenerate `scoring/scores.json` from existing
+artifacts and that `python validate.py --compare` passes.
 
 Add model-parameter profiles or a richer load-control simulation so auxiliary
 settings become non-trivial enough to move beyond the core single-node claim.

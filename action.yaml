@@ -1,6 +1,4 @@
 # The system reads this file after the turn ends.
-action: submit
-gpus: 0
-test: true
+action: done
 milestone: core_claim
-notes: "CPU smoke job after hardening the public evaluator: regenerate traces, run baselines and FairBatching, score full/train/test outputs, and run validate.py --compare."
+notes: "Final verification passed; docs and scoring notes were cleaned up while preserving the core_claim milestone."

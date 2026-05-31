@@ -4,6 +4,13 @@
 
 ## Progress Log
 
+### [2026-05-31 10:13] - core_claim
+- Final verification kept the milestone at `core_claim`.
+- Confirmed `scripts/evaluate.sh outputs` regenerates `scoring/scores.json`
+  from existing artifacts and `python validate.py --compare` passes.
+- Cleaned method-specific language from method-agnostic evaluation/scoring
+  documentation and documented the auxiliary envelope TPOT reference value.
+
 ### [2026-05-31 10:08] - core_claim
 - Tightened `scripts/evaluate.sh`'s default evaluator so it scores arbitrary
   `*.json` method outputs instead of a fixed method list, and recomputes all

@@ -9,7 +9,8 @@ for `slo_violation_rate`.
 
 Raw `tpot_p99_ms` is a paper-style latency constraint, while
 `envelope_tpot_p99_ms` and `envelope_tpot_slo_violation_rate` measure the
-monotonic SLO formulation used by the scheduler. Improvements should preserve
-both views unless the change is explicitly documented as a metric trade-off.
+deadline-envelope SLO accounting used by the evaluator. Improvements should
+preserve both views unless the change is explicitly documented as a metric
+trade-off.
 
 The evaluator must remain method-agnostic and must not import from `method/`.
