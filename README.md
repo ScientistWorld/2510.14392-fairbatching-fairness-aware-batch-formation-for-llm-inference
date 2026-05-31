@@ -125,7 +125,7 @@ decode speed so it remains comparable to the paper's latency table.
 
 # Reproduction Milestones
 
-**Current: core_claim**
+**Current: method_runs**
 
 ## Stop Justification
-- Completed at milestone `core_claim`.
+- Completed at milestone `method_runs`.
