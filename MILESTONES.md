@@ -1,6 +1,6 @@
 # Reproduction Milestones
 
-**Current: method_runs**
+**Current: core_claim**
 
 ## Progress Log
 
@@ -18,6 +18,15 @@
 - Local `scripts/reproduce.sh "" outputs && python validate.py --compare`
   passes after the fixes; submitting a CPU container job before restoring
   `core_claim`.
+
+### [2026-05-31 09:50] - core_claim
+- CPU container job `34d84bda-8c0` completed with exit code 0.
+- The job reran `scripts/reproduce.sh "" outputs` and `python validate.py
+  --compare` inside the packaged container.
+- Restored `core_claim`: the audited implementation and scorer reproduce the
+  main single-node FairBatching claim on the QwenTrace-like workload, with
+  FairBatching improving effective RPS while satisfying the envelope SLO and
+  avoiding the baseline SLO violations.
 
 ### [2026-05-31 09:24] - core_claim
 - Implemented FairBatching's envelope-deadline scheduler, adaptive time budget,
@@ -43,4 +52,8 @@
   non-discriminative portability check rather than a stronger claim.
 
 ## Stop Justification
-- Not stopped. A CPU verification job is being submitted for the audited fixes.
+- Stopping at `core_claim`. The verified environment reproduces the central
+  single-node scheduling claim. Higher milestones would require a richer
+  cluster/load-control model to demonstrate the paper's PAB-specific gains and
+  additional production-trace settings beyond the synthetic traces available
+  here.

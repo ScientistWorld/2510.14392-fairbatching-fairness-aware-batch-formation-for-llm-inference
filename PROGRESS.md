@@ -8,15 +8,18 @@ batch formation, and PAB admission estimation. Baselines for prefill-priority
 and Sarathi-style decode-priority scheduling run through the same simulator.
 
 The end-to-end scripts generate traces, run baselines and method variants, and
-write `scoring/scores.json`. `python validate.py --compare` passes locally
-after the continuation audit fixes. The audit confirmed that `eval/` reads
-output artifacts and does not import from `method/`.
+write `scoring/scores.json`. `python validate.py --compare` passes locally and
+in the packaged container after the continuation audit fixes. The audit
+confirmed that `eval/` reads output artifacts and does not import from
+`method/`.
 
 Compute job `048586e6-92a` verified the initial packaged workflow in the
 container with exit code 0 after the baseline import-path fix. CPU container
 job `1bb3aa42-356` then verified the audited three-trace workflow with exit
-code 0; it regenerated traces, ran baselines and FairBatching variants, wrote
-`scoring/scores.json`, and passed `python validate.py --compare`.
+code 0. Continuation audit job `34d84bda-8c0` completed with exit code 0,
+regenerated traces, ran baselines and FairBatching variants, wrote
+`scoring/scores.json`, and passed `python validate.py --compare` in the final
+packaged environment.
 
 ## Results
 
@@ -45,8 +48,8 @@ current simulator parameters to justify a `core_claim_plus` milestone.
 
 ## Remaining
 
-Run the submitted CPU container job after the continuation fixes. If it passes,
-restore the milestone to `core_claim`.
+The environment is complete for the core claim and is marked done at
+`core_claim`.
 
 Add model-parameter profiles or a richer load-control simulation so auxiliary
 settings become non-trivial enough to move beyond the core single-node claim.

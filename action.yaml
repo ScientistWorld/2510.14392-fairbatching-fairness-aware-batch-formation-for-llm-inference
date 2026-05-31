@@ -1,8 +1,6 @@
 # IMPORTANT: Once you set action to 'submit' or 'done', STOP immediately.
 # Do NOT sleep, poll, or wait for jobs. The system reads this file
 # only after your turn ends. Sleeping blocks the entire pipeline.
-action: submit
-gpus: 0
-test: true
-milestone: method_runs
-notes: "CPU test job to verify audited fixes: offered-rate effective RPS, standalone flat-output evaluation, and updated scores/docs."
+action: done
+milestone: core_claim
+notes: "CPU container job 34d84bda-8c0 passed reproduce.sh and validate.py --compare after the audit fixes. The environment is packaged and verified for the core single-node FairBatching claim."
