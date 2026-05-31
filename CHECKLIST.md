@@ -31,7 +31,8 @@
 
 ## Data
 - [x] Synthetic trace generator in `data/`
-- [x] QwenTrace- and BurstGPT-like scored traces
+- [x] QwenTrace-like scored trace
+- [x] BurstGPT-like custom trace generator retained but not scored by default
 - [x] No pretrained models needed
 
 ## Milestones

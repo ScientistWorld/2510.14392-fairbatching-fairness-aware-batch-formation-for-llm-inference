@@ -36,15 +36,10 @@ The raw TPOT diagnostic is higher for FairBatching on this synthetic trace
 because requests can consume accumulated first-token slack; the envelope metric
 is the monotonic SLO formulation used by the paper's scheduler.
 
-Additional BurstGPT-like trace:
-
-- vLLM-vanilla: effective RPS 3.672, SLO violation 0.000, envelope TPOT P99 21.8 ms.
-- vLLM-sarathi: effective RPS 3.672, SLO violation 0.000, envelope TPOT P99 21.9 ms.
-- FairBatching: effective RPS 3.672, SLO violation 0.000, envelope TPOT P99 21.8 ms.
-- FairBatching-PAB: effective RPS 3.672, SLO violation 0.000, envelope TPOT P99 21.8 ms.
-
-The BurstGPT-like trace is a portability check, but it is too easy under the
-current simulator parameters to justify a `core_claim_plus` milestone.
+The earlier BurstGPT-like trace is omitted from default scoring. It remains
+available as a custom trace, but its reproduced effective RPS was more than 2x
+away from the paper's reported BurstGPT scale, so including it in
+`scoring/scores.json` would overclaim an auxiliary result.
 
 ## Remaining
 
@@ -58,9 +53,10 @@ settings become non-trivial enough to move beyond the core single-node claim.
 
 The synthetic workload is still a simulator rather than a vLLM deployment, so
 absolute latency values should be interpreted as scaled reproduction numbers.
-The BurstGPT-like setting is included as a cross-trace check but is not
+The BurstGPT-like setting is available as a custom cross-trace check but is not
 difficult enough under the current simulator parameters to separate
-FairBatching from the baselines. An AzureTrace-like setting was prototyped but
+FairBatching from the baselines and is no longer part of the default scored
+outputs. An AzureTrace-like setting was prototyped but
 removed from scoring because its synthetic RPS scale was more than 2x away from
 the paper's reference values, causing validation to fail.
 

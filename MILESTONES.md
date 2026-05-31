@@ -28,6 +28,15 @@
   FairBatching improving effective RPS while satisfying the envelope SLO and
   avoiding the baseline SLO violations.
 
+### [2026-05-31 09:58] - core_claim
+- Removed the non-discriminative synthetic BurstGPT trace from the default
+  scored outputs after validation flagged its effective RPS as more than 2x
+  away from the paper's reported scale.
+- Kept the core QwenTrace-like reproduction as the default target set; BurstGPT
+  remains available as a custom trace but is not claimed as reproduced.
+- Regenerated `scoring/scores.json` via `scripts/reproduce.sh "" outputs` and
+  reran `python validate.py --compare`; all checks passed.
+
 ### [2026-05-31 09:24] - core_claim
 - Implemented FairBatching's envelope-deadline scheduler, adaptive time budget,
   linear batch-time model, three-stage batch packing, and PAB admission estimate

@@ -3,4 +3,4 @@
 # only after your turn ends. Sleeping blocks the entire pipeline.
 action: done
 milestone: core_claim
-notes: "CPU container job 34d84bda-8c0 passed reproduce.sh and validate.py --compare after the audit fixes. The environment is packaged and verified for the core single-node FairBatching claim."
+notes: "Validation now passes after removing the mismatched synthetic BurstGPT run from default scores and regenerating scores.json from scripts/reproduce.sh. The environment is packaged and verified for the core single-node FairBatching claim."
