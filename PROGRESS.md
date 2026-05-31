@@ -40,22 +40,13 @@ Additional BurstGPT-like trace:
 - FairBatching: effective RPS 2.993, SLO violation 0.000, envelope TPOT P99 21.8 ms.
 - FairBatching-PAB: effective RPS 2.993, SLO violation 0.000, envelope TPOT P99 21.8 ms.
 
-Additional AzureTrace-like trace:
-
-- vLLM-vanilla: effective RPS 1.541, SLO violation 0.000, envelope TPOT P99 10.2 ms.
-- vLLM-sarathi: effective RPS 1.541, SLO violation 0.000, envelope TPOT P99 10.4 ms.
-- FairBatching: effective RPS 1.541, SLO violation 0.000, envelope TPOT P99 10.2 ms.
-- FairBatching-PAB: effective RPS 1.541, SLO violation 0.000, envelope TPOT P99 10.2 ms.
-
-The BurstGPT-like and AzureTrace-like traces are useful portability checks, but
-they are too easy under the current simulator parameters to justify a
-`core_claim_plus` milestone.
+The BurstGPT-like trace is a portability check, but it is too easy under the
+current simulator parameters to justify a `core_claim_plus` milestone.
 
 ## Remaining
 
-Add model-parameter profiles or a richer load-control simulation so BurstGPT
-and Azure-like settings become non-trivial enough to move beyond the core
-single-node claim.
+Add model-parameter profiles or a richer load-control simulation so auxiliary
+settings become non-trivial enough to move beyond the core single-node claim.
 
 No further work is required for a reusable `core_claim` environment.
 
@@ -63,9 +54,11 @@ No further work is required for a reusable `core_claim` environment.
 
 The synthetic workload is still a simulator rather than a vLLM deployment, so
 absolute latency values should be interpreted as scaled reproduction numbers.
-BurstGPT-like and AzureTrace-like settings are included as cross-trace checks
-but are not difficult enough under the current simulator parameters to separate
-FairBatching from the baselines.
+The BurstGPT-like setting is included as a cross-trace check but is not
+difficult enough under the current simulator parameters to separate
+FairBatching from the baselines. An AzureTrace-like setting was prototyped but
+removed from scoring because its synthetic RPS scale was more than 2x away from
+the paper's reference values, causing validation to fail.
 
 Job `73b67506-68e` failed because `baseline/run_baseline.py` could not import
 `method.simulator` in the container's clean Python environment. Fixed

@@ -1,29 +1,5 @@
 {
   "experiments": {
-    "single_node_azure_trace": {
-      "results": {
-        "vllm_vanilla": {
-          "effective_rps": 1.5413304128067693,
-          "slo_violation_rate": 0.0,
-          "envelope_tpot_p99_ms": 10.215143990628821
-        },
-        "vllm_sarathi": {
-          "effective_rps": 1.5412463493075725,
-          "slo_violation_rate": 0.0,
-          "envelope_tpot_p99_ms": 10.382902907776907
-        },
-        "fairbatching": {
-          "effective_rps": 1.5413304128067693,
-          "slo_violation_rate": 0.0,
-          "envelope_tpot_p99_ms": 10.215143990628821
-        },
-        "fairbatching_pab": {
-          "effective_rps": 1.5413304128067693,
-          "slo_violation_rate": 0.0,
-          "envelope_tpot_p99_ms": 10.215143990628821
-        }
-      }
-    },
     "single_node_burstgpt_trace": {
       "results": {
         "vllm_vanilla": {

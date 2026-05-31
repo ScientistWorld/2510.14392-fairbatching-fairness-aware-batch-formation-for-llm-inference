@@ -17,7 +17,5 @@ else
     scripts/method.sh data/qwen_synthetic.csv "$OUTDIR/single_node_qwen_trace"
     scripts/baseline.sh data/burstgpt_synthetic.csv "$OUTDIR/single_node_burstgpt_trace"
     scripts/method.sh data/burstgpt_synthetic.csv "$OUTDIR/single_node_burstgpt_trace"
-    scripts/baseline.sh data/azure_synthetic.csv "$OUTDIR/single_node_azure_trace"
-    scripts/method.sh data/azure_synthetic.csv "$OUTDIR/single_node_azure_trace"
 fi
 scripts/evaluate.sh "$OUTDIR"

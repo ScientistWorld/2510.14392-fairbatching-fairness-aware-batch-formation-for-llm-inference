@@ -2,8 +2,8 @@
 
 Primary target: increase `effective_rps` on `single_node_qwen_trace`.
 
-Secondary targets: keep the same scoring interface working on
-`single_node_burstgpt_trace` and `single_node_azure_trace`.
+Secondary target: keep the same scoring interface working on
+`single_node_burstgpt_trace`.
 
 Constraint targets:
 

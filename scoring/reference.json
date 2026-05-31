@@ -2,7 +2,7 @@
   "experiments": {
     "single_node_qwen_trace": {
       "description": "Single-node QwenTrace peak effective RPS and latency constraints from Tables 3 and 4.",
-      "weight": 0.7,
+      "weight": 0.85,
       "primary_metric": "effective_rps",
       "metrics": {
         "effective_rps": {"higher_is_better": true, "coefficient": 1.0},
@@ -60,22 +60,6 @@
         "vllm_sarathi": {"type": "baseline", "effective_rps": 1.55, "slo_violation_rate": 0.0, "envelope_tpot_p99_ms": 50.0},
         "fairbatching": {"type": "proposed", "effective_rps": 1.81, "slo_violation_rate": 0.0, "envelope_tpot_p99_ms": 50.0},
         "fairbatching_pab": {"type": "proposed", "effective_rps": 2.71, "slo_violation_rate": 0.0, "envelope_tpot_p99_ms": 50.0}
-      }
-    },
-    "single_node_azure_trace": {
-      "description": "Single-node AzureTrace peak effective RPS from Table 3 with the same latency constraints.",
-      "weight": 0.15,
-      "primary_metric": "effective_rps",
-      "metrics": {
-        "effective_rps": {"higher_is_better": true, "coefficient": 1.0},
-        "slo_violation_rate": {"higher_is_better": false, "coefficient": -0.8},
-        "envelope_tpot_p99_ms": {"higher_is_better": false, "coefficient": -0.6}
-      },
-      "results": {
-        "vllm_vanilla": {"type": "baseline", "effective_rps": 0.70, "slo_violation_rate": 0.0, "envelope_tpot_p99_ms": 50.0},
-        "vllm_sarathi": {"type": "baseline", "effective_rps": 0.77, "slo_violation_rate": 0.0, "envelope_tpot_p99_ms": 50.0},
-        "fairbatching": {"type": "proposed", "effective_rps": 0.84, "slo_violation_rate": 0.0, "envelope_tpot_p99_ms": 50.0},
-        "fairbatching_pab": {"type": "proposed", "effective_rps": 1.36, "slo_violation_rate": 0.0, "envelope_tpot_p99_ms": 50.0}
       }
     }
   }

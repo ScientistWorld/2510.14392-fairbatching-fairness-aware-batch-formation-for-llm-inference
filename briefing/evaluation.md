@@ -17,5 +17,5 @@ synthetic trace shaped from the paper's QwenTrace aggregate length and SLO
 statistics at a scaled 2.4 RPS load point. SLO satisfaction is checked against
 FairBatching's envelope deadlines; the reported `tpot_p99_ms` is post-first-token
 decode speed so it remains comparable to the paper's latency table. The
-reproduction also includes `single_node_burstgpt_trace` and
-`single_node_azure_trace` as secondary cross-trace checks.
+reproduction also includes `single_node_burstgpt_trace` as a secondary
+cross-trace check.

@@ -5,4 +5,4 @@ action: done
 gpus: 0
 test: true
 milestone: core_claim
-notes: "Core claim reproduced and validated in CPU container job 1bb3aa42-356. FairBatching scheduler is implemented and packaged with method-independent evaluation and three synthetic trace groups."
+notes: "Core claim reproduced. AzureTrace-like scoring was removed after validation found its synthetic RPS scale inconsistent with the paper; QwenTrace-like core and BurstGPT-like auxiliary scoring validate cleanly."
