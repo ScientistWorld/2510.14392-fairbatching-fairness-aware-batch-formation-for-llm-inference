@@ -40,9 +40,10 @@ Runtime concerns for the runner iteration:
   appropriate for a method-agnostic artifact evaluator, but a malicious method
   can fabricate records unless the runner later cross-checks record IDs,
   arrivals, and SLO fields against the trace named in the artifact.
-- `single_node_burstgpt_trace` remains in `scoring/reference.json` with nonzero
-  weight, but the checked-in default `outputs/` currently only contains
-  `single_node_qwen_trace`. If the runner wants BurstGPT to be active in
-  train/test scores, the method run must emit a matching output directory.
-- I did not run the evaluators or regenerate scores, per the design-only
-  iteration rules.
+- Runner update: `single_node_burstgpt_trace` was executed and all methods met
+  every SLO on both train and test, leaving goodput and violation metrics
+  saturated. Its weight is now zero in `scoring/reference.json`; the active
+  train/test target is the non-saturated QwenTrace split.
+- The first runner job regenerated both QwenTrace and BurstGPT artifacts, then
+  wrote `scoring/scores_train.json` and `scoring/scores_test.json`; the
+  follow-up job should overwrite those files with active QwenTrace scores only.

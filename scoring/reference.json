@@ -2,7 +2,7 @@
   "experiments": {
     "single_node_qwen_trace": {
       "description": "Single-node QwenTrace peak effective RPS and latency constraints from Tables 3 and 4.",
-      "weight": 0.85,
+      "weight": 1.0,
       "primary_metric": "effective_rps",
       "metrics": {
         "effective_rps": {
@@ -93,7 +93,7 @@
     },
     "single_node_burstgpt_trace": {
       "description": "Single-node BurstGPT peak effective RPS from Table 3 with the same latency constraints.",
-      "weight": 0.15,
+      "weight": 0.0,
       "primary_metric": "effective_rps",
       "metrics": {
         "effective_rps": {

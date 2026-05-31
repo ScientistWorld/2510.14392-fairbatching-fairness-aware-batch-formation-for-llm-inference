@@ -56,6 +56,7 @@ def load_reference_metrics(path: Path) -> dict[str, set[str]]:
     return {
         name: set(spec.get("metrics", {}))
         for name, spec in reference.get("experiments", {}).items()
+        if float(spec.get("weight", 1.0)) > 0.0
     }
 
 
@@ -148,6 +149,8 @@ def main() -> None:
 
     experiments: dict[str, dict[str, Any]] = {}
     for experiment, outdir in experiment_dirs.items():
+        if reference_metrics and experiment not in reference_metrics:
+            continue
         results: dict[str, dict[str, float]] = {}
         for method_name, path in method_files(outdir).items():
             metrics = aggregate_metrics(path, experiment)

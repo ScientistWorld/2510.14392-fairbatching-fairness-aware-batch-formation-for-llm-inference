@@ -3,4 +3,4 @@ action: submit
 gpus: 0
 test: false
 milestone: core_claim
-notes: "Run Qwen/BurstGPT artifact generation, then evaluate train/test slices and populate scoring/scores_{train,test}.json."
+notes: "Re-run active Qwen-only train/test scores after deactivating saturated BurstGPT context experiment."
