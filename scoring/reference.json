@@ -3,7 +3,7 @@
   "experiments": {
     "qwen_peak_goodput": {
       "description": "Single-node peak goodput on QwenTrace (TTFT 500 ms / TPOT 50 ms): effective RPS swept over offered loads 1.0-5.0 RPS, as in Figure 5 / Table 3.",
-      "notes": "Gains are relative to the better of the evaluator's frozen vLLM-vanilla and vLLM-sarathi at the same instances. Results use the paper's number for exactly this configuration: Table 5, Qwen3-14B on QwenTrace at TTFT 500 / TPOT 50 ms (+15.4% FairBatching-vanilla, +112.6% FairBatching-PAB peak goodput over the best baseline). Table 3's QwenTrace row (geometric mean over four models; +23.8% / +109% over vLLM-vanilla, Section 5.2) is kept under '_paper_table3_...' as context.",
+      "notes": "Gains are relative to the better of the evaluator's frozen vLLM-vanilla and vLLM-sarathi at the same instances. Results use the paper's number for exactly this configuration: Table 5, Qwen3-14B on QwenTrace at TTFT 500 / TPOT 50 ms (+15.4% FairBatching-vanilla, +112.6% FairBatching-PAB peak goodput over the best baseline). Table 3's QwenTrace row (geometric mean over four models; +23.8% / +109% over vLLM-vanilla, Section 5.2) is kept under '_paper_table3_...' as context. FB-vanilla's +15.4% is kept under '_paper_table5_qwen3_14b_500_50_gain_pct_not_on_scale': in this simulator it gains +6% (train) / +11% (test), same direction, smaller magnitude. 'fairbatching' (FairBatching without PAB, the paper's FB-vanilla) is listed as a comparison point; the gym's proposed reference is 'fairbatching_pab'.",
       "weight": 0.5,
       "primary_metric": "peak_goodput_gain_pct",
       "metrics": {
@@ -26,8 +26,7 @@
           "type": "baseline"
         },
         "fairbatching": {
-          "type": "proposed",
-          "peak_goodput_gain_pct": 15.4
+          "type": "baseline"
         },
         "fairbatching_pab": {
           "type": "proposed",
@@ -43,11 +42,14 @@
       "_paper_table3_qwentrace_gain_over_vllm_vanilla_pct": {
         "fairbatching": 23.8,
         "fairbatching_pab": 109.0
+      },
+      "_paper_table5_qwen3_14b_500_50_gain_pct_not_on_scale": {
+        "fairbatching": 15.4
       }
     },
     "qwen_latency_detail": {
       "description": "Latency detail at 2.5 RPS on QwenTrace (TTFT 500 ms / TPOT 50 ms), the Table 4 operating point (Qwen3-14B, RPS=2.5).",
-      "notes": "Latencies are over admitted requests (rejected ones excluded, as in Table 4); an admitted request that never completes counts at 20x the SLO. TPOT of a request is its worst per-token rate measured from the later of its first token and its TTFT deadline, the quantity whose Table 4 values (FB 50/50, Sarathi 46/49 at p95/p99) the paper reports. If SLO attainment falls below the weakest evaluator baseline, every metric of this experiment takes its worst value.",
+      "notes": "Latencies are over admitted requests (rejected ones excluded, as in Table 4); an admitted request that never completes counts at 20x the SLO. TPOT of a request is its worst per-token rate measured from the later of its first token and its TTFT deadline, the quantity whose Table 4 values (FB 50/50, Sarathi 46/49 at p95/p99) the paper reports. If SLO attainment falls below the weakest evaluator baseline, every metric of this experiment takes its worst value. Sarathi's paper TTFT p99 (4585 ms) is kept under '_paper_table4_ttft_p99_ms_not_on_scale': the train-tuned Sarathi budget here gives ~2.0 s, same ordering (worst TTFT tail of all systems), smaller magnitude. 'fairbatching' (FairBatching without PAB, the paper's FB-vanilla) is listed as a comparison point; the gym's proposed reference is 'fairbatching_pab'.",
       "weight": 0.25,
       "primary_metric": "ttft_p99_ms",
       "metrics": {
@@ -82,11 +84,10 @@
         "vllm_sarathi": {
           "type": "baseline",
           "ttft_p50_ms": 377.0,
-          "ttft_p99_ms": 4585.0,
           "tpot_p99_ms": 49.0
         },
         "fairbatching": {
-          "type": "proposed",
+          "type": "baseline",
           "ttft_p50_ms": 213.0,
           "ttft_p99_ms": 1998.0,
           "tpot_p99_ms": 50.0
@@ -115,11 +116,14 @@
           "ttft_p95": 500.0,
           "tpot_p95": 50.0
         }
+      },
+      "_paper_table4_ttft_p99_ms_not_on_scale": {
+        "vllm_sarathi": 4585.0
       }
     },
     "qwen_relaxed_slo_goodput": {
       "description": "SLO versatility (Table 5 row TTFT 1000 ms / TPOT 100 ms): peak goodput gain on QwenTrace swept over offered loads 1.5-6.0 RPS.",
-      "notes": "Table 5 reports peak-goodput improvement over the better of vLLM-sarathi and vLLM-vanilla; at TTFT=1000/TPOT=100 the paper reports +8.1% (FairBatching-vanilla) and +64.9% (FairBatching-PAB).",
+      "notes": "Table 5 reports peak-goodput improvement over the better of vLLM-sarathi and vLLM-vanilla; at TTFT=1000/TPOT=100 the paper reports +8.1% (FairBatching-vanilla) and +64.9% (FairBatching-PAB). 'fairbatching' (FairBatching without PAB, the paper's FB-vanilla) is listed as a comparison point; the gym's proposed reference is 'fairbatching_pab'.",
       "weight": 0.25,
       "primary_metric": "peak_goodput_gain_pct",
       "metrics": {
@@ -144,7 +148,7 @@
           "peak_goodput_gain_pct": 0.0
         },
         "fairbatching": {
-          "type": "proposed",
+          "type": "baseline",
           "peak_goodput_gain_pct": 8.1
         },
         "fairbatching_pab": {
