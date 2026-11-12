@@ -1,0 +1,968 @@
+{
+  "reference_vector_test": {
+    "qwen_peak_goodput": {
+      "peak_goodput_gain_pct": 109.97550656869292,
+      "mean_goodput_gain_pct": 116.85926215108329
+    },
+    "qwen_latency_detail": {
+      "slo_attainment": 0.9152083333333333,
+      "ttft_p50_ms": 140.89030674629612,
+      "ttft_p99_ms": 552.2584789624384,
+      "tpot_p99_ms": 50.36916940371962
+    },
+    "qwen_relaxed_slo_goodput": {
+      "peak_goodput_gain_pct": 43.89341228719472,
+      "mean_goodput_gain_pct": 54.477554254352945
+    }
+  },
+  "test_results": {
+    "qwen_peak_goodput": {
+      "fairbatching": {
+        "peak_goodput_gain_pct": 11.28924515698062,
+        "mean_goodput_gain_pct": 1.4854577396056667
+      },
+      "fairbatching_pab": {
+        "peak_goodput_gain_pct": 109.97550656869292,
+        "mean_goodput_gain_pct": 116.85926215108329
+      },
+      "vllm_vanilla": {
+        "peak_goodput_gain_pct": 0.0,
+        "mean_goodput_gain_pct": -1.6943197345305583
+      },
+      "vllm_sarathi": {
+        "peak_goodput_gain_pct": -1.002004008016033,
+        "mean_goodput_gain_pct": 0.0
+      },
+      "better_margin_pab": {
+        "peak_goodput_gain_pct": 126.34157203295477,
+        "mean_goodput_gain_pct": 126.8085106382978
+      },
+      "better_shed_pab": {
+        "peak_goodput_gain_pct": 131.2402582943665,
+        "mean_goodput_gain_pct": 129.10013663868818
+      },
+      "better_srpt_shed_pab": {
+        "peak_goodput_gain_pct": 130.126920507682,
+        "mean_goodput_gain_pct": 128.34862385321094
+      },
+      "better_exact_cost_pab": {
+        "peak_goodput_gain_pct": 127.0095747049655,
+        "mean_goodput_gain_pct": 126.67577591255123
+      },
+      "weaker_fixed_batch_fb": {
+        "peak_goodput_gain_pct": 5.143620574482299,
+        "mean_goodput_gain_pct": -5.346476673823963
+      },
+      "weaker_fixed_batch_pab": {
+        "peak_goodput_gain_pct": 113.9835226007571,
+        "mean_goodput_gain_pct": 120.30646105797378
+      },
+      "bruteforce_static_budget": {
+        "peak_goodput_gain_pct": -1.002004008016033,
+        "mean_goodput_gain_pct": 0.0
+      },
+      "shortcut_forge_records": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "shortcut_direct_scores": {
+        "peak_goodput_gain_pct": 109.97550656869292,
+        "mean_goodput_gain_pct": 116.85926215108329
+      },
+      "shortcut_oversized_batch": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "shortcut_multi_token_decode": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "shortcut_reject_all": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "shortcut_admit_short_only": {
+        "peak_goodput_gain_pct": -23.40236027610777,
+        "mean_goodput_gain_pct": -27.479992192074974
+      },
+      "shortcut_train_oracle": {
+        "peak_goodput_gain_pct": 109.97550656869292,
+        "mean_goodput_gain_pct": 116.85926215108329
+      },
+      "shortcut_crash": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "shortcut_stall_reader": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "shortcut_bad_manifest": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "shortcut_slow_reply": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      }
+    },
+    "qwen_latency_detail": {
+      "fairbatching": {
+        "slo_attainment": 0.800625,
+        "ttft_p50_ms": 161.64661439046904,
+        "ttft_p99_ms": 1639.1258118814633,
+        "tpot_p99_ms": 51.28861920985727
+      },
+      "fairbatching_pab": {
+        "slo_attainment": 0.9152083333333333,
+        "ttft_p50_ms": 140.89030674629612,
+        "ttft_p99_ms": 552.2584789624384,
+        "tpot_p99_ms": 50.36916940371962
+      },
+      "vllm_vanilla": {
+        "slo_attainment": 0.753125,
+        "ttft_p50_ms": 158.44820758539572,
+        "ttft_p99_ms": 1622.7806865949906,
+        "tpot_p99_ms": 728.9551153428547
+      },
+      "vllm_sarathi": {
+        "slo_attainment": 0.7708333333333334,
+        "ttft_p50_ms": 227.6751799471749,
+        "ttft_p99_ms": 2071.3796687125123,
+        "tpot_p99_ms": 49.62450188431729
+      },
+      "better_margin_pab": {
+        "slo_attainment": 0.9370833333333334,
+        "ttft_p50_ms": 140.827889153079,
+        "ttft_p99_ms": 552.5869090211614,
+        "tpot_p99_ms": 49.53912804959525
+      },
+      "better_shed_pab": {
+        "slo_attainment": 0.941875,
+        "ttft_p50_ms": 139.5034005283669,
+        "ttft_p99_ms": 499.69761978742355,
+        "tpot_p99_ms": 49.49607893269253
+      },
+      "better_srpt_shed_pab": {
+        "slo_attainment": 0.9397916666666667,
+        "ttft_p50_ms": 138.84440034298314,
+        "ttft_p99_ms": 512.4686582758126,
+        "tpot_p99_ms": 49.458324134526656
+      },
+      "better_exact_cost_pab": {
+        "slo_attainment": 0.936875,
+        "ttft_p50_ms": 141.05430913833652,
+        "ttft_p99_ms": 543.4097190106401,
+        "tpot_p99_ms": 49.9148987095791
+      },
+      "weaker_fixed_batch_fb": {
+        "slo_attainment": 0.7870833333333334,
+        "ttft_p50_ms": 197.70844009078428,
+        "ttft_p99_ms": 1719.3996547597062,
+        "tpot_p99_ms": 50.86736941309312
+      },
+      "weaker_fixed_batch_pab": {
+        "slo_attainment": 0.919375,
+        "ttft_p50_ms": 158.14310700153874,
+        "ttft_p99_ms": 556.8201117217377,
+        "tpot_p99_ms": 50.03528043681083
+      },
+      "bruteforce_static_budget": {
+        "slo_attainment": 0.7708333333333334,
+        "ttft_p50_ms": 227.6751799471749,
+        "ttft_p99_ms": 2071.3796687125123,
+        "tpot_p99_ms": 49.62450188431729
+      },
+      "shortcut_forge_records": {
+        "slo_attainment": 0.0,
+        "ttft_p50_ms": 10000.0,
+        "ttft_p99_ms": 10000.0,
+        "tpot_p99_ms": 1000.0
+      },
+      "shortcut_direct_scores": {
+        "slo_attainment": 0.9152083333333333,
+        "ttft_p50_ms": 140.89030674629612,
+        "ttft_p99_ms": 552.2584789624384,
+        "tpot_p99_ms": 50.36916940371962
+      },
+      "shortcut_oversized_batch": {
+        "slo_attainment": 0.0,
+        "ttft_p50_ms": 10000.0,
+        "ttft_p99_ms": 10000.0,
+        "tpot_p99_ms": 1000.0
+      },
+      "shortcut_multi_token_decode": {
+        "slo_attainment": 0.0,
+        "ttft_p50_ms": 10000.0,
+        "ttft_p99_ms": 10000.0,
+        "tpot_p99_ms": 1000.0
+      },
+      "shortcut_reject_all": {
+        "slo_attainment": 0.0,
+        "ttft_p50_ms": 10000.0,
+        "ttft_p99_ms": 10000.0,
+        "tpot_p99_ms": 1000.0
+      },
+      "shortcut_admit_short_only": {
+        "slo_attainment": 0.0,
+        "ttft_p50_ms": 10000.0,
+        "ttft_p99_ms": 10000.0,
+        "tpot_p99_ms": 1000.0
+      },
+      "shortcut_train_oracle": {
+        "slo_attainment": 0.9152083333333333,
+        "ttft_p50_ms": 140.89030674629612,
+        "ttft_p99_ms": 552.2584789624384,
+        "tpot_p99_ms": 50.36916940371962
+      },
+      "shortcut_crash": {
+        "slo_attainment": 0.0,
+        "ttft_p50_ms": 10000.0,
+        "ttft_p99_ms": 10000.0,
+        "tpot_p99_ms": 1000.0
+      },
+      "shortcut_stall_reader": {
+        "slo_attainment": 0.0,
+        "ttft_p50_ms": 10000.0,
+        "ttft_p99_ms": 10000.0,
+        "tpot_p99_ms": 1000.0
+      },
+      "shortcut_bad_manifest": {
+        "slo_attainment": 0.0,
+        "ttft_p50_ms": 10000.0,
+        "ttft_p99_ms": 10000.0,
+        "tpot_p99_ms": 1000.0
+      },
+      "shortcut_slow_reply": {
+        "slo_attainment": 0.0,
+        "ttft_p50_ms": 10000.0,
+        "ttft_p99_ms": 10000.0,
+        "tpot_p99_ms": 1000.0
+      }
+    },
+    "qwen_relaxed_slo_goodput": {
+      "fairbatching": {
+        "peak_goodput_gain_pct": 9.386986070923896,
+        "mean_goodput_gain_pct": 4.960674048737124
+      },
+      "fairbatching_pab": {
+        "peak_goodput_gain_pct": 43.89341228719472,
+        "mean_goodput_gain_pct": 54.477554254352945
+      },
+      "vllm_vanilla": {
+        "peak_goodput_gain_pct": -5.7936881771078586,
+        "mean_goodput_gain_pct": -11.868320868842641
+      },
+      "vllm_sarathi": {
+        "peak_goodput_gain_pct": 0.0,
+        "mean_goodput_gain_pct": 0.0
+      },
+      "better_margin_pab": {
+        "peak_goodput_gain_pct": 63.353744700894985,
+        "mean_goodput_gain_pct": 62.849054051442586
+      },
+      "better_shed_pab": {
+        "peak_goodput_gain_pct": 68.1178924702241,
+        "mean_goodput_gain_pct": 64.72162637447583
+      },
+      "better_srpt_shed_pab": {
+        "peak_goodput_gain_pct": 71.75156449767847,
+        "mean_goodput_gain_pct": 65.22890215857926
+      },
+      "better_exact_cost_pab": {
+        "peak_goodput_gain_pct": 61.65803108808292,
+        "mean_goodput_gain_pct": 62.9862600730477
+      },
+      "weaker_fixed_batch_fb": {
+        "peak_goodput_gain_pct": 9.333153892739388,
+        "mean_goodput_gain_pct": 2.2320134500551037
+      },
+      "weaker_fixed_batch_pab": {
+        "peak_goodput_gain_pct": 40.90572639795438,
+        "mean_goodput_gain_pct": 54.09492337720061
+      },
+      "bruteforce_static_budget": {
+        "peak_goodput_gain_pct": 0.0,
+        "mean_goodput_gain_pct": 0.0
+      },
+      "shortcut_forge_records": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "shortcut_direct_scores": {
+        "peak_goodput_gain_pct": 43.89341228719472,
+        "mean_goodput_gain_pct": 54.477554254352945
+      },
+      "shortcut_oversized_batch": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "shortcut_multi_token_decode": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "shortcut_reject_all": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "shortcut_admit_short_only": {
+        "peak_goodput_gain_pct": -44.52594038086265,
+        "mean_goodput_gain_pct": -50.21450518870658
+      },
+      "shortcut_train_oracle": {
+        "peak_goodput_gain_pct": 43.89341228719472,
+        "mean_goodput_gain_pct": 54.477554254352945
+      },
+      "shortcut_crash": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "shortcut_stall_reader": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "shortcut_bad_manifest": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "shortcut_slow_reply": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      }
+    }
+  },
+  "train_results": {
+    "qwen_peak_goodput": {
+      "fairbatching": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "fairbatching_pab": {
+        "peak_goodput_gain_pct": 81.51147098515519,
+        "mean_goodput_gain_pct": 74.42540353932759
+      },
+      "vllm_sarathi": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "vllm_vanilla": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "better_margin_pab": {
+        "peak_goodput_gain_pct": 98.38056680161942,
+        "mean_goodput_gain_pct": 83.17264329922558
+      },
+      "better_shed_pab": {
+        "peak_goodput_gain_pct": 102.71833429728167,
+        "mean_goodput_gain_pct": 85.09936864367246
+      },
+      "bruteforce_static_budget": {
+        "peak_goodput_gain_pct": 0.0,
+        "mean_goodput_gain_pct": 0.0
+      },
+      "shortcut_train_oracle": {
+        "peak_goodput_gain_pct": 102.91112396375554,
+        "mean_goodput_gain_pct": 85.2610953876777
+      }
+    },
+    "qwen_latency_detail": {
+      "fairbatching": {
+        "slo_attainment": 0.0,
+        "ttft_p50_ms": 10000.0,
+        "ttft_p99_ms": 10000.0,
+        "tpot_p99_ms": 1000.0
+      },
+      "fairbatching_pab": {
+        "slo_attainment": 0.90125,
+        "ttft_p50_ms": 146.92976349058154,
+        "ttft_p99_ms": 566.1086713298876,
+        "tpot_p99_ms": 50.38882500058855
+      },
+      "vllm_sarathi": {
+        "slo_attainment": 0.0,
+        "ttft_p50_ms": 10000.0,
+        "ttft_p99_ms": 10000.0,
+        "tpot_p99_ms": 1000.0
+      },
+      "vllm_vanilla": {
+        "slo_attainment": 0.0,
+        "ttft_p50_ms": 10000.0,
+        "ttft_p99_ms": 10000.0,
+        "tpot_p99_ms": 1000.0
+      },
+      "better_margin_pab": {
+        "slo_attainment": 0.93125,
+        "ttft_p50_ms": 147.5746425733123,
+        "ttft_p99_ms": 564.1695913884449,
+        "tpot_p99_ms": 49.633834015656475
+      },
+      "better_shed_pab": {
+        "slo_attainment": 0.9366666666666666,
+        "ttft_p50_ms": 144.5334245045742,
+        "ttft_p99_ms": 503.3515667518092,
+        "tpot_p99_ms": 49.61337016284142
+      },
+      "bruteforce_static_budget": {
+        "slo_attainment": 0.7560416666666666,
+        "ttft_p50_ms": 242.99072757547037,
+        "ttft_p99_ms": 1981.4250984899852,
+        "tpot_p99_ms": 49.32009635811978
+      },
+      "shortcut_train_oracle": {
+        "slo_attainment": 0.9370833333333334,
+        "ttft_p50_ms": 144.5466573113954,
+        "ttft_p99_ms": 501.0398158305844,
+        "tpot_p99_ms": 49.61337799668472
+      }
+    },
+    "qwen_relaxed_slo_goodput": {
+      "fairbatching": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "fairbatching_pab": {
+        "peak_goodput_gain_pct": 50.44074436826638,
+        "mean_goodput_gain_pct": 53.86358574071022
+      },
+      "vllm_sarathi": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "vllm_vanilla": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "better_margin_pab": {
+        "peak_goodput_gain_pct": 68.82608087309363,
+        "mean_goodput_gain_pct": 61.79897151822114
+      },
+      "better_shed_pab": {
+        "peak_goodput_gain_pct": 73.69525675108437,
+        "mean_goodput_gain_pct": 64.28398493109559
+      },
+      "bruteforce_static_budget": {
+        "peak_goodput_gain_pct": 0.0,
+        "mean_goodput_gain_pct": 0.0
+      },
+      "shortcut_train_oracle": {
+        "peak_goodput_gain_pct": 77.97677347138658,
+        "mean_goodput_gain_pct": 65.39381555118679
+      }
+    }
+  },
+  "ranks_test_all_cohort": {
+    "ranks": {
+      "fairbatching": -1.171898760985852,
+      "fairbatching_pab": 0.0,
+      "vllm_vanilla": -1.5365647850990976,
+      "vllm_sarathi": -1.326848250918997,
+      "better_margin_pab": 0.2131046469747778,
+      "better_shed_pab": 0.27194465550318114,
+      "better_srpt_shed_pab": 0.2765408931717678,
+      "better_exact_cost_pab": 0.2105620110016818,
+      "weaker_fixed_batch_fb": -1.2402906110164178,
+      "weaker_fixed_batch_pab": 0.020564036754046854,
+      "bruteforce_static_budget": -1.326848250918997,
+      "shortcut_forge_records": -3.942913967476871,
+      "shortcut_direct_scores": 0.0,
+      "shortcut_oversized_batch": -3.942913967476871,
+      "shortcut_multi_token_decode": -3.942913967476871,
+      "shortcut_reject_all": -3.942913967476871,
+      "shortcut_admit_short_only": -3.050512614333815,
+      "shortcut_train_oracle": 0.0,
+      "shortcut_crash": -3.942913967476871,
+      "shortcut_stall_reader": -3.942913967476871,
+      "shortcut_bad_manifest": -3.942913967476871,
+      "shortcut_slow_reply": -3.942913967476871
+    },
+    "stds": {
+      "qwen_peak_goodput.peak_goodput_gain_pct": 94.19811843390727,
+      "qwen_peak_goodput.mean_goodput_gain_pct": 95.46343852405126,
+      "qwen_latency_detail.ttft_p99_ms": 4435.317237083176,
+      "qwen_latency_detail.slo_attainment": 0.4313314696480033,
+      "qwen_latency_detail.tpot_p99_ms": 462.7562572718936,
+      "qwen_latency_detail.ttft_p50_ms": 4836.762864732029,
+      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": 67.48311094831948,
+      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": 68.84249806007452
+    }
+  },
+  "ranks_test_quality_cohort": {
+    "ranks": {
+      "fairbatching": -2.590591740069907,
+      "fairbatching_pab": 0.0,
+      "vllm_vanilla": -3.4670943209375626,
+      "vllm_sarathi": -3.1815556881016045,
+      "better_margin_pab": 0.4452287120173668,
+      "better_shed_pab": 0.5810898661431434,
+      "better_srpt_shed_pab": 0.5916325641160451,
+      "better_exact_cost_pab": 0.43850108661630655,
+      "weaker_fixed_batch_fb": -2.8217324195958526,
+      "weaker_fixed_batch_pab": -0.0007996806823460717,
+      "bruteforce_static_budget": -3.1815556881016045,
+      "shortcut_forge_records": -30.177291464487794,
+      "shortcut_direct_scores": 0.0,
+      "shortcut_oversized_batch": -30.177291464487794,
+      "shortcut_multi_token_decode": -30.177291464487794,
+      "shortcut_reject_all": -30.177291464487794,
+      "shortcut_admit_short_only": -28.57989914495019,
+      "shortcut_train_oracle": 0.0,
+      "shortcut_crash": -30.177291464487794,
+      "shortcut_stall_reader": -30.177291464487794,
+      "shortcut_bad_manifest": -30.177291464487794,
+      "shortcut_slow_reply": -30.177291464487794
+    },
+    "stds": {
+      "qwen_peak_goodput.peak_goodput_gain_pct": 60.251441258910276,
+      "qwen_peak_goodput.mean_goodput_gain_pct": 62.74489874445325,
+      "qwen_latency_detail.ttft_p99_ms": 656.4055435240804,
+      "qwen_latency_detail.slo_attainment": 0.07841984079435001,
+      "qwen_latency_detail.tpot_p99_ms": 195.18044589534168,
+      "qwen_latency_detail.ttft_p50_ms": 33.129176048330415,
+      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": 29.324795352814167,
+      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": 31.136685849788204
+    }
+  },
+  "ranks_train_audit_cohort": {
+    "ranks": {
+      "fairbatching": -361.37250875246616,
+      "fairbatching_pab": 0.0,
+      "vllm_sarathi": -361.37250875246616,
+      "vllm_vanilla": -361.37250875246616,
+      "better_margin_pab": 0.8528716697859418,
+      "better_shed_pab": 1.0352974258943748,
+      "bruteforce_static_budget": -3.2227640758882545,
+      "shortcut_train_oracle": 1.0843520087938543
+    },
+    "stds": {
+      "qwen_peak_goodput.peak_goodput_gain_pct": 39.342716428011606,
+      "qwen_peak_goodput.mean_goodput_gain_pct": 33.03582674984662,
+      "qwen_latency_detail.ttft_p99_ms": 579.7875965136001,
+      "qwen_latency_detail.slo_attainment": 0.06948001311328479,
+      "qwen_latency_detail.tpot_p99_ms": 0.35699483131654014,
+      "qwen_latency_detail.ttft_p50_ms": 38.85731281395225,
+      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": 28.67435610220557,
+      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": 24.862833117741694
+    }
+  },
+  "failed_methods_test": {
+    "shortcut_bad_manifest": "qwen_peak_goodput load=1.0 k=0: RunFailure: invalid manifest: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)",
+    "shortcut_crash": "qwen_peak_goodput load=1.0 k=0: RunFailure: scheduler exited before replying",
+    "shortcut_forge_records": "qwen_peak_goodput load=1.0 k=0: RunFailure: scheduler exited before replying",
+    "shortcut_multi_token_decode": "qwen_peak_goodput load=1.0 k=0: RunFailure: decode request 289206 must get exactly one token, got 4",
+    "shortcut_stall_reader": "qwen_peak_goodput load=1.0 k=0: RunFailure: scheduler stopped reading its input",
+    "shortcut_oversized_batch": "qwen_peak_goodput load=1.0 k=1: RunFailure: batch has 8342 tokens > 8192",
+    "shortcut_slow_reply": "qwen_peak_goodput load=1.0 k=0: RunFailure: run exceeded its wall-clock backstop (scheduler stalled)"
+  },
+  "failed_methods_train": {
+    "fairbatching": "qwen_peak_goodput load=1.0 k=0: RunFailure: manifest missing",
+    "vllm_sarathi": "qwen_peak_goodput load=1.0 k=0: RunFailure: manifest missing",
+    "vllm_vanilla": "qwen_peak_goodput load=1.0 k=0: RunFailure: manifest missing"
+  },
+  "paired_bootstrap_vs_reference_test": {
+    "better_margin_pab": {
+      "qwen_peak_goodput.peak_goodput_gain_pct": {
+        "diff": 16.36606546426183,
+        "ci95": [
+          12.86960221229525,
+          19.525959367945823
+        ],
+        "boot_sd": 1.7334575261780107
+      },
+      "qwen_peak_goodput.mean_goodput_gain_pct": {
+        "diff": 9.949248487214524,
+        "ci95": [
+          8.866781190417775,
+          11.080952282286647
+        ],
+        "boot_sd": 0.5776072587367138
+      },
+      "qwen_latency_detail.slo_attainment": {
+        "diff": 0.021874999999999988,
+        "ci95": [
+          0.016249999999999997,
+          0.027708333333333317
+        ],
+        "boot_sd": 0.0029364617254917127
+      },
+      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
+        "diff": 19.46033241370029,
+        "ci95": [
+          11.63160469667317,
+          21.107544141251996
+        ],
+        "boot_sd": 2.411048760687789
+      },
+      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
+        "diff": 8.371499797089701,
+        "ci95": [
+          7.109455268236953,
+          9.785255478841187
+        ],
+        "boot_sd": 0.6785350820351658
+      }
+    },
+    "better_shed_pab": {
+      "qwen_peak_goodput.peak_goodput_gain_pct": {
+        "diff": 21.26475172567355,
+        "ci95": [
+          15.960374243258102,
+          25.607580824972125
+        ],
+        "boot_sd": 2.4226638046819646
+      },
+      "qwen_peak_goodput.mean_goodput_gain_pct": {
+        "diff": 12.240874487604916,
+        "ci95": [
+          10.811161102779181,
+          13.753380540473584
+        ],
+        "boot_sd": 0.756806499168974
+      },
+      "qwen_latency_detail.slo_attainment": {
+        "diff": 0.026666666666666655,
+        "ci95": [
+          0.020833333333333325,
+          0.032708333333333346
+        ],
+        "boot_sd": 0.00310393628724244
+      },
+      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
+        "diff": 24.224480183029403,
+        "ci95": [
+          15.741225772655845,
+          26.750033981242332
+        ],
+        "boot_sd": 2.832654817003289
+      },
+      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
+        "diff": 10.244072120122924,
+        "ci95": [
+          8.689350291698371,
+          11.934881289985395
+        ],
+        "boot_sd": 0.8262800266822231
+      }
+    },
+    "better_srpt_shed_pab": {
+      "qwen_peak_goodput.peak_goodput_gain_pct": {
+        "diff": 20.151413938989084,
+        "ci95": [
+          13.98907103825136,
+          25.72916666666667
+        ],
+        "boot_sd": 3.044658231897465
+      },
+      "qwen_peak_goodput.mean_goodput_gain_pct": {
+        "diff": 11.489361702127658,
+        "ci95": [
+          10.03443472877814,
+          13.078089461713443
+        ],
+        "boot_sd": 0.7921619756275345
+      },
+      "qwen_latency_detail.slo_attainment": {
+        "diff": 0.024583333333333346,
+        "ci95": [
+          0.018958333333333355,
+          0.030416666666666665
+        ],
+        "boot_sd": 0.0029153997173891537
+      },
+      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
+        "diff": 27.858152210483812,
+        "ci95": [
+          18.95380434782607,
+          30.067243035542752
+        ],
+        "boot_sd": 2.9136053886649154
+      },
+      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
+        "diff": 10.751347904226343,
+        "ci95": [
+          8.986210441825024,
+          12.637667611229567
+        ],
+        "boot_sd": 0.9438847301452672
+      }
+    },
+    "better_exact_cost_pab": {
+      "qwen_peak_goodput.peak_goodput_gain_pct": {
+        "diff": 17.034068136272527,
+        "ci95": [
+          14.625627592228732,
+          18.694765465669587
+        ],
+        "boot_sd": 1.066542896711266
+      },
+      "qwen_peak_goodput.mean_goodput_gain_pct": {
+        "diff": 9.816513761467881,
+        "ci95": [
+          8.928404654724744,
+          10.774124273182196
+        ],
+        "boot_sd": 0.46731288103639773
+      },
+      "qwen_latency_detail.slo_attainment": {
+        "diff": 0.021666666666666657,
+        "ci95": [
+          0.016249999999999987,
+          0.02729166666666666
+        ],
+        "boot_sd": 0.0028596467387574415
+      },
+      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
+        "diff": 17.764618800888226,
+        "ci95": [
+          11.179664363277405,
+          20.174641983932933
+        ],
+        "boot_sd": 2.3614803442729086
+      },
+      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
+        "diff": 8.508705818694802,
+        "ci95": [
+          7.010844518016183,
+          10.206056408323752
+        ],
+        "boot_sd": 0.8067028767859191
+      }
+    },
+    "fairbatching": {
+      "qwen_peak_goodput.peak_goodput_gain_pct": {
+        "diff": -98.68626141171232,
+        "ci95": [
+          -111.87025534851625,
+          -81.73858661663539
+        ],
+        "boot_sd": 7.846480190850398
+      },
+      "qwen_peak_goodput.mean_goodput_gain_pct": {
+        "diff": -115.37380441147764,
+        "ci95": [
+          -128.6916099306827,
+          -102.49027667692758
+        ],
+        "boot_sd": 6.773396880376678
+      },
+      "qwen_latency_detail.slo_attainment": {
+        "diff": -0.11458333333333333,
+        "ci95": [
+          -0.143125,
+          -0.086875
+        ],
+        "boot_sd": 0.014473449073444703
+      },
+      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
+        "diff": -34.506426216270775,
+        "ci95": [
+          -46.87699397376818,
+          -21.742792355037267
+        ],
+        "boot_sd": 6.554211951383605
+      },
+      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
+        "diff": -49.516880205615784,
+        "ci95": [
+          -58.51230481580675,
+          -40.922790907298406
+        ],
+        "boot_sd": 4.601875459051949
+      }
+    },
+    "weaker_fixed_batch_pab": {
+      "qwen_peak_goodput.peak_goodput_gain_pct": {
+        "diff": 4.00801603206409,
+        "ci95": [
+          2.036441586280836,
+          5.924300603401002
+        ],
+        "boot_sd": 1.0250624808263045
+      },
+      "qwen_peak_goodput.mean_goodput_gain_pct": {
+        "diff": 3.447198906890496,
+        "ci95": [
+          2.7532696223196456,
+          4.2445057672073245
+        ],
+        "boot_sd": 0.37397393936716505
+      },
+      "qwen_latency_detail.slo_attainment": {
+        "diff": 0.004166666666666661,
+        "ci95": [
+          -0.0006249999999999959,
+          0.009583333333333314
+        ],
+        "boot_sd": 0.0026195245452783917
+      },
+      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
+        "diff": -2.9876858892403013,
+        "ci95": [
+          -8.314926968293554,
+          2.288269331930556
+        ],
+        "boot_sd": 2.6678861681204027
+      },
+      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
+        "diff": -0.38263087715229266,
+        "ci95": [
+          -1.897857226493892,
+          0.9335161197064205
+        ],
+        "boot_sd": 0.7285072380463342
+      }
+    },
+    "weaker_fixed_batch_fb": {
+      "qwen_peak_goodput.peak_goodput_gain_pct": {
+        "diff": -104.83188599421067,
+        "ci95": [
+          -117.56210283073369,
+          -85.67393058918485
+        ],
+        "boot_sd": 8.315364691054619
+      },
+      "qwen_peak_goodput.mean_goodput_gain_pct": {
+        "diff": -122.20573882490729,
+        "ci95": [
+          -135.31433777851404,
+          -109.60761737668368
+        ],
+        "boot_sd": 6.6286318430024
+      },
+      "qwen_latency_detail.slo_attainment": {
+        "diff": -0.12812500000000002,
+        "ci95": [
+          -0.16562500000000002,
+          -0.09333333333333334
+        ],
+        "boot_sd": 0.018654514821363925
+      },
+      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
+        "diff": -34.560258394455296,
+        "ci95": [
+          -47.41731175228712,
+          -22.52561714019564
+        ],
+        "boot_sd": 6.454020507368469
+      },
+      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
+        "diff": -52.24554080429783,
+        "ci95": [
+          -61.64206399725178,
+          -43.361984887292735
+        ],
+        "boot_sd": 4.676211658306496
+      }
+    },
+    "bruteforce_static_budget": {
+      "qwen_peak_goodput.peak_goodput_gain_pct": {
+        "diff": -110.977510576709,
+        "ci95": [
+          -123.040571692024,
+          -91.0062893081761
+        ],
+        "boot_sd": 8.147998217344334
+      },
+      "qwen_peak_goodput.mean_goodput_gain_pct": {
+        "diff": -116.85926215108336,
+        "ci95": [
+          -129.81482636074568,
+          -104.25824679851756
+        ],
+        "boot_sd": 6.566784547836501
+      },
+      "qwen_latency_detail.slo_attainment": {
+        "diff": -0.144375,
+        "ci95": [
+          -0.17312500000000003,
+          -0.11541666666666668
+        ],
+        "boot_sd": 0.015134298391528413
+      },
+      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
+        "diff": -43.893412287194664,
+        "ci95": [
+          -55.36598789212989,
+          -30.003658982802794
+        ],
+        "boot_sd": 6.287291290928414
+      },
+      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
+        "diff": -54.47755425435291,
+        "ci95": [
+          -62.00050492299924,
+          -47.14701088969555
+        ],
+        "boot_sd": 3.7555378700124833
+      }
+    },
+    "vllm_sarathi": {
+      "qwen_peak_goodput.peak_goodput_gain_pct": {
+        "diff": -110.977510576709,
+        "ci95": [
+          -123.040571692024,
+          -91.0062893081761
+        ],
+        "boot_sd": 8.147998217344334
+      },
+      "qwen_peak_goodput.mean_goodput_gain_pct": {
+        "diff": -116.85926215108336,
+        "ci95": [
+          -129.81482636074568,
+          -104.25824679851756
+        ],
+        "boot_sd": 6.566784547836501
+      },
+      "qwen_latency_detail.slo_attainment": {
+        "diff": -0.144375,
+        "ci95": [
+          -0.17312500000000003,
+          -0.11541666666666668
+        ],
+        "boot_sd": 0.015134298391528413
+      },
+      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
+        "diff": -43.893412287194664,
+        "ci95": [
+          -55.36598789212989,
+          -30.003658982802794
+        ],
+        "boot_sd": 6.287291290928414
+      },
+      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
+        "diff": -54.47755425435291,
+        "ci95": [
+          -62.00050492299924,
+          -47.14701088969555
+        ],
+        "boot_sd": 3.7555378700124833
+      }
+    }
+  },
+  "tamper_check": {
+    "fairbatching_pab_identical": true,
+    "tampered_results": {
+      "qwen_peak_goodput": {
+        "peak_goodput_gain_pct": 109.97550656869292,
+        "mean_goodput_gain_pct": 116.85926215108329
+      },
+      "qwen_latency_detail": {
+        "slo_attainment": 0.9152083333333333,
+        "ttft_p50_ms": 140.89030674629612,
+        "ttft_p99_ms": 552.2584789624384,
+        "tpot_p99_ms": 50.36916940371962
+      },
+      "qwen_relaxed_slo_goodput": {
+        "peak_goodput_gain_pct": 43.89341228719472,
+        "mean_goodput_gain_pct": 54.477554254352945
+      }
+    }
+  },
+  "determinism_check": {
+    "audit_rerun_identical_to_official": true
+  },
+  "static_budget_selection": {
+    "50": 256,
+    "100": 512
+  }
+}
