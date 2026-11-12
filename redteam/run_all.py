@@ -9,7 +9,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from redteam.run_case import EXPERIMENT, reset, run, selected_rank
+from redteam.run_case import EXPERIMENT, PUBLIC_SELECTION_RULE, reset, run, select_public
 
 
 def main():
@@ -28,12 +28,10 @@ def main():
         rows = {"reference": ref}
         for name in quality:
             rows[name] = json.loads((Path("redteam") / name / "scores_train.json").read_text())["experiments"][EXPERIMENT]["results"]["fairbatching_pab"]
-        specs = json.loads(Path("redteam/state/initial_reference.json").read_text())["experiments"][EXPERIMENT]["metrics"]
-        ranks = selected_rank(rows, ref, specs)
-        best = max(quality, key=lambda n: ranks[n])
+        best = select_public(rows, quality)
         config = {"kind": "raw" if best.startswith("quality_raw") else "capped", "cap": int(best.rsplit("_", 1)[1])}
         Path("redteam/better_variant/config.json").write_text(json.dumps(config, indent=2))
-        Path("redteam/better_variant/selection.json").write_text(json.dumps({"selected_from_public_train_only": best, "train_ranks": ranks}, indent=2))
+        Path("redteam/better_variant/selection.json").write_text(json.dumps({"selected_from_public_train_only": best, "selection_rule": PUBLIC_SELECTION_RULE, "train_metrics": rows}, indent=2))
         records.append(run("better_variant"))
         names = [
             "shortcut_static_sweep", "shortcut_zero_timings", "shortcut_negative_timings",

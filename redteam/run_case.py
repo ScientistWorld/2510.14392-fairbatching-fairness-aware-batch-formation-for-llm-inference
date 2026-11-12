@@ -11,7 +11,6 @@ import json
 import os
 from pathlib import Path
 import shutil
-import statistics
 import subprocess
 import time
 
@@ -54,26 +53,19 @@ def shortcut(folder, name):
     return command(["python", "-m", "method.shortcut_candidate", name], folder, "method")
 
 
-def selected_rank(rows, reference, specs):
-    """Public train selection; hidden test metrics never enter this function."""
-    names = list(rows)
-    scored = {}
-    for name, row in rows.items():
-        value = 0.0
-        for key, spec in specs.items():
-            values = [r[key] for r in rows.values() if key in r]
-            scale = statistics.pstdev(values) if len(values) > 1 else 0.
-            if scale and key in row and key in reference:
-                sign = 1 if spec["higher_is_better"] else -1
-                value += abs(spec["coefficient"]) * sign * (row[key] - reference[key]) / scale
-        scored[name] = value
-    return scored
+PUBLIC_SELECTION_RULE = "maximize train effective_rps, then minimize train tpot_p99_ms, then minimize train ttft_p99_ms"
+
+
+def select_public(rows, eligible):
+    """Use reported train objectives only, without hidden metric coefficients."""
+    return max(eligible, key=lambda name: (
+        rows[name]["effective_rps"], -rows[name]["tpot_p99_ms"], -rows[name]["ttft_p99_ms"],
+    ))
 
 
 def static_sweep(folder):
     from eval.train.evaluate import aggregate_metrics
     install_quality()
-    specs = json.loads(Path("scoring/reference.json").read_text())["experiments"][EXPERIMENT]["metrics"]
     reference = aggregate_metrics(Path("outputs") / EXPERIMENT / "fairbatching.json", EXPERIMENT)
     work = folder / "scratch"
     work.mkdir(exist_ok=True)
@@ -87,10 +79,9 @@ def static_sweep(folder):
             statuses.append(command(args, folder, name))
             rows[name] = aggregate_metrics(path, EXPERIMENT)
             configs[name] = {"budget": budget, "order": order}
-    ranks = selected_rank(rows, reference, specs)
-    best = max(configs, key=lambda n: ranks[n])
+    best = select_public(rows, configs)
     shutil.copy2(work / f"{best}.json", TARGET)
-    (folder / "search_train_scores.json").write_text(json.dumps({"selection_uses": "public train only", "selected": best, "config": configs[best], "train_ranks": ranks, "train_metrics": rows, "runs": statuses}, indent=2))
+    (folder / "search_train_scores.json").write_text(json.dumps({"selection_uses": "public train only; no reference coefficients", "selection_rule": PUBLIC_SELECTION_RULE, "selected": best, "config": configs[best], "train_metrics": rows, "runs": statuses}, indent=2))
     (folder / "selected_config.json").write_text(json.dumps(configs[best], indent=2))
     return {"exit_code": 0, "selected": best, "search_attempts": len(configs)}
 

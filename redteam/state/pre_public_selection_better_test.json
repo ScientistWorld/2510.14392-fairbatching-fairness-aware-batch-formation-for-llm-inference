@@ -29,12 +29,12 @@
           "slo_violation_rate": 0.0,
           "ttft_slo_violation_rate": 0.0,
           "envelope_tpot_slo_violation_rate": 0.0,
-          "ttft_p95_ms": 117.75195000003441,
-          "ttft_p99_ms": 167.05266000004303,
-          "tpot_p95_ms": 73.43162500000047,
-          "tpot_p99_ms": 167.0533999999986,
-          "envelope_tpot_p95_ms": 49.936398098852536,
-          "envelope_tpot_p99_ms": 49.987204410314575
+          "ttft_p95_ms": 111.6252000000386,
+          "ttft_p99_ms": 174.06510000004528,
+          "tpot_p95_ms": 83.96787500000073,
+          "tpot_p99_ms": 130.14922499999957,
+          "envelope_tpot_p95_ms": 49.97176080731097,
+          "envelope_tpot_p99_ms": 49.98720833098298
         },
         "vllm_sarathi": {
           "effective_rps": 2.136163978462287,

@@ -25,16 +25,16 @@
           "envelope_tpot_p99_ms": 49.987204410314575
         },
         "fairbatching_pab": {
-          "effective_rps": 2.9372254703856444,
-          "slo_violation_rate": 0.0,
+          "effective_rps": 2.202919102789233,
+          "slo_violation_rate": 0.18181818181818177,
           "ttft_slo_violation_rate": 0.0,
-          "envelope_tpot_slo_violation_rate": 0.0,
-          "ttft_p95_ms": 117.75195000003441,
-          "ttft_p99_ms": 167.05266000004303,
-          "tpot_p95_ms": 73.43162500000047,
-          "tpot_p99_ms": 167.0533999999986,
-          "envelope_tpot_p95_ms": 49.936398098852536,
-          "envelope_tpot_p99_ms": 49.987204410314575
+          "envelope_tpot_slo_violation_rate": 0.18181818181818177,
+          "ttft_p95_ms": 166.27779999998802,
+          "ttft_p99_ms": 251.34556999999666,
+          "tpot_p95_ms": 64.59713333333411,
+          "tpot_p99_ms": 68.15615999999933,
+          "envelope_tpot_p95_ms": 53.87625648936171,
+          "envelope_tpot_p99_ms": 54.77395817859665
         },
         "vllm_sarathi": {
           "effective_rps": 2.136163978462287,

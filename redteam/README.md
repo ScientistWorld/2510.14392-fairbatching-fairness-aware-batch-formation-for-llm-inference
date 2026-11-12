@@ -20,3 +20,9 @@ The report's numerical ranks use absolute coefficients, the specified better
 directions, experiment weights, and population standard deviations over its
 explicit audit cohort. Production ranks depend on the unknown future cohort;
 Pareto improvements and exact ties are independent of that choice.
+
+Method selection uses public train metrics only: maximize effective RPS, then
+minimize raw TPOT P99, then TTFT P99. Reference coefficients are used only by
+the audit analysis, not by a candidate or selection rule. The final
+`run_public_selection` job repeats the two affected search cases after removing
+an earlier audit-harness dependency on unavailable reference coefficients.
