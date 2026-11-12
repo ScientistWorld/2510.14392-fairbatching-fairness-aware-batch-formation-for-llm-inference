@@ -1,14 +1,102 @@
 {
   "selected_from_public_train_only": "quality_cap_125",
-  "train_ranks": {
-    "reference": 0.0,
-    "quality_cap_50": -11.073451498515134,
-    "quality_cap_75": -0.8480205095947012,
-    "quality_cap_100": -0.3018309301155603,
-    "quality_cap_125": 0.06491932035903222,
-    "quality_cap_150": 0.0,
-    "quality_cap_200": 0.0,
-    "quality_raw_100": -5.515393554359208,
-    "quality_raw_200": -5.515393554359208
+  "selection_rule": "maximize train effective_rps, then minimize train tpot_p99_ms, then minimize train ttft_p99_ms",
+  "train_metrics": {
+    "quality_cap_50": {
+      "effective_rps": 1.7520292279493317,
+      "slo_violation_rate": 0.4035087719298246,
+      "ttft_slo_violation_rate": 0.03508771929824561,
+      "envelope_tpot_slo_violation_rate": 0.4035087719298246,
+      "ttft_p95_ms": 176.78301000002375,
+      "ttft_p99_ms": 1255.3307880000268,
+      "tpot_p95_ms": 75.2337035714294,
+      "tpot_p99_ms": 279.58470600000146,
+      "envelope_tpot_p95_ms": 51.84625391928948,
+      "envelope_tpot_p99_ms": 805.3287400000256
+    },
+    "quality_cap_75": {
+      "effective_rps": 2.855635873986043,
+      "slo_violation_rate": 0.01754385964912286,
+      "ttft_slo_violation_rate": 0.01754385964912286,
+      "envelope_tpot_slo_violation_rate": 0.00877192982456143,
+      "ttft_p95_ms": 146.13475000006738,
+      "ttft_p99_ms": 461.4523340000772,
+      "tpot_p95_ms": 78.83175809523814,
+      "tpot_p99_ms": 144.2946880000029,
+      "envelope_tpot_p95_ms": 49.99809593996534,
+      "envelope_tpot_p99_ms": 49.99999681913947
+    },
+    "quality_cap_100": {
+      "effective_rps": 2.904589631825804,
+      "slo_violation_rate": 0.00877192982456143,
+      "ttft_slo_violation_rate": 0.00877192982456143,
+      "envelope_tpot_slo_violation_rate": 0.00877192982456143,
+      "ttft_p95_ms": 122.1893600000456,
+      "ttft_p99_ms": 241.3780800000087,
+      "tpot_p95_ms": 93.00032600000146,
+      "tpot_p99_ms": 108.86896833333545,
+      "envelope_tpot_p95_ms": 49.9916292120639,
+      "envelope_tpot_p99_ms": 49.99996763009917
+    },
+    "quality_cap_125": {
+      "effective_rps": 2.9372254703856444,
+      "slo_violation_rate": 0.0,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.0,
+      "ttft_p95_ms": 128.54810000005284,
+      "ttft_p99_ms": 147.07146800001894,
+      "tpot_p95_ms": 95.38182333333239,
+      "tpot_p99_ms": 124.2375600000016,
+      "envelope_tpot_p95_ms": 49.967357791245846,
+      "envelope_tpot_p99_ms": 49.992975193534434
+    },
+    "shortcut_inactive_cap_150": {
+      "effective_rps": 2.9372254703856444,
+      "slo_violation_rate": 0.0,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.0,
+      "ttft_p95_ms": 134.31589000005062,
+      "ttft_p99_ms": 183.28779200004078,
+      "tpot_p95_ms": 95.35389000000012,
+      "tpot_p99_ms": 135.30935399999933,
+      "envelope_tpot_p95_ms": 49.96733182156581,
+      "envelope_tpot_p99_ms": 49.99297612029464
+    },
+    "shortcut_inactive_cap_200": {
+      "effective_rps": 2.9372254703856444,
+      "slo_violation_rate": 0.0,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.0,
+      "ttft_p95_ms": 134.31589000005062,
+      "ttft_p99_ms": 183.28779200004078,
+      "tpot_p95_ms": 95.35389000000012,
+      "tpot_p99_ms": 135.30935399999933,
+      "envelope_tpot_p95_ms": 49.96733182156581,
+      "envelope_tpot_p99_ms": 49.99297612029464
+    },
+    "quality_raw_100": {
+      "effective_rps": 2.6761387619069206,
+      "slo_violation_rate": 0.052631578947368474,
+      "ttft_slo_violation_rate": 0.052631578947368474,
+      "envelope_tpot_slo_violation_rate": 0.052631578947368474,
+      "ttft_p95_ms": 590.0615300000863,
+      "ttft_p99_ms": 2608.3331460000895,
+      "tpot_p95_ms": 52.068197830459866,
+      "tpot_p99_ms": 52.46828863381478,
+      "envelope_tpot_p95_ms": 142.0875112121583,
+      "envelope_tpot_p99_ms": 2158.091886000092
+    },
+    "quality_raw_200": {
+      "effective_rps": 2.6761387619069206,
+      "slo_violation_rate": 0.052631578947368474,
+      "ttft_slo_violation_rate": 0.052631578947368474,
+      "envelope_tpot_slo_violation_rate": 0.052631578947368474,
+      "ttft_p95_ms": 590.0615300000863,
+      "ttft_p99_ms": 2608.3331460000895,
+      "tpot_p95_ms": 52.068197830459866,
+      "tpot_p99_ms": 52.46828863381478,
+      "envelope_tpot_p95_ms": 142.0875112121583,
+      "envelope_tpot_p99_ms": 2158.091886000092
+    }
   }
 }

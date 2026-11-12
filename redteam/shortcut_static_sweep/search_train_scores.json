@@ -1,32 +1,10 @@
 {
-  "selection_uses": "public train only",
+  "selection_uses": "public train only; no reference coefficients",
+  "selection_rule": "maximize train effective_rps, then minimize train tpot_p99_ms, then minimize train ttft_p99_ms",
   "selected": "shortcut_fixed_decode_1000",
   "config": {
     "budget": 1000,
     "order": "decode"
-  },
-  "train_ranks": {
-    "reference": 0.0,
-    "shortcut_fixed_decode_128": -20.715530212907375,
-    "shortcut_fixed_prefill_128": -15.314247593925476,
-    "shortcut_fixed_decode_256": -8.656803707286532,
-    "shortcut_fixed_prefill_256": -11.360716849463385,
-    "shortcut_fixed_decode_512": -6.117268866465317,
-    "shortcut_fixed_prefill_512": -8.418616522966616,
-    "shortcut_fixed_decode_768": -5.693137366249349,
-    "shortcut_fixed_prefill_768": -7.178920865603802,
-    "shortcut_fixed_decode_1000": -5.516620877524502,
-    "shortcut_fixed_prefill_1000": -6.356217400266914,
-    "shortcut_fixed_decode_1536": -5.532402303725335,
-    "shortcut_fixed_prefill_1536": -6.216988756084344,
-    "shortcut_fixed_decode_2048": -5.562719124433668,
-    "shortcut_fixed_prefill_2048": -5.660445292220528,
-    "shortcut_fixed_decode_3072": -5.629273601644699,
-    "shortcut_fixed_prefill_3072": -5.660061487025497,
-    "shortcut_fixed_decode_4096": -5.616176366119128,
-    "shortcut_fixed_prefill_4096": -5.626945864898913,
-    "shortcut_fixed_decode_6000": -5.616071798510792,
-    "shortcut_fixed_prefill_6000": -5.616071798510792
   },
   "train_metrics": {
     "reference": {
@@ -298,7 +276,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_128.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 0.8866411700146273
+      "elapsed_s": 0.2810122309892904
     },
     {
       "command": [
@@ -315,7 +293,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_128.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 0.3925783129816409
+      "elapsed_s": 0.26998780498979613
     },
     {
       "command": [
@@ -332,7 +310,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_256.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 0.564162443013629
+      "elapsed_s": 0.25504624799941666
     },
     {
       "command": [
@@ -349,7 +327,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_256.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 0.67521159700118
+      "elapsed_s": 0.26213119001477025
     },
     {
       "command": [
@@ -366,7 +344,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_512.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 1.2673105639987625
+      "elapsed_s": 0.2645557979994919
     },
     {
       "command": [
@@ -383,7 +361,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_512.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 1.4684001940186135
+      "elapsed_s": 0.2676020380167756
     },
     {
       "command": [
@@ -400,7 +378,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_768.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 1.4775733810092788
+      "elapsed_s": 0.2574253059865441
     },
     {
       "command": [
@@ -417,7 +395,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_768.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 1.4501868200022727
+      "elapsed_s": 0.2589773299987428
     },
     {
       "command": [
@@ -434,7 +412,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_1000.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 0.795495056983782
+      "elapsed_s": 0.25865063100354746
     },
     {
       "command": [
@@ -451,7 +429,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_1000.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 0.8848976120061707
+      "elapsed_s": 0.2535069480072707
     },
     {
       "command": [
@@ -468,7 +446,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_1536.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 1.316570644004969
+      "elapsed_s": 0.263144194992492
     },
     {
       "command": [
@@ -485,7 +463,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_1536.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 0.7662011180073023
+      "elapsed_s": 0.2588834229973145
     },
     {
       "command": [
@@ -502,7 +480,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_2048.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 0.9587003740016371
+      "elapsed_s": 0.25633379598730244
     },
     {
       "command": [
@@ -519,7 +497,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_2048.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 0.9833427040139213
+      "elapsed_s": 0.25434816000051796
     },
     {
       "command": [
@@ -536,7 +514,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_3072.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 1.9624454409931786
+      "elapsed_s": 0.26359347702236846
     },
     {
       "command": [
@@ -553,7 +531,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_3072.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 0.6829103780037258
+      "elapsed_s": 0.2630547760054469
     },
     {
       "command": [
@@ -570,7 +548,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_4096.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 0.6947224260075018
+      "elapsed_s": 0.26461258000927046
     },
     {
       "command": [
@@ -587,7 +565,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_4096.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 1.05586776099517
+      "elapsed_s": 0.3264351300022099
     },
     {
       "command": [
@@ -604,7 +582,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_6000.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 0.7521744200203102
+      "elapsed_s": 0.26218877302017063
     },
     {
       "command": [
@@ -621,7 +599,7 @@
         "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_6000.json"
       ],
       "exit_code": 0,
-      "elapsed_s": 1.2673194840026554
+      "elapsed_s": 0.24904476501978934
     }
   ]
 }

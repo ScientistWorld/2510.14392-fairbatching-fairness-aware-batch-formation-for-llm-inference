@@ -13,7 +13,7 @@
       "scripts/evaluate_train.sh"
     ],
     "exit_code": 0,
-    "elapsed_s": 0.41716201600502245
+    "elapsed_s": 0.12906253599794582
   },
   "test": {
     "command": [
@@ -21,7 +21,7 @@
       "scripts/evaluate_test.sh"
     ],
     "exit_code": 0,
-    "elapsed_s": 0.6373383940081112
+    "elapsed_s": 0.13489876297535375
   },
   "test_score_file_unchanged": false,
   "scores_are_fresh": true,

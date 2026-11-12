@@ -13,7 +13,7 @@
       "125"
     ],
     "exit_code": 0,
-    "elapsed_s": 0.8917661010054871
+    "elapsed_s": 0.37510561902308837
   },
   "train": {
     "command": [
@@ -21,7 +21,7 @@
       "scripts/evaluate_train.sh"
     ],
     "exit_code": 0,
-    "elapsed_s": 0.6548374229751062
+    "elapsed_s": 0.18570228799944744
   },
   "test": {
     "command": [
@@ -29,7 +29,7 @@
       "scripts/evaluate_test.sh"
     ],
     "exit_code": 0,
-    "elapsed_s": 0.29333014800795354
+    "elapsed_s": 0.14871748100267723
   },
   "test_score_file_unchanged": false,
   "scores_are_fresh": true,
