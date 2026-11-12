@@ -5,4 +5,4 @@ action: submit
 gpus: 0
 test: false
 milestone: core_claim
-notes: "Rerun after fixing oversubscription: CPU-time-based scheduler limits, quota-aware worker count, same trace windows replayed across loads, robust brute-force selection. Regenerates reference train/test scores (scripts/reproduce.sh), runs redteam/hardening/run_audit.py, then validate.py."
+notes: "Resumable verification (previous job was repeatedly preempted): reference train/test scores with stage markers, then run_audit.py in small resumable groups (oracle plans precomputed per instance, on-disk snapshot of official score files restored after every group), tamper check, analysis, validate.py."

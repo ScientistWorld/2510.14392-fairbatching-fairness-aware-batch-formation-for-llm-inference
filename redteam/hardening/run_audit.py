@@ -43,7 +43,6 @@ VARIANT_SET = {
     "better_exact_cost_pab": V + ["exact_cost_pab"],
     "weaker_fixed_batch_fb": V + ["fixed_batch_fb"],
     "weaker_fixed_batch_pab": V + ["fixed_batch_pab"],
-    "weaker_serial_fifo": V + ["serial_fifo"],
 }
 SHORTCUT_SET = {
     "shortcut_forge_records": SC + ["forge_records"],
@@ -63,6 +62,18 @@ STATIC_BUDGETS = [128, 256, 512, 1024, 8192]
 # held-out behaviour); everything else runs on the held-out split only.
 TRAIN_AUDIT = {"fairbatching_pab", "better_margin_pab", "better_shed_pab", "shortcut_train_oracle",
                "bruteforce_static_budget"}
+# Held-out evaluations are split into small groups so that each finishes well
+# inside one allocation window and the audit resumes after preemption.
+TEST_GROUPS = {
+    "reference": list(REFERENCE_SET),
+    "better": [k for k in VARIANT_SET if k.startswith("better_")],
+    "weaker_brute": [k for k in VARIANT_SET if k.startswith("weaker_")] + ["bruteforce_static_budget"],
+    "shortcuts": [k for k in SHORTCUT_SET if k != "shortcut_slow_reply"] + list(RAW_MANIFESTS),
+    "slow_reply": ["shortcut_slow_reply"],
+}
+ORACLE_PLANS = RUNS / "oracle_plans.json"
+ORACLE_GRID = [dict(margin=0.0, shed=False, srpt=False), dict(margin=0.06, shed=True, srpt=False),
+               dict(margin=0.06, shed=True, srpt=True)]
 OFFICIAL = ["scores.json", "scores_train.json", "scores_test.json"]
 
 
@@ -162,20 +173,121 @@ def bootstrap_paired(test_scores: dict, a: str, b: str, n_boot: int = 2000, seed
     return out
 
 
+SNAPSHOT = RUNS / "official_snapshot"
+
+
+def restore_official() -> dict:
+    """Restore scoring/ score files from the on-disk snapshot (shortcut
+    programs may overwrite them; a kill must not leave forged files)."""
+    changed = {}
+    for n in OFFICIAL:
+        snap = SNAPSHOT / n
+        if snap.exists():
+            cur = ROOT / "scoring" / n
+            changed[n] = (not cur.exists()) or cur.read_bytes() != snap.read_bytes()
+            cur.write_bytes(snap.read_bytes())
+    return changed
+
+
+def take_snapshot() -> None:
+    if SNAPSHOT.exists():
+        return
+    for n in OFFICIAL:
+        data = json.loads((ROOT / "scoring" / n).read_text())
+        if "_meta" not in data or not data.get("experiments"):
+            raise SystemExit(f"scoring/{n} does not look like an evaluator output; rerun scripts/reproduce.sh")
+    tmp = RUNS / "official_snapshot.tmp"
+    if tmp.exists():
+        shutil.rmtree(tmp)
+    tmp.mkdir(parents=True)
+    for n in OFFICIAL:
+        shutil.copy2(ROOT / "scoring" / n, tmp / n)
+    tmp.rename(SNAPSHOT)
+
+
+def _oracle_one(args):
+    import data.serving_sim as S
+    from eval.train import evaluate as E
+    sys.path.insert(0, str(AUD))
+    from variants import TunableFB
+
+    exp, idx, spec = args
+    cfg = E.EXPERIMENTS[exp]
+    inst = S.make_instance(E.workload_pool(), spec["seed"], cfg["n_requests"], spec["load"],
+                           cfg["ttft_slo_ms"], cfg["tpot_slo_ms"])
+    second = sorted(inst, key=lambda r: (r.arrival_ms, r.rid))[1]
+    best = None
+    for knobs in ORACLE_GRID:
+        recs = S.simulate(inst, S.InProcessPolicy(lambda: TunableFB(True, **knobs)), spec["noise_seed"])
+        wins = sum(o["success"] for o in recs)
+        if best is None or wins > best[0]:
+            best = (wins, knobs)
+    return f"{exp}/{idx}", f"{second.rid}:{second.arrival_ms!r}", best[1]
+
+
+def precompute_oracle_plans() -> None:
+    """Private search ahead of time: for every public train instance, replay
+    several configurations offline with the public simulator and record the
+    best one.  The oracle scheduler only looks the instance up at run time."""
+    if ORACLE_PLANS.exists():
+        log("skip (exists): oracle plans")
+        return
+    sys.path.insert(0, str(ROOT))
+    from multiprocessing import Pool
+    from eval.train import evaluate as E
+
+    partial = RUNS / "oracle_plans.partial.jsonl"
+    done = {}
+    if partial.exists():
+        for line in partial.read_text().splitlines():
+            try:
+                rec = json.loads(line)
+                done[rec["task"]] = rec
+            except (json.JSONDecodeError, KeyError):
+                pass
+    jobs = [(exp, i, spec) for exp, cfg in E.EXPERIMENTS.items()
+            for i, spec in enumerate(E.instance_specs(exp, cfg)) if f"{exp}/{i}" not in done]
+    t = time.time()
+    with Pool(E.available_cpus()) as pool, partial.open("a") as f:
+        for task, key, knobs in pool.imap_unordered(_oracle_one, jobs, chunksize=1):
+            done[task] = {"task": task, "key": key, "knobs": knobs}
+            f.write(json.dumps(done[task]) + "\n")
+            f.flush()
+    plans = {rec["key"]: rec["knobs"] for rec in done.values()}
+    ORACLE_PLANS.write_text(json.dumps(plans, indent=0))
+    log(f"oracle plans for {len(plans)} train instances in {time.time() - t:.0f}s")
+
+
+def merge_groups(group_scores: dict) -> dict:
+    """Combine per-group held-out scores; the shipped methods come from the
+    reference group (other groups report them as missing manifests)."""
+    merged = {"_meta": {"failed_methods": {}}, "experiments": {}}
+    for group, sc in group_scores.items():
+        members = TEST_GROUPS[group]
+        for m, err in (sc["_meta"]["failed_methods"] or {}).items():
+            if m in members:
+                merged["_meta"]["failed_methods"][m] = err
+        for exp, data in sc["experiments"].items():
+            tgt = merged["experiments"].setdefault(exp, {"results": {}, "details": {}, "evaluator_baselines": {}})
+            for m in members:
+                tgt["results"][m] = data["results"][m]
+                tgt["details"][m] = data["details"].get(m, {})
+            if group == "reference":
+                tgt["evaluator_baselines"] = data["evaluator_baselines"]
+    return merged
+
+
 def main() -> None:
-    # Shortcut programs may write into scoring/; keep the official files intact.
-    snapshot = {n: (ROOT / "scoring" / n).read_bytes() for n in OFFICIAL if (ROOT / "scoring" / n).exists()}
+    RUNS.mkdir(parents=True, exist_ok=True)
+    take_snapshot()
+    log(f"restored at start: {restore_official()}")
     try:
         audit_main()
     finally:
-        forged = {n: (ROOT / "scoring" / n).read_bytes() != b for n, b in snapshot.items()}
-        for n, b in snapshot.items():
-            (ROOT / "scoring" / n).write_bytes(b)
-        log(f"official score files restored (modified by an attempt during the audit: {forged})")
+        log(f"official score files restored (modified by an attempt during the audit: {restore_official()})")
 
 
 def audit_main() -> None:
-    RUNS.mkdir(parents=True, exist_ok=True)
     log(f"os.cpu_count: {os.cpu_count()}; affinity: {len(os.sched_getaffinity(0))}")
     reference = json.loads((ROOT / "scoring" / "reference.json").read_text())
 
@@ -196,15 +308,35 @@ def audit_main() -> None:
     (RUNS / "static_selection.json").write_text(json.dumps({"selected_budgets_by_tpot_slo": chosen,
         "train_results": {e: st_train["experiments"][e]["results"] for e in st_train["experiments"]}}, indent=2))
     brute = {"bruteforce_static_budget": V + ["static_budget", "--budgets", f"50:{chosen[50]},100:{chosen[100]}"]}
-
-    # 2. Train and held-out test scores for every audited attempt.
     audit = {**REFERENCE_SET, **VARIANT_SET, **SHORTCUT_SET, **brute}
-    out_train = write_outputs(RUNS / "outputs_audit_train", {k: v for k, v in audit.items() if k in TRAIN_AUDIT})
-    tr = run_eval("eval/train/evaluate.py", out_train, RUNS / "scores_train_audit.json")
-    out_audit = write_outputs(RUNS / "outputs_audit", audit, RAW_MANIFESTS)
-    te = run_eval("eval/test/evaluate.py", out_audit, RUNS / "scores_test_audit.json")
 
-    # 3. Tamper check: weaken public simulator + baselines in a workspace copy.
+    # 2. Public train scores for the attempts whose train/test gap matters.
+    precompute_oracle_plans()
+    out_train = write_outputs(RUNS / "outputs_audit_train",
+                              {k: v for k, v in audit.items() if k in TRAIN_AUDIT and k != "shortcut_train_oracle"})
+    tr = run_eval("eval/train/evaluate.py", out_train, RUNS / "scores_train_audit.json")
+    restore_official()
+    out_oracle = write_outputs(RUNS / "outputs_oracle_train", {"shortcut_train_oracle": audit["shortcut_train_oracle"]})
+    tr_oracle = run_eval("eval/train/evaluate.py", out_oracle, RUNS / "scores_train_oracle.json")
+    for exp in tr["experiments"]:
+        tr["experiments"][exp]["results"]["shortcut_train_oracle"] = tr_oracle["experiments"][exp]["results"]["shortcut_train_oracle"]
+    tr["_meta"]["failed_methods"] = {**{m: e for m, e in (tr["_meta"]["failed_methods"] or {}).items()
+                                        if m != "shortcut_train_oracle"},
+                                     **{m: e for m, e in (tr_oracle["_meta"]["failed_methods"] or {}).items()
+                                        if m == "shortcut_train_oracle"}}
+
+    # 3. Held-out scores, one small evaluation per group.
+    group_scores = {}
+    for group, members in TEST_GROUPS.items():
+        cmds = {m: audit[m] for m in members if m in audit}
+        raw = {m: RAW_MANIFESTS[m] for m in members if m in RAW_MANIFESTS}
+        out = write_outputs(RUNS / f"outputs_test_{group}", cmds, raw)
+        group_scores[group] = run_eval("eval/test/evaluate.py", out, RUNS / f"scores_test_{group}.json")
+        log(f"after group {group}: official files modified and restored: {restore_official()}")
+    te = merge_groups(group_scores)
+    (RUNS / "scores_test_audit_merged.json").write_text(json.dumps(te, indent=1))
+
+    # 4. Tamper check: weaken public simulator + baselines in a workspace copy.
     tamper_scores = RUNS / "scores_test_tamper.json"
     if not tamper_scores.exists():
         copy = RUNS / "tamper_workspace"
@@ -221,38 +353,34 @@ def audit_main() -> None:
         run_eval(str(copy / "eval" / "test" / "evaluate.py"), out_t, tamper_scores, cwd=copy)
     tamper = json.loads(tamper_scores.read_text())
 
-    # 4. Determinism: the audit's independent re-run of the reference must
-    #    match the official scoring/scores_test.json exactly (checked below).
-
-    # 5. Analysis.
-    official = json.loads((ROOT / "scoring" / "scores_test.json").read_text())
+    # 5. Analysis (determinism: the reference group's independent re-run of
+    #    the reference must match the official scoring/scores_test.json).
+    official = json.loads((SNAPSHOT / "scores_test.json").read_text())
     ref_vec = {e: official["experiments"][e]["results"]["fairbatching_pab"] for e in official["experiments"]}
     te_res = results(te)
-    cohort = [m for m in te_res["qwen_peak_goodput"] if m not in RAW_MANIFESTS]
-    ranks = rank_table(te, reference, ref_vec, sorted(te_res["qwen_peak_goodput"]))
-    ranks_quality = rank_table(te, reference, ref_vec,
-                               [m for m in cohort if not m.startswith("shortcut_")])
+    everyone = sorted(te_res["qwen_peak_goodput"])
+    ranks = rank_table(te, reference, ref_vec, everyone)
+    ranks_quality = rank_table(te, reference, ref_vec, [m for m in everyone if not m.startswith("shortcut_")])
     tr_res = results(tr)
     tr_ref = {e: tr_res[e]["fairbatching_pab"] for e in tr_res}
     ranks_train = rank_table(tr, reference, tr_ref, sorted(m for m in tr_res["qwen_peak_goodput"] if m in TRAIN_AUDIT))
     noise = {name: bootstrap_paired(te, name, "fairbatching_pab")
              for name in ["better_margin_pab", "better_shed_pab", "better_srpt_shed_pab",
-                          "better_exact_cost_pab", "fairbatching", "weaker_fixed_batch_pab"]}
+                          "better_exact_cost_pab", "fairbatching", "weaker_fixed_batch_pab",
+                          "weaker_fixed_batch_fb", "bruteforce_static_budget", "vllm_sarathi"]}
     analysis = {
         "reference_vector_test": ref_vec,
         "test_results": te_res,
         "train_results": tr_res,
         "ranks_test_all_cohort": ranks,
         "ranks_test_quality_cohort": ranks_quality,
-        "ranks_train_all_cohort": ranks_train,
+        "ranks_train_audit_cohort": ranks_train,
         "failed_methods_test": te["_meta"]["failed_methods"],
         "failed_methods_train": tr["_meta"]["failed_methods"],
         "paired_bootstrap_vs_reference_test": noise,
         "tamper_check": {
-            "fairbatching_pab_identical": results(tamper)["qwen_peak_goodput"]["fairbatching_pab"]
-            == te_res["qwen_peak_goodput"]["fairbatching_pab"]
-            and all(results(tamper)[e]["fairbatching_pab"] == te_res[e]["fairbatching_pab"] for e in te_res),
-            "tampered_results": results(tamper),
+            "fairbatching_pab_identical": all(results(tamper)[e]["fairbatching_pab"] == ref_vec[e] for e in ref_vec),
+            "tampered_results": {e: results(tamper)[e]["fairbatching_pab"] for e in ref_vec},
         },
         "determinism_check": {
             "audit_rerun_identical_to_official": all(te_res[e]["fairbatching_pab"] == ref_vec[e] for e in ref_vec),

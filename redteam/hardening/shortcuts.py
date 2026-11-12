@@ -80,59 +80,43 @@ class TrainOracle(Policy):
     """Private search on visible instances.
 
     The train workloads are generated from public seeds and the simulator is
-    public, so a scheduler can recognise a train instance from the id of its
-    first request, replay the whole run offline with the exact noise seed for
-    several scheduler configurations, and use whichever scores best on that
-    very instance.  On instances it cannot recognise it is exactly
-    FairBatching-PAB (the reference).
+    public, so every train instance can be replayed offline, with its exact
+    noise seed, under several scheduler configurations ahead of time
+    (``run_audit.precompute_oracle_plans``).  At run time this scheduler
+    recognises the instance from its second request (id + arrival time) and
+    uses the configuration that scored best on that very instance.  On
+    instances it cannot recognise it is exactly FairBatching-PAB (the
+    reference).
     """
 
-    GRID = [dict(margin=m, shed=sh, srpt=sr) for m in (0.0, 0.03, 0.06, 0.1)
-            for sh in (False, True) for sr in (False, True) if sh or not sr]
+    PLANS = ROOT / "redteam" / "hardening" / "runs" / "oracle_plans.json"
 
     def __init__(self):
         self.impl = FairBatching(True)
-        self.tried = False
+        self.seen = 0
+        try:
+            self.plans = json.loads(self.PLANS.read_text())
+        except OSError:
+            self.plans = {}
 
     def init(self, profile):
         super().init(profile)
         self.impl.init(profile)
 
-    def _match(self, rid: int, arrival_ms: float) -> None:
-        """Identify the instance from its second request (id + arrival time,
-        which fixes the load).  The first request is always admitted anyway."""
-        self.tried = True
-        sys.path.insert(0, str(ROOT / "redteam" / "hardening"))
-        import data.serving_sim as S
-        from eval.train import evaluate as E
-        from variants import TunableFB
+    def admit(self, request, admitted, now_ms):
+        self.seen += 1
+        if self.seen == 2:
+            knobs = self.plans.get(f"{request.rid}:{request.arrival_ms!r}")
+            if knobs is not None:
+                sys.path.insert(0, str(ROOT / "redteam" / "hardening"))
+                from variants import TunableFB
 
-        pool = S.load_pool(ROOT / "data" / "qwen_trace_head.csv")
-        for exp, cfg in E.EXPERIMENTS.items():
-            for spec in E.instance_specs(exp, cfg):
-                inst = S.make_instance(pool, spec["seed"], cfg["n_requests"], spec["load"],
-                                       cfg["ttft_slo_ms"], cfg["tpot_slo_ms"])
-                second = sorted(inst, key=lambda r: (r.arrival_ms, r.rid))[1]
-                if second.rid != rid or abs(second.arrival_ms - arrival_ms) > 1e-6:
-                    continue
-                best = None
-                for knobs in self.GRID:
-                    recs = S.simulate(inst, S.InProcessPolicy(lambda: TunableFB(True, **knobs)), spec["noise_seed"])
-                    wins = sum(o["success"] for o in recs)
-                    if best is None or wins > best[0]:
-                        best = (wins, knobs)
-                self.impl = TunableFB(True, **best[1])
+                self.impl = TunableFB(True, **knobs)
                 self.impl.init(self.profile)
-                return
+        return self.impl.admit(request, admitted, now_ms)
 
     def observe(self, now_ms, last_step_ms):
         self.impl.observe(now_ms, last_step_ms)
-
-    def admit(self, request, admitted, now_ms):
-        self.seen = getattr(self, "seen", 0) + 1
-        if self.seen == 2 and not self.tried:
-            self._match(request.rid, request.arrival_ms)
-        return self.impl.admit(request, admitted, now_ms)
 
     def drop(self, active, now_ms):
         return self.impl.drop(active, now_ms)
