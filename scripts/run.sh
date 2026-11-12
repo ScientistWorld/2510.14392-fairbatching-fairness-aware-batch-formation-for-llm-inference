@@ -6,7 +6,7 @@
 #
 # The iteration-11 hardening audit (variants and shortcuts through the same
 # evaluators) is `python redteam/hardening/run_audit.py`; it resumes from
-# redteam/hardening/runs/ and is documented in HARDENING.md.
+# redteam/hardening/audit_runs/ and is documented in HARDENING.md.
 set -euo pipefail
 
 cd /home/user

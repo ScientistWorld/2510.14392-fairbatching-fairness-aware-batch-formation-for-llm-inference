@@ -1,0 +1,84 @@
+{
+  "selected_budgets_by_tpot_slo": {
+    "50": 256,
+    "100": 512
+  },
+  "train_results": {
+    "qwen_peak_goodput": {
+      "fairbatching": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "fairbatching_pab": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "vllm_sarathi": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "vllm_vanilla": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "static_budget_1024": {
+        "peak_goodput_gain_pct": -1.7388651616839779,
+        "mean_goodput_gain_pct": -2.8092281724976242
+      },
+      "static_budget_128": {
+        "peak_goodput_gain_pct": -25.030506406345353,
+        "mean_goodput_gain_pct": -34.94907125011487
+      },
+      "static_budget_256": {
+        "peak_goodput_gain_pct": 0.0,
+        "mean_goodput_gain_pct": 0.0
+      },
+      "static_budget_512": {
+        "peak_goodput_gain_pct": -1.1287370347773162,
+        "mean_goodput_gain_pct": -3.0256440251677286
+      },
+      "static_budget_8192": {
+        "peak_goodput_gain_pct": -1.7388651616839779,
+        "mean_goodput_gain_pct": -2.0287941709768664
+      }
+    },
+    "qwen_relaxed_slo_goodput": {
+      "fairbatching": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "fairbatching_pab": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "vllm_sarathi": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "vllm_vanilla": {
+        "peak_goodput_gain_pct": -100.0,
+        "mean_goodput_gain_pct": -100.0
+      },
+      "static_budget_1024": {
+        "peak_goodput_gain_pct": -3.550027870680039,
+        "mean_goodput_gain_pct": -11.877337104992925
+      },
+      "static_budget_128": {
+        "peak_goodput_gain_pct": -33.406493868450404,
+        "mean_goodput_gain_pct": -54.35597620754462
+      },
+      "static_budget_256": {
+        "peak_goodput_gain_pct": -15.25919732441472,
+        "mean_goodput_gain_pct": -26.564528316509396
+      },
+      "static_budget_512": {
+        "peak_goodput_gain_pct": 0.0,
+        "mean_goodput_gain_pct": 0.0
+      },
+      "static_budget_8192": {
+        "peak_goodput_gain_pct": -6.598383500557414,
+        "mean_goodput_gain_pct": -15.08970608180109
+      }
+    }
+  }
+}

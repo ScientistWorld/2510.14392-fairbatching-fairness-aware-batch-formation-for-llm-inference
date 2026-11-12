@@ -4,7 +4,7 @@ Every attempt is registered as a scheduler manifest and scored by the real
 evaluators (``eval/train/evaluate.py`` and ``eval/test/evaluate.py``, the
 latter exactly as ``scripts/evaluate_test.sh`` runs it, only pointed at the
 audit's own outputs directory).  Results are written under
-``redteam/hardening/runs/``; every step is skipped when its result file
+``redteam/hardening/audit_runs/``; every step is skipped when its result file
 already exists, so the audit resumes after interruption.
 
 Usage: ``python redteam/hardening/run_audit.py``
@@ -24,7 +24,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 AUD = ROOT / "redteam" / "hardening"
-RUNS = AUD / "runs"
+RUNS = AUD / "audit_runs"
 PY = sys.executable
 
 V = ["python", "redteam/hardening/variants.py", "--variant"]

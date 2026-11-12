@@ -1,0 +1,1 @@
+{"command": ["python", "method/fairbatching.py", "--variant", "pab"]}

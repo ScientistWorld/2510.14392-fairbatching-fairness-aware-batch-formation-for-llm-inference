@@ -1,0 +1,1 @@
+{"command": ["python", "redteam/hardening/variants.py", "--variant", "exact_cost_pab"]}

@@ -1,0 +1,1 @@
+{"command": ["python", "baseline/schedulers.py", "--policy", "vllm_sarathi"]}

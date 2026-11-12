@@ -18,7 +18,7 @@ All numbers below are from the final verification job (`c773562a-a1a`, exit 0, `
 passes). Evidence:
 - `redteam/hardening/analysis.json`: ranks, per-metric results, paired bootstraps, tamper and
   determinism checks.
-- `redteam/hardening/runs/`: every evaluator output and log.
+- `redteam/hardening/audit_runs/`: every evaluator output and log.
 - `redteam/hardening/run_audit.py`: reruns everything and resumes after preemption.
 - The attempts themselves: `redteam/hardening/variants.py` and `shortcuts.py`.
 

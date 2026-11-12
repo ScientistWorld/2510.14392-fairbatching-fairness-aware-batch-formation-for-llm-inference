@@ -90,7 +90,7 @@ class TrainOracle(Policy):
     reference).
     """
 
-    PLANS = ROOT / "redteam" / "hardening" / "runs" / "oracle_plans.json"
+    PLANS = ROOT / "redteam" / "hardening" / "audit_runs" / "oracle_plans.json"
 
     def __init__(self):
         self.impl = FairBatching(True)
