@@ -1,0 +1,18 @@
+{
+  "policy": "fixed",
+  "trace": "data/qwen_synthetic.csv",
+  "requests": 180,
+  "offered_rps": 2.9372254703856444,
+  "steps": 3025,
+  "prefill_tokens": 136121,
+  "decode_tokens": 66186,
+  "mean_step_ms": 27.8136094545455,
+  "effective_rps": 2.1050115871097117,
+  "slo_violation_rate": 0.2833333333333333,
+  "ttft_p95_ms": 136.54359999995762,
+  "ttft_p99_ms": 182.48534199994631,
+  "tpot_p95_ms": 86.05041200000001,
+  "tpot_p99_ms": 123.38739600000225,
+  "envelope_tpot_p95_ms": 56.829473883040066,
+  "envelope_tpot_p99_ms": 57.75301042910367
+}

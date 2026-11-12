@@ -1,0 +1,40 @@
+{
+  "name": "weaker_serial_fifo",
+  "test_is_fresh_process": true,
+  "test_invocation_has_no_arguments": true,
+  "method": {
+    "command": [
+      "python",
+      "-m",
+      "method.audit_candidate",
+      "--kind",
+      "weak"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 7.611721302004298
+  },
+  "train": {
+    "command": [
+      "bash",
+      "scripts/evaluate_train.sh"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.6400712129834574
+  },
+  "test": {
+    "command": [
+      "bash",
+      "scripts/evaluate_test.sh"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.39804120498592965
+  },
+  "test_score_file_unchanged": false,
+  "scores_are_fresh": true,
+  "output_method_names": [
+    "fairbatching",
+    "fairbatching_pab",
+    "vllm_sarathi",
+    "vllm_vanilla"
+  ]
+}

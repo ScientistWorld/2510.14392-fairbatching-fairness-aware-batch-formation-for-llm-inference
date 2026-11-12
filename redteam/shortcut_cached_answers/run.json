@@ -1,0 +1,39 @@
+{
+  "name": "shortcut_cached_answers",
+  "test_is_fresh_process": true,
+  "test_invocation_has_no_arguments": true,
+  "method": {
+    "command": [
+      "python",
+      "-m",
+      "method.shortcut_candidate",
+      "shortcut_cached_answers"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.2398670120164752
+  },
+  "train": {
+    "command": [
+      "bash",
+      "scripts/evaluate_train.sh"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.5271928240254056
+  },
+  "test": {
+    "command": [
+      "bash",
+      "scripts/evaluate_test.sh"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.5505526009947062
+  },
+  "test_score_file_unchanged": true,
+  "scores_are_fresh": true,
+  "output_method_names": [
+    "fairbatching",
+    "fairbatching_pab",
+    "vllm_sarathi",
+    "vllm_vanilla"
+  ]
+}

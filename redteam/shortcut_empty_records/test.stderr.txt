@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/home/user/eval/test/evaluate.py", line 276, in <module>
+    main()
+  File "/home/user/eval/test/evaluate.py", line 227, in main
+    results[method_name] = aggregate_metrics(available[method_name], experiment)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/eval/test/evaluate.py", line 124, in aggregate_metrics
+    raise ValueError(f"{path} does not contain non-empty per-request records")
+ValueError: outputs/single_node_qwen_trace/fairbatching_pab.json does not contain non-empty per-request records

@@ -1,0 +1,66 @@
+{
+  "_meta": {
+    "slice": "train",
+    "split": "request_hash_v1"
+  },
+  "experiments": {
+    "single_node_qwen_trace": {
+      "slice": "train",
+      "split": {
+        "type": "request_hash_v1",
+        "bucket": 0,
+        "buckets": 2
+      },
+      "results": {
+        "fairbatching": {
+          "effective_rps": 2.9372254703856444,
+          "slo_violation_rate": 0.0,
+          "ttft_slo_violation_rate": 0.0,
+          "envelope_tpot_slo_violation_rate": 0.0,
+          "ttft_p95_ms": 134.31589000005062,
+          "ttft_p99_ms": 183.28779200004078,
+          "tpot_p95_ms": 95.35389000000012,
+          "tpot_p99_ms": 135.30935399999933,
+          "envelope_tpot_p95_ms": 49.96733182156581,
+          "envelope_tpot_p99_ms": 49.99297612029464
+        },
+        "fairbatching_pab": {
+          "effective_rps": 2.0869759921161157,
+          "slo_violation_rate": 0.2894736842105263,
+          "ttft_slo_violation_rate": 0.0,
+          "envelope_tpot_slo_violation_rate": 0.2894736842105263,
+          "ttft_p95_ms": 134.31589000005062,
+          "ttft_p99_ms": 169.9443420000359,
+          "tpot_p95_ms": 72.58876000000163,
+          "tpot_p99_ms": 116.89997599999987,
+          "envelope_tpot_p95_ms": 54.39289545893778,
+          "envelope_tpot_p99_ms": 54.89434161021338
+        },
+        "vllm_sarathi": {
+          "effective_rps": 2.170283264229393,
+          "slo_violation_rate": 0.2543859649122807,
+          "ttft_slo_violation_rate": 0.2543859649122807,
+          "envelope_tpot_slo_violation_rate": 0.2543859649122807,
+          "ttft_p95_ms": 4254.830800000045,
+          "ttft_p99_ms": 4531.083632000027,
+          "tpot_p95_ms": 49.99580499999938,
+          "tpot_p99_ms": 49.99934800000098,
+          "envelope_tpot_p95_ms": 3804.8159800000435,
+          "envelope_tpot_p99_ms": 4081.0767700000274
+        },
+        "vllm_vanilla": {
+          "effective_rps": 2.0869759921161157,
+          "slo_violation_rate": 0.2894736842105263,
+          "ttft_slo_violation_rate": 0.0,
+          "envelope_tpot_slo_violation_rate": 0.2894736842105263,
+          "ttft_p95_ms": 134.31589000005062,
+          "ttft_p99_ms": 169.9443420000359,
+          "tpot_p95_ms": 72.58876000000163,
+          "tpot_p99_ms": 116.89997599999987,
+          "envelope_tpot_p95_ms": 54.39289545893778,
+          "envelope_tpot_p99_ms": 54.89434161021338
+        }
+      }
+    }
+  }
+}

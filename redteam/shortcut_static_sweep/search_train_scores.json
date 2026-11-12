@@ -1,0 +1,627 @@
+{
+  "selection_uses": "public train only",
+  "selected": "shortcut_fixed_decode_1000",
+  "config": {
+    "budget": 1000,
+    "order": "decode"
+  },
+  "train_ranks": {
+    "reference": 0.0,
+    "shortcut_fixed_decode_128": -20.715530212907375,
+    "shortcut_fixed_prefill_128": -15.314247593925476,
+    "shortcut_fixed_decode_256": -8.656803707286532,
+    "shortcut_fixed_prefill_256": -11.360716849463385,
+    "shortcut_fixed_decode_512": -6.117268866465317,
+    "shortcut_fixed_prefill_512": -8.418616522966616,
+    "shortcut_fixed_decode_768": -5.693137366249349,
+    "shortcut_fixed_prefill_768": -7.178920865603802,
+    "shortcut_fixed_decode_1000": -5.516620877524502,
+    "shortcut_fixed_prefill_1000": -6.356217400266914,
+    "shortcut_fixed_decode_1536": -5.532402303725335,
+    "shortcut_fixed_prefill_1536": -6.216988756084344,
+    "shortcut_fixed_decode_2048": -5.562719124433668,
+    "shortcut_fixed_prefill_2048": -5.660445292220528,
+    "shortcut_fixed_decode_3072": -5.629273601644699,
+    "shortcut_fixed_prefill_3072": -5.660061487025497,
+    "shortcut_fixed_decode_4096": -5.616176366119128,
+    "shortcut_fixed_prefill_4096": -5.626945864898913,
+    "shortcut_fixed_decode_6000": -5.616071798510792,
+    "shortcut_fixed_prefill_6000": -5.616071798510792
+  },
+  "train_metrics": {
+    "reference": {
+      "effective_rps": 2.9372254703856444,
+      "slo_violation_rate": 0.0,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.0,
+      "ttft_p95_ms": 134.31589000005062,
+      "ttft_p99_ms": 183.28779200004078,
+      "tpot_p95_ms": 95.35389000000012,
+      "tpot_p99_ms": 135.30935399999933,
+      "envelope_tpot_p95_ms": 49.96733182156581,
+      "envelope_tpot_p99_ms": 49.99297612029464
+    },
+    "shortcut_fixed_decode_128": {
+      "effective_rps": 1.1336659710260382,
+      "slo_violation_rate": 0.6140350877192983,
+      "ttft_slo_violation_rate": 0.6140350877192983,
+      "envelope_tpot_slo_violation_rate": 0.6052631578947368,
+      "ttft_p95_ms": 7250.88551,
+      "ttft_p99_ms": 7467.544079999995,
+      "tpot_p95_ms": 47.074811830984316,
+      "tpot_p99_ms": 48.795223628483,
+      "envelope_tpot_p95_ms": 6797.176509999998,
+      "envelope_tpot_p99_ms": 7014.1706799999965
+    },
+    "shortcut_fixed_prefill_128": {
+      "effective_rps": 0.9275448853849403,
+      "slo_violation_rate": 0.6842105263157895,
+      "ttft_slo_violation_rate": 0.00877192982456143,
+      "envelope_tpot_slo_violation_rate": 0.6842105263157895,
+      "ttft_p95_ms": 346.659169999972,
+      "ttft_p99_ms": 463.88773599996614,
+      "tpot_p95_ms": 247.64208999999772,
+      "tpot_p99_ms": 388.62600500000366,
+      "envelope_tpot_p95_ms": 133.58225499997306,
+      "envelope_tpot_p99_ms": 199.94199749998356
+    },
+    "shortcut_fixed_decode_256": {
+      "effective_rps": 1.9323851778852925,
+      "slo_violation_rate": 0.3421052631578947,
+      "ttft_slo_violation_rate": 0.21052631578947367,
+      "envelope_tpot_slo_violation_rate": 0.3421052631578947,
+      "ttft_p95_ms": 1558.2677699999422,
+      "ttft_p99_ms": 2057.705605999945,
+      "tpot_p95_ms": 57.83952432432338,
+      "tpot_p99_ms": 59.4161179999994,
+      "envelope_tpot_p95_ms": 1113.6396899999422,
+      "envelope_tpot_p99_ms": 1612.4698059999437
+    },
+    "shortcut_fixed_prefill_256": {
+      "effective_rps": 1.339787056667136,
+      "slo_violation_rate": 0.543859649122807,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.543859649122807,
+      "ttft_p95_ms": 205.3146200001871,
+      "ttft_p99_ms": 277.2875700001801,
+      "tpot_p95_ms": 127.79766799999922,
+      "tpot_p99_ms": 233.73073199999757,
+      "envelope_tpot_p95_ms": 76.13714218531985,
+      "envelope_tpot_p99_ms": 84.76889025001535
+    },
+    "shortcut_fixed_decode_512": {
+      "effective_rps": 2.0354457207058414,
+      "slo_violation_rate": 0.3070175438596491,
+      "ttft_slo_violation_rate": 0.04385964912280704,
+      "envelope_tpot_slo_violation_rate": 0.3070175438596491,
+      "ttft_p95_ms": 436.8605599999783,
+      "ttft_p99_ms": 607.9956479999552,
+      "tpot_p95_ms": 64.71745999999929,
+      "tpot_p99_ms": 66.47196266666728,
+      "envelope_tpot_p95_ms": 56.17617592461344,
+      "envelope_tpot_p99_ms": 172.34915199995655
+    },
+    "shortcut_fixed_prefill_512": {
+      "effective_rps": 1.7004989565390574,
+      "slo_violation_rate": 0.42105263157894735,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.42105263157894735,
+      "ttft_p95_ms": 165.98304000009023,
+      "ttft_p99_ms": 215.46939000007876,
+      "tpot_p95_ms": 100.1060925000007,
+      "tpot_p99_ms": 132.7597710000057,
+      "envelope_tpot_p95_ms": 62.131986383616436,
+      "envelope_tpot_p99_ms": 63.576160976788735
+    },
+    "shortcut_fixed_decode_768": {
+      "effective_rps": 2.0612108564109786,
+      "slo_violation_rate": 0.29824561403508776,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.29824561403508776,
+      "ttft_p95_ms": 294.40037999995246,
+      "ttft_p99_ms": 435.54977799997187,
+      "tpot_p95_ms": 65.1865119999993,
+      "tpot_p99_ms": 72.0637899999997,
+      "envelope_tpot_p95_ms": 54.64077746778075,
+      "envelope_tpot_p99_ms": 56.49522844289963
+    },
+    "shortcut_fixed_prefill_768": {
+      "effective_rps": 1.880854906475018,
+      "slo_violation_rate": 0.35964912280701755,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.35964912280701755,
+      "ttft_p95_ms": 150.72007999997706,
+      "ttft_p99_ms": 205.18985599998368,
+      "tpot_p95_ms": 82.56146999999817,
+      "tpot_p99_ms": 148.8100780000011,
+      "envelope_tpot_p95_ms": 58.3356657857139,
+      "envelope_tpot_p99_ms": 59.180797636660024
+    },
+    "shortcut_fixed_decode_1000": {
+      "effective_rps": 2.0869759921161157,
+      "slo_violation_rate": 0.2894736842105263,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.2894736842105263,
+      "ttft_p95_ms": 248.4759999999838,
+      "ttft_p99_ms": 385.5113719999846,
+      "tpot_p95_ms": 66.89845333333324,
+      "tpot_p99_ms": 75.13451799999713,
+      "envelope_tpot_p95_ms": 54.68305156725144,
+      "envelope_tpot_p99_ms": 55.7612804653061
+    },
+    "shortcut_fixed_prefill_1000": {
+      "effective_rps": 1.9839154492955668,
+      "slo_violation_rate": 0.32456140350877194,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.32456140350877194,
+      "ttft_p95_ms": 151.48497999996928,
+      "ttft_p99_ms": 183.1916739999332,
+      "tpot_p95_ms": 82.7967574999988,
+      "tpot_p99_ms": 115.6201720000031,
+      "envelope_tpot_p95_ms": 56.833783847952446,
+      "envelope_tpot_p99_ms": 57.35103727502059
+    },
+    "shortcut_fixed_decode_1536": {
+      "effective_rps": 2.0869759921161157,
+      "slo_violation_rate": 0.2894736842105263,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.2894736842105263,
+      "ttft_p95_ms": 188.1531300000088,
+      "ttft_p99_ms": 269.9115359999987,
+      "tpot_p95_ms": 72.82696200000038,
+      "tpot_p99_ms": 83.93292800000187,
+      "envelope_tpot_p95_ms": 54.46420522927377,
+      "envelope_tpot_p99_ms": 54.83172464736807
+    },
+    "shortcut_fixed_prefill_1536": {
+      "effective_rps": 2.0096805850007042,
+      "slo_violation_rate": 0.3157894736842105,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.3157894736842105,
+      "ttft_p95_ms": 138.32753000000912,
+      "ttft_p99_ms": 192.7501320000428,
+      "tpot_p95_ms": 73.82290000000042,
+      "tpot_p99_ms": 135.19941400000127,
+      "envelope_tpot_p95_ms": 55.32561779903003,
+      "envelope_tpot_p99_ms": 55.812095958267165
+    },
+    "shortcut_fixed_decode_2048": {
+      "effective_rps": 2.0869759921161157,
+      "slo_violation_rate": 0.2894736842105263,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.2894736842105263,
+      "ttft_p95_ms": 177.47697000003296,
+      "ttft_p99_ms": 220.54597599997163,
+      "tpot_p95_ms": 72.58352000000176,
+      "tpot_p99_ms": 96.65983999999804,
+      "envelope_tpot_p95_ms": 54.44725969846348,
+      "envelope_tpot_p99_ms": 54.865011361900805
+    },
+    "shortcut_fixed_prefill_2048": {
+      "effective_rps": 2.0869759921161157,
+      "slo_violation_rate": 0.2894736842105263,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.2894736842105263,
+      "ttft_p95_ms": 132.09295000003402,
+      "ttft_p99_ms": 164.63232199999612,
+      "tpot_p95_ms": 75.63850000000164,
+      "tpot_p99_ms": 126.54128599999903,
+      "envelope_tpot_p95_ms": 54.818337777777636,
+      "envelope_tpot_p99_ms": 55.36415496977207
+    },
+    "shortcut_fixed_decode_3072": {
+      "effective_rps": 2.0869759921161157,
+      "slo_violation_rate": 0.2894736842105263,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.2894736842105263,
+      "ttft_p95_ms": 148.7285300000756,
+      "ttft_p99_ms": 240.95230600008506,
+      "tpot_p95_ms": 73.78328000000147,
+      "tpot_p99_ms": 113.72354000000173,
+      "envelope_tpot_p95_ms": 54.35407292721118,
+      "envelope_tpot_p99_ms": 54.84397633581926
+    },
+    "shortcut_fixed_prefill_3072": {
+      "effective_rps": 2.0869759921161157,
+      "slo_violation_rate": 0.2894736842105263,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.2894736842105263,
+      "ttft_p95_ms": 130.09166000006078,
+      "ttft_p99_ms": 197.65159000008956,
+      "tpot_p95_ms": 73.9093499999999,
+      "tpot_p99_ms": 126.01876600000003,
+      "envelope_tpot_p95_ms": 54.584028700375214,
+      "envelope_tpot_p99_ms": 55.05035137950378
+    },
+    "shortcut_fixed_decode_4096": {
+      "effective_rps": 2.0869759921161157,
+      "slo_violation_rate": 0.2894736842105263,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.2894736842105263,
+      "ttft_p95_ms": 134.31589000005062,
+      "ttft_p99_ms": 170.36491800003625,
+      "tpot_p95_ms": 72.58824000000058,
+      "tpot_p99_ms": 116.89997599999987,
+      "envelope_tpot_p95_ms": 54.39159582125667,
+      "envelope_tpot_p99_ms": 54.89300530680917
+    },
+    "shortcut_fixed_prefill_4096": {
+      "effective_rps": 2.0869759921161157,
+      "slo_violation_rate": 0.2894736842105263,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.2894736842105263,
+      "ttft_p95_ms": 134.31589000005062,
+      "ttft_p99_ms": 149.78644400004526,
+      "tpot_p95_ms": 76.81457750000078,
+      "tpot_p99_ms": 116.90028799999955,
+      "envelope_tpot_p95_ms": 54.530899323672024,
+      "envelope_tpot_p99_ms": 55.03318037551072
+    },
+    "shortcut_fixed_decode_6000": {
+      "effective_rps": 2.0869759921161157,
+      "slo_violation_rate": 0.2894736842105263,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.2894736842105263,
+      "ttft_p95_ms": 134.31589000005062,
+      "ttft_p99_ms": 169.9443420000359,
+      "tpot_p95_ms": 72.58876000000163,
+      "tpot_p99_ms": 116.89997599999987,
+      "envelope_tpot_p95_ms": 54.39289545893778,
+      "envelope_tpot_p99_ms": 54.89434161021338
+    },
+    "shortcut_fixed_prefill_6000": {
+      "effective_rps": 2.0869759921161157,
+      "slo_violation_rate": 0.2894736842105263,
+      "ttft_slo_violation_rate": 0.0,
+      "envelope_tpot_slo_violation_rate": 0.2894736842105263,
+      "ttft_p95_ms": 134.31589000005062,
+      "ttft_p99_ms": 169.9443420000359,
+      "tpot_p95_ms": 72.58876000000163,
+      "tpot_p99_ms": 116.89997599999987,
+      "envelope_tpot_p95_ms": 54.39289545893778,
+      "envelope_tpot_p99_ms": 54.89434161021338
+    }
+  },
+  "runs": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "128",
+        "--order",
+        "decode",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_128.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.8866411700146273
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "128",
+        "--order",
+        "prefill",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_128.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.3925783129816409
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "256",
+        "--order",
+        "decode",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_256.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.564162443013629
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "256",
+        "--order",
+        "prefill",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_256.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.67521159700118
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "512",
+        "--order",
+        "decode",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_512.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.2673105639987625
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "512",
+        "--order",
+        "prefill",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_512.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.4684001940186135
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "768",
+        "--order",
+        "decode",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_768.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.4775733810092788
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "768",
+        "--order",
+        "prefill",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_768.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.4501868200022727
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "1000",
+        "--order",
+        "decode",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_1000.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.795495056983782
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "1000",
+        "--order",
+        "prefill",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_1000.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.8848976120061707
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "1536",
+        "--order",
+        "decode",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_1536.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.316570644004969
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "1536",
+        "--order",
+        "prefill",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_1536.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.7662011180073023
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "2048",
+        "--order",
+        "decode",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_2048.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.9587003740016371
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "2048",
+        "--order",
+        "prefill",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_2048.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.9833427040139213
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "3072",
+        "--order",
+        "decode",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_3072.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.9624454409931786
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "3072",
+        "--order",
+        "prefill",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_3072.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.6829103780037258
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "4096",
+        "--order",
+        "decode",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_4096.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.6947224260075018
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "4096",
+        "--order",
+        "prefill",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_4096.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.05586776099517
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "6000",
+        "--order",
+        "decode",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_decode_6000.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.7521744200203102
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "fixed",
+        "--budget",
+        "6000",
+        "--order",
+        "prefill",
+        "--output",
+        "redteam/shortcut_static_sweep/scratch/shortcut_fixed_prefill_6000.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.2673194840026554
+    }
+  ]
+}

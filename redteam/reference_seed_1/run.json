@@ -1,0 +1,58 @@
+{
+  "name": "reference_seed_1",
+  "test_is_fresh_process": true,
+  "test_invocation_has_no_arguments": true,
+  "seed_type": "PYTHONHASHSEED; simulator has no stochastic training or decoding",
+  "fairbatching": {
+    "command": [
+      "python",
+      "method/simulator.py",
+      "--trace",
+      "data/qwen_synthetic.csv",
+      "--policy",
+      "fairbatching",
+      "--output",
+      "outputs/single_node_qwen_trace/fairbatching.json"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.9320555750164203
+  },
+  "fairbatching_pab": {
+    "command": [
+      "python",
+      "method/simulator.py",
+      "--trace",
+      "data/qwen_synthetic.csv",
+      "--policy",
+      "fairbatching_pab",
+      "--output",
+      "outputs/single_node_qwen_trace/fairbatching_pab.json"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.7787436889775563
+  },
+  "train": {
+    "command": [
+      "bash",
+      "scripts/evaluate_train.sh"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.37048485199920833
+  },
+  "test": {
+    "command": [
+      "bash",
+      "scripts/evaluate_test.sh"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.4592372350161895
+  },
+  "test_score_file_unchanged": true,
+  "scores_are_fresh": true,
+  "output_method_names": [
+    "fairbatching",
+    "fairbatching_pab",
+    "vllm_sarathi",
+    "vllm_vanilla"
+  ]
+}

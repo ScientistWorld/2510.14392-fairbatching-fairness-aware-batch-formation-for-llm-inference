@@ -1,0 +1,39 @@
+{
+  "name": "shortcut_summary_flags",
+  "test_is_fresh_process": true,
+  "test_invocation_has_no_arguments": true,
+  "method": {
+    "command": [
+      "python",
+      "-m",
+      "method.shortcut_candidate",
+      "shortcut_summary_flags"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.5860301700013224
+  },
+  "train": {
+    "command": [
+      "bash",
+      "scripts/evaluate_train.sh"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.6450956070038956
+  },
+  "test": {
+    "command": [
+      "bash",
+      "scripts/evaluate_test.sh"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.6192138280021027
+  },
+  "test_score_file_unchanged": false,
+  "scores_are_fresh": true,
+  "output_method_names": [
+    "fairbatching",
+    "fairbatching_pab",
+    "vllm_sarathi",
+    "vllm_vanilla"
+  ]
+}

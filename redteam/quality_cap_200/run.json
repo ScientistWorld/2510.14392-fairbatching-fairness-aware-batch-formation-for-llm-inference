@@ -1,0 +1,42 @@
+{
+  "name": "quality_cap_200",
+  "test_is_fresh_process": true,
+  "test_invocation_has_no_arguments": true,
+  "method": {
+    "command": [
+      "python",
+      "-m",
+      "method.audit_candidate",
+      "--kind",
+      "capped",
+      "--cap",
+      "200"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.7994399830058683
+  },
+  "train": {
+    "command": [
+      "bash",
+      "scripts/evaluate_train.sh"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.15602542599663138
+  },
+  "test": {
+    "command": [
+      "bash",
+      "scripts/evaluate_test.sh"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.31676114301080815
+  },
+  "test_score_file_unchanged": true,
+  "scores_are_fresh": true,
+  "output_method_names": [
+    "fairbatching",
+    "fairbatching_pab",
+    "vllm_sarathi",
+    "vllm_vanilla"
+  ]
+}

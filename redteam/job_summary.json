@@ -1,0 +1,1180 @@
+[
+  {
+    "name": "reference_seed_0",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "seed_type": "PYTHONHASHSEED; simulator has no stochastic training or decoding",
+    "fairbatching": {
+      "command": [
+        "python",
+        "method/simulator.py",
+        "--trace",
+        "data/qwen_synthetic.csv",
+        "--policy",
+        "fairbatching",
+        "--output",
+        "outputs/single_node_qwen_trace/fairbatching.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.6235986940155271
+    },
+    "fairbatching_pab": {
+      "command": [
+        "python",
+        "method/simulator.py",
+        "--trace",
+        "data/qwen_synthetic.csv",
+        "--policy",
+        "fairbatching_pab",
+        "--output",
+        "outputs/single_node_qwen_trace/fairbatching_pab.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.2959817109804135
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.4345369430084247
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.4061756280134432
+    },
+    "test_score_file_unchanged": true,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "reference_seed_1",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "seed_type": "PYTHONHASHSEED; simulator has no stochastic training or decoding",
+    "fairbatching": {
+      "command": [
+        "python",
+        "method/simulator.py",
+        "--trace",
+        "data/qwen_synthetic.csv",
+        "--policy",
+        "fairbatching",
+        "--output",
+        "outputs/single_node_qwen_trace/fairbatching.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.9320555750164203
+    },
+    "fairbatching_pab": {
+      "command": [
+        "python",
+        "method/simulator.py",
+        "--trace",
+        "data/qwen_synthetic.csv",
+        "--policy",
+        "fairbatching_pab",
+        "--output",
+        "outputs/single_node_qwen_trace/fairbatching_pab.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.7787436889775563
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.37048485199920833
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.4592372350161895
+    },
+    "test_score_file_unchanged": true,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "reference_seed_2",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "seed_type": "PYTHONHASHSEED; simulator has no stochastic training or decoding",
+    "fairbatching": {
+      "command": [
+        "python",
+        "method/simulator.py",
+        "--trace",
+        "data/qwen_synthetic.csv",
+        "--policy",
+        "fairbatching",
+        "--output",
+        "outputs/single_node_qwen_trace/fairbatching.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.8281366309965961
+    },
+    "fairbatching_pab": {
+      "command": [
+        "python",
+        "method/simulator.py",
+        "--trace",
+        "data/qwen_synthetic.csv",
+        "--policy",
+        "fairbatching_pab",
+        "--output",
+        "outputs/single_node_qwen_trace/fairbatching_pab.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.6731780580012128
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.5132363349839579
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.37304518301971257
+    },
+    "test_score_file_unchanged": true,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "weaker_serial_fifo",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "weak"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 7.611721302004298
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.6400712129834574
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.39804120498592965
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "quality_cap_50",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "capped",
+        "--cap",
+        "50"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.8968752310029231
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.41178685100749135
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.616116114979377
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "quality_cap_75",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "capped",
+        "--cap",
+        "75"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.9153690870152786
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.3686775050009601
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.33578904101159424
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "quality_cap_100",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "capped",
+        "--cap",
+        "100"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.8610638150130399
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.3601711099909153
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.7487660970073193
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "quality_cap_125",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "capped",
+        "--cap",
+        "125"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 4.418776578007964
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.9300601370050572
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.9464786940079648
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "quality_cap_150",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "capped",
+        "--cap",
+        "150"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.7809451679931954
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.7603772869915701
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.2883148670080118
+    },
+    "test_score_file_unchanged": true,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "quality_cap_200",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "capped",
+        "--cap",
+        "200"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.7994399830058683
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.15602542599663138
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.31676114301080815
+    },
+    "test_score_file_unchanged": true,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "quality_raw_100",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "raw",
+        "--cap",
+        "100"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.2609777679899707
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.45218135599861853
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.6580944070010446
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "quality_raw_200",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "raw",
+        "--cap",
+        "200"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 2.2633340590109583
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.8928089740220457
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 2.0231832589779515
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "better_variant",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.audit_candidate",
+        "--kind",
+        "capped",
+        "--cap",
+        "125"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.8917661010054871
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.6548374229751062
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.29333014800795354
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "shortcut_static_sweep",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "exit_code": 0,
+      "selected": "shortcut_fixed_decode_1000",
+      "search_attempts": 20
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.41716201600502245
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.6373383940081112
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "shortcut_zero_timings",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.shortcut_candidate",
+        "shortcut_zero_timings"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.44903876702301204
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.3926229909993708
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.4978827309969347
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "shortcut_negative_timings",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.shortcut_candidate",
+        "shortcut_negative_timings"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.5325788159971125
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.6347822530078702
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.6862763880053535
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "shortcut_copy_easy_record",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.shortcut_candidate",
+        "shortcut_copy_easy_record"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.3910988849820569
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.4895791560120415
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.4640280400053598
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "shortcut_relax_slos",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.shortcut_candidate",
+        "shortcut_relax_slos"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.5581634829868563
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.6580478610121645
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.4307245500094723
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "shortcut_compress_arrivals",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.shortcut_candidate",
+        "shortcut_compress_arrivals"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.34389789699343964
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.6459082790242974
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.27970262902090326
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "shortcut_fixed_simulator",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "baseline.run_baseline",
+        "--trace",
+        "data/qwen_synthetic.csv",
+        "--policy",
+        "vllm_vanilla",
+        "--output",
+        "outputs/single_node_qwen_trace/fairbatching_pab.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.8293469960044604
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.48127080098493025
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.5034081540070474
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "shortcut_cached_answers",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.shortcut_candidate",
+        "shortcut_cached_answers"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.2398670120164752
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.5271928240254056
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.5505526009947062
+    },
+    "test_score_file_unchanged": true,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "shortcut_no_pab_tie",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.shortcut_candidate",
+        "shortcut_no_pab_tie"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.504281808011001
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.38705413800198585
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.5217783510161098
+    },
+    "test_score_file_unchanged": true,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "shortcut_summary_flags",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.shortcut_candidate",
+        "shortcut_summary_flags"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.5860301700013224
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.6450956070038956
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.6192138280021027
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "shortcut_direct_scores",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.shortcut_candidate",
+        "shortcut_direct_scores"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.31796386899077334
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.3868576069944538
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.4053580640174914
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "shortcut_empty_records",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.shortcut_candidate",
+        "shortcut_empty_records"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.33388886600732803
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 1,
+      "elapsed_s": 0.4668714510044083
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 1,
+      "elapsed_s": 0.39324529402074404
+    },
+    "test_score_file_unchanged": true,
+    "scores_are_fresh": false,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "shortcut_null_timings",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.shortcut_candidate",
+        "shortcut_null_timings"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.1342823809827678
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 1,
+      "elapsed_s": 1.1696335680026095
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 1,
+      "elapsed_s": 0.37647098299930803
+    },
+    "test_score_file_unchanged": true,
+    "scores_are_fresh": false,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "shortcut_omit_unregistered_method",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.20140735199674964
+    },
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.shortcut_candidate",
+        "shortcut_omit_unregistered_method"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.29618941800436005
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.5170705410127994
+    },
+    "test_score_file_unchanged": true,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "shortcut_unregistered_failed_method",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  },
+  {
+    "name": "shortcut_fail_task_fast_tails",
+    "test_is_fresh_process": true,
+    "test_invocation_has_no_arguments": true,
+    "method": {
+      "command": [
+        "python",
+        "-m",
+        "method.shortcut_candidate",
+        "shortcut_fail_task_fast_tails"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.3099257659923751
+    },
+    "train": {
+      "command": [
+        "bash",
+        "scripts/evaluate_train.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.38170380500378087
+    },
+    "test": {
+      "command": [
+        "bash",
+        "scripts/evaluate_test.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.36113853901042603
+    },
+    "test_score_file_unchanged": false,
+    "scores_are_fresh": true,
+    "output_method_names": [
+      "fairbatching",
+      "fairbatching_pab",
+      "vllm_sarathi",
+      "vllm_vanilla"
+    ]
+  }
+]

@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/user/eval/test/evaluate.py", line 276, in <module>
+    main()
+  File "/home/user/eval/test/evaluate.py", line 227, in main
+    results[method_name] = aggregate_metrics(available[method_name], experiment)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/eval/test/evaluate.py", line 130, in aggregate_metrics
+    ttft_values = [float(row["ttft_ms"]) for row in rows]
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/eval/test/evaluate.py", line 130, in <listcomp>
+    ttft_values = [float(row["ttft_ms"]) for row in rows]
+                   ^^^^^^^^^^^^^^^^^^^^^
+TypeError: float() argument must be a string or a real number, not 'NoneType'

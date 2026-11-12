@@ -1,0 +1,14 @@
+{
+  "selected_from_public_train_only": "quality_cap_125",
+  "train_ranks": {
+    "reference": 0.0,
+    "quality_cap_50": -11.073451498515134,
+    "quality_cap_75": -0.8480205095947012,
+    "quality_cap_100": -0.3018309301155603,
+    "quality_cap_125": 0.06491932035903222,
+    "quality_cap_150": 0.0,
+    "quality_cap_200": 0.0,
+    "quality_raw_100": -5.515393554359208,
+    "quality_raw_200": -5.515393554359208
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "shortcut_omit_unregistered_method",
+  "test_is_fresh_process": true,
+  "test_invocation_has_no_arguments": true,
+  "train": {
+    "command": [
+      "bash",
+      "scripts/evaluate_train.sh"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.20140735199674964
+  },
+  "method": {
+    "command": [
+      "python",
+      "-m",
+      "method.shortcut_candidate",
+      "shortcut_omit_unregistered_method"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.29618941800436005
+  },
+  "test": {
+    "command": [
+      "bash",
+      "scripts/evaluate_test.sh"
+    ],
+    "exit_code": 0,
+    "elapsed_s": 0.5170705410127994
+  },
+  "test_score_file_unchanged": true,
+  "scores_are_fresh": true,
+  "output_method_names": [
+    "fairbatching",
+    "fairbatching_pab",
+    "shortcut_unregistered_failed_method",
+    "vllm_sarathi",
+    "vllm_vanilla"
+  ]
+}
