@@ -1,3 +1,5 @@
+> **Superseded (iteration 11):** this file verifies the pre-iteration-11 gym. The current evaluator, experiments and audit are described in `briefing/evaluation.md` and `HARDENING.md`.
+
 # Verification Report
 
 ## Initial Assessment

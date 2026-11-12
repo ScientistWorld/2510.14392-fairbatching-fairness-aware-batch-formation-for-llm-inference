@@ -1,3 +1,5 @@
+> **Superseded (iteration 11):** this file audits the pre-iteration-11 gym (artifact scoring on a synthetic trace). The current evaluator, experiments and audit are described in `briefing/evaluation.md` and `HARDENING.md`.
+
 # Does this gym reward better research?
 
 **Only partly. A real tail-latency improvement scores higher and a clearly weaker scheduler scores lower, but the primary goodput metric is already saturated. The reproduced raw TPOT result also goes in the wrong direction relative to the paper:** FairBatching-PAB has test P99 TPOT **167.053 ms**, versus vanilla **89.590 ms** and Sarathi **49.999 ms**. The paper's Table 4 reports **50 / 614 / 49 ms**, respectively. The synthetic experiment preserves a goodput/envelope benefit, but does not establish the paper's combined latency claim or PAB benefit. Multiple shortcuts beat or tie the reference without better scheduling.

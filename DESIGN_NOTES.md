@@ -1,3 +1,5 @@
+> **Superseded (iteration 11):** this file describes the pre-iteration-11 artifact-based evaluator. The current evaluator, experiments and audit are described in `briefing/evaluation.md` and `HARDENING.md`.
+
 # Design Notes
 
 Checked the train/test split, wrapper scripts, scoring schema, and paper context

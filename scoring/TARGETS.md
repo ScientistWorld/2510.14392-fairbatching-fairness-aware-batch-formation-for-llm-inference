@@ -7,8 +7,9 @@ written for every scheduler to `scoring/scores_train.json` /
 ## Benefit targets
 
 - `qwen_peak_goodput.peak_goodput_gain_pct` (primary): raise peak goodput over
-  the best baseline (paper: +23.8% FairBatching, +109% FairBatching-PAB on
-  QwenTrace).
+  the best baseline (paper, Qwen3-14B / QwenTrace / 500-50 ms: +15.4%
+  FairBatching, +112.6% FairBatching-PAB; Table 3's four-model geometric mean:
+  +23.8% / +109%).
 - `qwen_peak_goodput.mean_goodput_gain_pct`: keep goodput high across the whole
   load sweep, including overload.
 - `qwen_relaxed_slo_goodput.peak_goodput_gain_pct` (primary) and

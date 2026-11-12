@@ -1,8 +1,24 @@
 # Reproduction Milestones
 
-**Current: core_claim**
+**Current: core_claim_plus**
 
 ## Progress Log
+
+### [2026-11-12] - core_claim_plus (iteration 11, hardening)
+- Rebuilt the gym around evaluator-owned simulation: methods are scheduler
+  programs driven over a step protocol; held-out workloads, simulator and
+  frozen baselines live only in `eval/test/`.  See `HARDENING.md`.
+- Moved to the paper's own data (QwenTrace head segment of the Qwen-Bailian
+  trace A, which reproduces Table 2) and calibrated the node to the paper's
+  Qwen3-14B regime (Figure 5f).
+- Held-out results in the paper's direction: FairBatching-PAB +99% peak goodput
+  over the best baseline (paper +112.6% for this configuration),
+  FairBatching-vanilla +11% (paper +15.4%); Table 4 latency pattern reproduced
+  (FB-PAB TTFT p99 552 ms vs 1.6-2.1 s for the others; vanilla TPOT p99 729 ms
+  vs ~50 ms); Table 5 relaxed-SLO row +5% / +49% (paper +8.1% / +64.9%).
+- Milestone raised to `core_claim_plus`: the single-node goodput claim plus the
+  Table 4 latency claim and one Table 5 row reproduce; cluster-level PAB, other
+  traces/models and the full breakdown are not covered.
 
 ### [2026-05-31 10:27] - core_claim
 - Removed the relaxed-SLO auxiliary experiment from the default scored surface

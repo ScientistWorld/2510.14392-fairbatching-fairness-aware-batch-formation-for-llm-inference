@@ -1,8 +1,6 @@
 # Once you set action to 'submit' or 'done', STOP immediately.
 # Do NOT sleep, poll, or wait for jobs. The system reads this file
 # only after your turn ends.
-action: submit
-gpus: 0
-test: false
-milestone: core_claim
-notes: "Final verification with 12 trace windows per load sweep (halves baseline-denominator noise): reference train/test scores, resumable run_audit.py groups, tamper check, analysis, validate.py."
+action: done
+milestone: core_claim_plus
+notes: "Hardened: schedulers run as programs on evaluator-owned simulation of hidden QwenTrace workloads; better variants +0.21..+0.29 rank (CIs exclude 0), weaker/baselines below, all red-team shortcuts impossible or worst; see HARDENING.md."

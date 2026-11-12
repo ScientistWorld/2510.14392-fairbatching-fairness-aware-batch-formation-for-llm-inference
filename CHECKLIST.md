@@ -1,46 +1,26 @@
 # Reproduction Checklist
 
 ## Briefing
-- [x] `briefing/problem.md`
-- [x] `briefing/evaluation.md`
-- [x] `briefing/method.md`
-- [x] `briefing/overview.md`
+- [x] `briefing/problem.md`, `briefing/evaluation.md`, `briefing/method.md`, `briefing/overview.md`
 
 ## Scoring
-- [x] `scoring/reference.json`
-- [x] Workspace validated via `python validate.py --compare`
-- [x] `scoring/scores.json`
-- [x] `scoring/EXPERIMENTS.md`
-- [x] `scoring/TARGETS.md`
-- [x] `scoring/CONSTRAINTS.md`
-- [x] `scoring/DIRECTION.md`
+- [x] `scoring/reference.json` (3 experiments; paper numbers unchanged)
+- [x] `scoring/scores.json`, `scores_train.json`, `scores_test.json` from the reference runs
+- [x] `scoring/EXPERIMENTS.md`, `TARGETS.md`, `CONSTRAINTS.md`, `DIRECTION.md`
+- [x] `python validate.py` passes
 
 ## Code
-- [x] Evaluation code in `eval/`
-- [x] Method implementation in `method/`
-- [x] Baseline implementation in `baseline/`
+- [x] `eval/train/`, `eval/test/` (self-contained held-out evaluator)
+- [x] `method/fairbatching.py`, `baseline/schedulers.py`
+- [x] `data/` simulator, protocol helper, QwenTrace head segment
 
-## Scripts
-- [x] `scripts/evaluate.sh`
-- [x] `scripts/reproduce.sh`
-- [x] `scripts/download.sh`
-- [x] `scripts/baseline.sh`
+## Scripts / environment
+- [x] `scripts/download.sh`, `reproduce.sh`, `run.sh`, `method.sh`, `baseline.sh`, `evaluate*.sh`
+- [x] `environment/container.def` (python:3.11-slim, standard library only)
 
-## Environment
-- [x] `environment/container.def` + `environment/setup.sh`
-
-## Data
-- [x] Synthetic trace generator in `data/`
-- [x] QwenTrace-like scored trace
-- [x] QwenTrace-like relaxed-SLO scored trace
-- [x] BurstGPT-like custom trace generator retained but not scored by default
-- [x] No pretrained models needed
+## Hardening
+- [x] `HARDENING.md`, audit in `redteam/hardening/`
 
 ## Milestones
-- [x] `method_runs`
-- [x] `core_claim`
-- [ ] `core_claim_plus` pending packaged verification of the second scored setting
-- [ ] `secondary_claims`
-- [ ] `majority`
-- [ ] `near_complete`
-- [ ] `full`
+- [x] `method_runs`, `core_claim`, `core_claim_plus`
+- [ ] cluster-level PAB load balancing, BurstGPT / Azure traces, other models

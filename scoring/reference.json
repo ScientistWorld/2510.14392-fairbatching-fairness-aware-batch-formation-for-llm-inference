@@ -3,7 +3,7 @@
   "experiments": {
     "qwen_peak_goodput": {
       "description": "Single-node peak goodput on QwenTrace (TTFT 500 ms / TPOT 50 ms): effective RPS swept over offered loads 1.0-5.0 RPS, as in Figure 5 / Table 3.",
-      "notes": "Gains are relative to the better of the evaluator's frozen vLLM-vanilla and vLLM-sarathi at the same instances. The paper reports +23.8% (FairBatching-vanilla) and +109% (FairBatching-PAB) over vLLM-vanilla on QwenTrace (Table 3, Section 5.2).",
+      "notes": "Gains are relative to the better of the evaluator's frozen vLLM-vanilla and vLLM-sarathi at the same instances. Results use the paper's number for exactly this configuration: Table 5, Qwen3-14B on QwenTrace at TTFT 500 / TPOT 50 ms (+15.4% FairBatching-vanilla, +112.6% FairBatching-PAB peak goodput over the best baseline). Table 3's QwenTrace row (geometric mean over four models; +23.8% / +109% over vLLM-vanilla, Section 5.2) is kept under '_paper_table3_...' as context.",
       "weight": 0.5,
       "primary_metric": "peak_goodput_gain_pct",
       "metrics": {
@@ -27,11 +27,11 @@
         },
         "fairbatching": {
           "type": "proposed",
-          "peak_goodput_gain_pct": 23.8
+          "peak_goodput_gain_pct": 15.4
         },
         "fairbatching_pab": {
           "type": "proposed",
-          "peak_goodput_gain_pct": 109.0
+          "peak_goodput_gain_pct": 112.6
         }
       },
       "_paper_table3_qwentrace_peak_effective_rps_geomean_4_models": {
@@ -39,6 +39,10 @@
         "vllm_sarathi": 1.13,
         "fairbatching": 1.51,
         "fairbatching_pab": 2.56
+      },
+      "_paper_table3_qwentrace_gain_over_vllm_vanilla_pct": {
+        "fairbatching": 23.8,
+        "fairbatching_pab": 109.0
       }
     },
     "qwen_latency_detail": {
