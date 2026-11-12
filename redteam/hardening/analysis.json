@@ -1,8 +1,8 @@
 {
   "reference_vector_test": {
     "qwen_peak_goodput": {
-      "peak_goodput_gain_pct": 109.97550656869292,
-      "mean_goodput_gain_pct": 116.85926215108329
+      "peak_goodput_gain_pct": 99.25925925925922,
+      "mean_goodput_gain_pct": 99.64942637503265
     },
     "qwen_latency_detail": {
       "slo_attainment": 0.9152083333333333,
@@ -11,54 +11,54 @@
       "tpot_p99_ms": 50.36916940371962
     },
     "qwen_relaxed_slo_goodput": {
-      "peak_goodput_gain_pct": 43.89341228719472,
-      "mean_goodput_gain_pct": 54.477554254352945
+      "peak_goodput_gain_pct": 48.8710750166276,
+      "mean_goodput_gain_pct": 58.66195634793736
     }
   },
   "test_results": {
     "qwen_peak_goodput": {
       "fairbatching": {
-        "peak_goodput_gain_pct": 11.28924515698062,
-        "mean_goodput_gain_pct": 1.4854577396056667
+        "peak_goodput_gain_pct": 11.07936507936509,
+        "mean_goodput_gain_pct": 3.2074332423103646
       },
       "fairbatching_pab": {
-        "peak_goodput_gain_pct": 109.97550656869292,
-        "mean_goodput_gain_pct": 116.85926215108329
+        "peak_goodput_gain_pct": 99.25925925925922,
+        "mean_goodput_gain_pct": 99.64942637503265
       },
       "vllm_vanilla": {
-        "peak_goodput_gain_pct": 0.0,
-        "mean_goodput_gain_pct": -1.6943197345305583
+        "peak_goodput_gain_pct": -0.06349206349206549,
+        "mean_goodput_gain_pct": -1.5987599246582218
       },
       "vllm_sarathi": {
-        "peak_goodput_gain_pct": -1.002004008016033,
+        "peak_goodput_gain_pct": 0.0,
         "mean_goodput_gain_pct": 0.0
       },
       "better_margin_pab": {
-        "peak_goodput_gain_pct": 126.34157203295477,
-        "mean_goodput_gain_pct": 126.8085106382978
+        "peak_goodput_gain_pct": 114.44444444444449,
+        "mean_goodput_gain_pct": 109.49883292327934
       },
       "better_shed_pab": {
-        "peak_goodput_gain_pct": 131.2402582943665,
-        "mean_goodput_gain_pct": 129.10013663868818
+        "peak_goodput_gain_pct": 120.68783068783074,
+        "mean_goodput_gain_pct": 112.24844765277888
       },
       "better_srpt_shed_pab": {
-        "peak_goodput_gain_pct": 130.126920507682,
-        "mean_goodput_gain_pct": 128.34862385321094
+        "peak_goodput_gain_pct": 119.84126984126986,
+        "mean_goodput_gain_pct": 111.89246672254214
       },
       "better_exact_cost_pab": {
-        "peak_goodput_gain_pct": 127.0095747049655,
-        "mean_goodput_gain_pct": 126.67577591255123
+        "peak_goodput_gain_pct": 114.65608465608467,
+        "mean_goodput_gain_pct": 109.26361514405963
       },
       "weaker_fixed_batch_fb": {
-        "peak_goodput_gain_pct": 5.143620574482299,
-        "mean_goodput_gain_pct": -5.346476673823963
+        "peak_goodput_gain_pct": 6.253968253968223,
+        "mean_goodput_gain_pct": -2.9758203332702737
       },
       "weaker_fixed_batch_pab": {
-        "peak_goodput_gain_pct": 113.9835226007571,
-        "mean_goodput_gain_pct": 120.30646105797378
+        "peak_goodput_gain_pct": 102.53968253968257,
+        "mean_goodput_gain_pct": 103.17228575805912
       },
       "bruteforce_static_budget": {
-        "peak_goodput_gain_pct": -1.002004008016033,
+        "peak_goodput_gain_pct": 0.0,
         "mean_goodput_gain_pct": 0.0
       },
       "shortcut_forge_records": {
@@ -66,8 +66,8 @@
         "mean_goodput_gain_pct": -100.0
       },
       "shortcut_direct_scores": {
-        "peak_goodput_gain_pct": 109.97550656869292,
-        "mean_goodput_gain_pct": 116.85926215108329
+        "peak_goodput_gain_pct": 99.25925925925922,
+        "mean_goodput_gain_pct": 99.64942637503265
       },
       "shortcut_oversized_batch": {
         "peak_goodput_gain_pct": -100.0,
@@ -82,12 +82,12 @@
         "mean_goodput_gain_pct": -100.0
       },
       "shortcut_admit_short_only": {
-        "peak_goodput_gain_pct": -23.40236027610777,
-        "mean_goodput_gain_pct": -27.479992192074974
+        "peak_goodput_gain_pct": -26.296296296296294,
+        "mean_goodput_gain_pct": -32.208613837294195
       },
       "shortcut_train_oracle": {
-        "peak_goodput_gain_pct": 109.97550656869292,
-        "mean_goodput_gain_pct": 116.85926215108329
+        "peak_goodput_gain_pct": 99.25925925925922,
+        "mean_goodput_gain_pct": 99.64942637503265
       },
       "shortcut_crash": {
         "peak_goodput_gain_pct": -100.0,
@@ -242,44 +242,44 @@
     },
     "qwen_relaxed_slo_goodput": {
       "fairbatching": {
-        "peak_goodput_gain_pct": 9.386986070923896,
-        "mean_goodput_gain_pct": 4.960674048737124
+        "peak_goodput_gain_pct": 5.3803339517625615,
+        "mean_goodput_gain_pct": 4.384693795970596
       },
       "fairbatching_pab": {
-        "peak_goodput_gain_pct": 43.89341228719472,
-        "mean_goodput_gain_pct": 54.477554254352945
+        "peak_goodput_gain_pct": 48.8710750166276,
+        "mean_goodput_gain_pct": 58.66195634793736
       },
       "vllm_vanilla": {
-        "peak_goodput_gain_pct": -5.7936881771078586,
-        "mean_goodput_gain_pct": -11.868320868842641
+        "peak_goodput_gain_pct": -6.150453320264615,
+        "mean_goodput_gain_pct": -13.62577950111925
       },
       "vllm_sarathi": {
         "peak_goodput_gain_pct": 0.0,
         "mean_goodput_gain_pct": 0.0
       },
       "better_margin_pab": {
-        "peak_goodput_gain_pct": 63.353744700894985,
-        "mean_goodput_gain_pct": 62.849054051442586
+        "peak_goodput_gain_pct": 69.0762068120559,
+        "mean_goodput_gain_pct": 67.5557643108411
       },
       "better_shed_pab": {
-        "peak_goodput_gain_pct": 68.1178924702241,
-        "mean_goodput_gain_pct": 64.72162637447583
+        "peak_goodput_gain_pct": 73.02481884692129,
+        "mean_goodput_gain_pct": 69.29764950431728
       },
       "better_srpt_shed_pab": {
-        "peak_goodput_gain_pct": 71.75156449767847,
-        "mean_goodput_gain_pct": 65.22890215857926
+        "peak_goodput_gain_pct": 77.89757412398919,
+        "mean_goodput_gain_pct": 69.88377438439397
       },
       "better_exact_cost_pab": {
-        "peak_goodput_gain_pct": 61.65803108808292,
-        "mean_goodput_gain_pct": 62.9862600730477
+        "peak_goodput_gain_pct": 67.26992683866003,
+        "mean_goodput_gain_pct": 67.26894787336106
       },
       "weaker_fixed_batch_fb": {
-        "peak_goodput_gain_pct": 9.333153892739388,
-        "mean_goodput_gain_pct": 2.2320134500551037
+        "peak_goodput_gain_pct": 3.4200301046662496,
+        "mean_goodput_gain_pct": 1.67892548768791
       },
       "weaker_fixed_batch_pab": {
-        "peak_goodput_gain_pct": 40.90572639795438,
-        "mean_goodput_gain_pct": 54.09492337720061
+        "peak_goodput_gain_pct": 46.26667133405682,
+        "mean_goodput_gain_pct": 59.070195075151965
       },
       "bruteforce_static_budget": {
         "peak_goodput_gain_pct": 0.0,
@@ -290,8 +290,8 @@
         "mean_goodput_gain_pct": -100.0
       },
       "shortcut_direct_scores": {
-        "peak_goodput_gain_pct": 43.89341228719472,
-        "mean_goodput_gain_pct": 54.477554254352945
+        "peak_goodput_gain_pct": 48.8710750166276,
+        "mean_goodput_gain_pct": 58.66195634793736
       },
       "shortcut_oversized_batch": {
         "peak_goodput_gain_pct": -100.0,
@@ -306,12 +306,12 @@
         "mean_goodput_gain_pct": -100.0
       },
       "shortcut_admit_short_only": {
-        "peak_goodput_gain_pct": -44.52594038086265,
-        "mean_goodput_gain_pct": -50.21450518870658
+        "peak_goodput_gain_pct": -42.78713200546084,
+        "mean_goodput_gain_pct": -48.95766709306043
       },
       "shortcut_train_oracle": {
-        "peak_goodput_gain_pct": 43.89341228719472,
-        "mean_goodput_gain_pct": 54.477554254352945
+        "peak_goodput_gain_pct": 48.8710750166276,
+        "mean_goodput_gain_pct": 58.66195634793736
       },
       "shortcut_crash": {
         "peak_goodput_gain_pct": -100.0,
@@ -338,8 +338,8 @@
         "mean_goodput_gain_pct": -100.0
       },
       "fairbatching_pab": {
-        "peak_goodput_gain_pct": 81.51147098515519,
-        "mean_goodput_gain_pct": 74.42540353932759
+        "peak_goodput_gain_pct": 89.85153548911936,
+        "mean_goodput_gain_pct": 86.52289078101893
       },
       "vllm_sarathi": {
         "peak_goodput_gain_pct": -100.0,
@@ -350,20 +350,20 @@
         "mean_goodput_gain_pct": -100.0
       },
       "better_margin_pab": {
-        "peak_goodput_gain_pct": 98.38056680161942,
-        "mean_goodput_gain_pct": 83.17264329922558
+        "peak_goodput_gain_pct": 107.29103111653444,
+        "mean_goodput_gain_pct": 95.8672092381995
       },
       "better_shed_pab": {
-        "peak_goodput_gain_pct": 102.71833429728167,
-        "mean_goodput_gain_pct": 85.09936864367246
+        "peak_goodput_gain_pct": 112.57880821639206,
+        "mean_goodput_gain_pct": 98.18511493436503
       },
       "bruteforce_static_budget": {
         "peak_goodput_gain_pct": 0.0,
         "mean_goodput_gain_pct": 0.0
       },
       "shortcut_train_oracle": {
-        "peak_goodput_gain_pct": 102.91112396375554,
-        "mean_goodput_gain_pct": 85.2610953876777
+        "peak_goodput_gain_pct": 112.7313402481187,
+        "mean_goodput_gain_pct": 98.24277012291418
       }
     },
     "qwen_latency_detail": {
@@ -422,8 +422,8 @@
         "mean_goodput_gain_pct": -100.0
       },
       "fairbatching_pab": {
-        "peak_goodput_gain_pct": 50.44074436826638,
-        "mean_goodput_gain_pct": 53.86358574071022
+        "peak_goodput_gain_pct": 51.92307692307689,
+        "mean_goodput_gain_pct": 55.56642706294927
       },
       "vllm_sarathi": {
         "peak_goodput_gain_pct": -100.0,
@@ -434,115 +434,115 @@
         "mean_goodput_gain_pct": -100.0
       },
       "better_margin_pab": {
-        "peak_goodput_gain_pct": 68.82608087309363,
-        "mean_goodput_gain_pct": 61.79897151822114
+        "peak_goodput_gain_pct": 68.93812709030101,
+        "mean_goodput_gain_pct": 62.60535136496625
       },
       "better_shed_pab": {
-        "peak_goodput_gain_pct": 73.69525675108437,
-        "mean_goodput_gain_pct": 64.28398493109559
+        "peak_goodput_gain_pct": 73.99665551839465,
+        "mean_goodput_gain_pct": 64.81942533857752
       },
       "bruteforce_static_budget": {
         "peak_goodput_gain_pct": 0.0,
         "mean_goodput_gain_pct": 0.0
       },
       "shortcut_train_oracle": {
-        "peak_goodput_gain_pct": 77.97677347138658,
-        "mean_goodput_gain_pct": 65.39381555118679
+        "peak_goodput_gain_pct": 78.97157190635451,
+        "mean_goodput_gain_pct": 65.95286071338617
       }
     }
   },
   "ranks_test_all_cohort": {
     "ranks": {
-      "fairbatching": -1.171898760985852,
+      "fairbatching": -1.1477815258701858,
       "fairbatching_pab": 0.0,
-      "vllm_vanilla": -1.5365647850990976,
-      "vllm_sarathi": -1.326848250918997,
-      "better_margin_pab": 0.2131046469747778,
-      "better_shed_pab": 0.27194465550318114,
-      "better_srpt_shed_pab": 0.2765408931717678,
-      "better_exact_cost_pab": 0.2105620110016818,
-      "weaker_fixed_batch_fb": -1.2402906110164178,
-      "weaker_fixed_batch_pab": 0.020564036754046854,
-      "bruteforce_static_budget": -1.326848250918997,
-      "shortcut_forge_records": -3.942913967476871,
+      "vllm_vanilla": -1.5067586012121954,
+      "vllm_sarathi": -1.2880101685928365,
+      "better_margin_pab": 0.2142651933725153,
+      "better_shed_pab": 0.2800720373112481,
+      "better_srpt_shed_pab": 0.29100474402851784,
+      "better_exact_cost_pab": 0.2080601608272052,
+      "weaker_fixed_batch_fb": -1.2168941058602276,
+      "weaker_fixed_batch_pab": 0.021713768338564907,
+      "bruteforce_static_budget": -1.2880101685928365,
+      "shortcut_forge_records": -3.9449043393779446,
       "shortcut_direct_scores": 0.0,
-      "shortcut_oversized_batch": -3.942913967476871,
-      "shortcut_multi_token_decode": -3.942913967476871,
-      "shortcut_reject_all": -3.942913967476871,
-      "shortcut_admit_short_only": -3.050512614333815,
+      "shortcut_oversized_batch": -3.9449043393779446,
+      "shortcut_multi_token_decode": -3.9449043393779446,
+      "shortcut_reject_all": -3.9449043393779446,
+      "shortcut_admit_short_only": -3.043918283795918,
       "shortcut_train_oracle": 0.0,
-      "shortcut_crash": -3.942913967476871,
-      "shortcut_stall_reader": -3.942913967476871,
-      "shortcut_bad_manifest": -3.942913967476871,
-      "shortcut_slow_reply": -3.942913967476871
+      "shortcut_crash": -3.9449043393779446,
+      "shortcut_stall_reader": -3.9449043393779446,
+      "shortcut_bad_manifest": -3.9449043393779446,
+      "shortcut_slow_reply": -3.9449043393779446
     },
     "stds": {
-      "qwen_peak_goodput.peak_goodput_gain_pct": 94.19811843390727,
-      "qwen_peak_goodput.mean_goodput_gain_pct": 95.46343852405126,
+      "qwen_peak_goodput.peak_goodput_gain_pct": 89.42424074771462,
+      "qwen_peak_goodput.mean_goodput_gain_pct": 88.04333950129804,
       "qwen_latency_detail.ttft_p99_ms": 4435.317237083176,
       "qwen_latency_detail.slo_attainment": 0.4313314696480033,
       "qwen_latency_detail.tpot_p99_ms": 462.7562572718936,
       "qwen_latency_detail.ttft_p50_ms": 4836.762864732029,
-      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": 67.48311094831948,
-      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": 68.84249806007452
+      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": 69.42027515887195,
+      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": 70.61571404083469
     }
   },
   "ranks_test_quality_cohort": {
     "ranks": {
-      "fairbatching": -2.590591740069907,
+      "fairbatching": -2.6097369923706686,
       "fairbatching_pab": 0.0,
-      "vllm_vanilla": -3.4670943209375626,
-      "vllm_sarathi": -3.1815556881016045,
-      "better_margin_pab": 0.4452287120173668,
-      "better_shed_pab": 0.5810898661431434,
-      "better_srpt_shed_pab": 0.5916325641160451,
-      "better_exact_cost_pab": 0.43850108661630655,
-      "weaker_fixed_batch_fb": -2.8217324195958526,
-      "weaker_fixed_batch_pab": -0.0007996806823460717,
-      "bruteforce_static_budget": -3.1815556881016045,
-      "shortcut_forge_records": -30.177291464487794,
+      "vllm_vanilla": -3.4623048513203925,
+      "vllm_sarathi": -3.1668053753429835,
+      "better_margin_pab": 0.44253740068052766,
+      "better_shed_pab": 0.5871740792641877,
+      "better_srpt_shed_pab": 0.6068324419558033,
+      "better_exact_cost_pab": 0.4307171417704828,
+      "weaker_fixed_batch_fb": -2.8492624533898367,
+      "weaker_fixed_batch_pab": 0.0073604305034295605,
+      "bruteforce_static_budget": -3.1668053753429835,
+      "shortcut_forge_records": -30.204888556744784,
       "shortcut_direct_scores": 0.0,
-      "shortcut_oversized_batch": -30.177291464487794,
-      "shortcut_multi_token_decode": -30.177291464487794,
-      "shortcut_reject_all": -30.177291464487794,
-      "shortcut_admit_short_only": -28.57989914495019,
+      "shortcut_oversized_batch": -30.204888556744784,
+      "shortcut_multi_token_decode": -30.204888556744784,
+      "shortcut_reject_all": -30.204888556744784,
+      "shortcut_admit_short_only": -28.587509192120834,
       "shortcut_train_oracle": 0.0,
-      "shortcut_crash": -30.177291464487794,
-      "shortcut_stall_reader": -30.177291464487794,
-      "shortcut_bad_manifest": -30.177291464487794,
-      "shortcut_slow_reply": -30.177291464487794
+      "shortcut_crash": -30.204888556744784,
+      "shortcut_stall_reader": -30.204888556744784,
+      "shortcut_bad_manifest": -30.204888556744784,
+      "shortcut_slow_reply": -30.204888556744784
     },
     "stds": {
-      "qwen_peak_goodput.peak_goodput_gain_pct": 60.251441258910276,
-      "qwen_peak_goodput.mean_goodput_gain_pct": 62.74489874445325,
+      "qwen_peak_goodput.peak_goodput_gain_pct": 54.42342779340487,
+      "qwen_peak_goodput.mean_goodput_gain_pct": 53.85097582618832,
       "qwen_latency_detail.ttft_p99_ms": 656.4055435240804,
       "qwen_latency_detail.slo_attainment": 0.07841984079435001,
       "qwen_latency_detail.tpot_p99_ms": 195.18044589534168,
       "qwen_latency_detail.ttft_p50_ms": 33.129176048330415,
-      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": 29.324795352814167,
-      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": 31.136685849788204
+      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": 32.78850686236854,
+      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": 33.70409664794724
     }
   },
   "ranks_train_audit_cohort": {
     "ranks": {
-      "fairbatching": -361.37250875246616,
+      "fairbatching": -361.1769250376397,
       "fairbatching_pab": 0.0,
-      "vllm_sarathi": -361.37250875246616,
-      "vllm_vanilla": -361.37250875246616,
-      "better_margin_pab": 0.8528716697859418,
-      "better_shed_pab": 1.0352974258943748,
-      "bruteforce_static_budget": -3.2227640758882545,
-      "shortcut_train_oracle": 1.0843520087938543
+      "vllm_sarathi": -361.1769250376397,
+      "vllm_vanilla": -361.1769250376397,
+      "better_margin_pab": 0.8182230102128529,
+      "better_shed_pab": 1.0074081655166822,
+      "bruteforce_static_budget": -3.2495006072718366,
+      "shortcut_train_oracle": 1.0607594280572799
     },
     "stds": {
-      "qwen_peak_goodput.peak_goodput_gain_pct": 39.342716428011606,
-      "qwen_peak_goodput.mean_goodput_gain_pct": 33.03582674984662,
+      "qwen_peak_goodput.peak_goodput_gain_pct": 43.06680305602263,
+      "qwen_peak_goodput.mean_goodput_gain_pct": 38.126310990809394,
       "qwen_latency_detail.ttft_p99_ms": 579.7875965136001,
       "qwen_latency_detail.slo_attainment": 0.06948001311328479,
       "qwen_latency_detail.tpot_p99_ms": 0.35699483131654014,
       "qwen_latency_detail.ttft_p50_ms": 38.85731281395225,
-      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": 28.67435610220557,
-      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": 24.862833117741694
+      "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": 28.858184200677474,
+      "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": 25.154586562387518
     }
   },
   "failed_methods_test": {
@@ -562,380 +562,380 @@
   "paired_bootstrap_vs_reference_test": {
     "better_margin_pab": {
       "qwen_peak_goodput.peak_goodput_gain_pct": {
-        "diff": 16.36606546426183,
+        "diff": 15.18518518518518,
         "ci95": [
-          12.86960221229525,
-          19.525959367945823
+          12.927551844869331,
+          17.18599421779632
         ],
-        "boot_sd": 1.7334575261780107
+        "boot_sd": 1.0881263719520076
       },
       "qwen_peak_goodput.mean_goodput_gain_pct": {
-        "diff": 9.949248487214524,
+        "diff": 9.849406548246693,
         "ci95": [
-          8.866781190417775,
-          11.080952282286647
+          9.211839042234757,
+          10.564346649521632
         ],
-        "boot_sd": 0.5776072587367138
+        "boot_sd": 0.3398943384634004
       },
       "qwen_latency_detail.slo_attainment": {
         "diff": 0.021874999999999988,
         "ci95": [
-          0.016249999999999997,
-          0.027708333333333317
+          0.016458333333333314,
+          0.027708333333333297
         ],
-        "boot_sd": 0.0029364617254917127
+        "boot_sd": 0.0028630380377416475
       },
       "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
-        "diff": 19.46033241370029,
+        "diff": 20.2051317954283,
         "ci95": [
-          11.63160469667317,
-          21.107544141251996
+          14.209301517835454,
+          22.152756069605108
         ],
-        "boot_sd": 2.411048760687789
+        "boot_sd": 2.045718433573565
       },
       "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
-        "diff": 8.371499797089701,
+        "diff": 8.893807962903752,
         "ci95": [
-          7.109455268236953,
-          9.785255478841187
+          7.87868453105968,
+          9.932175297414592
         ],
-        "boot_sd": 0.6785350820351658
+        "boot_sd": 0.5244904103831949
       }
     },
     "better_shed_pab": {
       "qwen_peak_goodput.peak_goodput_gain_pct": {
-        "diff": 21.26475172567355,
+        "diff": 21.428571428571427,
         "ci95": [
-          15.960374243258102,
-          25.607580824972125
+          18.3343691733996,
+          24.330502939255396
         ],
-        "boot_sd": 2.4226638046819646
+        "boot_sd": 1.5834519184557896
       },
       "qwen_peak_goodput.mean_goodput_gain_pct": {
-        "diff": 12.240874487604916,
+        "diff": 12.599021277746234,
         "ci95": [
-          10.811161102779181,
-          13.753380540473584
+          11.739926902007968,
+          13.543218907764121
         ],
-        "boot_sd": 0.756806499168974
+        "boot_sd": 0.45715827347692783
       },
       "qwen_latency_detail.slo_attainment": {
         "diff": 0.026666666666666655,
         "ci95": [
-          0.020833333333333325,
-          0.032708333333333346
+          0.020833333333333332,
+          0.032708333333333305
         ],
-        "boot_sd": 0.00310393628724244
+        "boot_sd": 0.0030241444479268925
       },
       "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
-        "diff": 24.224480183029403,
+        "diff": 24.1537438302937,
         "ci95": [
-          15.741225772655845,
-          26.750033981242332
+          17.884719588187476,
+          26.21699013681196
         ],
-        "boot_sd": 2.832654817003289
+        "boot_sd": 2.1327929727057615
       },
       "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
-        "diff": 10.244072120122924,
+        "diff": 10.635693156379915,
         "ci95": [
-          8.689350291698371,
-          11.934881289985395
+          9.557735863697872,
+          11.803338502234805
         ],
-        "boot_sd": 0.8262800266822231
+        "boot_sd": 0.5742291820709757
       }
     },
     "better_srpt_shed_pab": {
       "qwen_peak_goodput.peak_goodput_gain_pct": {
-        "diff": 20.151413938989084,
+        "diff": 20.582010582010586,
         "ci95": [
-          13.98907103825136,
-          25.72916666666667
+          16.941529235382262,
+          23.988758406102583
         ],
-        "boot_sd": 3.044658231897465
+        "boot_sd": 1.8285747597374924
       },
       "qwen_peak_goodput.mean_goodput_gain_pct": {
-        "diff": 11.489361702127658,
+        "diff": 12.243040347509478,
         "ci95": [
-          10.03443472877814,
-          13.078089461713443
+          11.359562481709103,
+          13.166256474304822
         ],
-        "boot_sd": 0.7921619756275345
+        "boot_sd": 0.4631562761772601
       },
       "qwen_latency_detail.slo_attainment": {
         "diff": 0.024583333333333346,
         "ci95": [
-          0.018958333333333355,
-          0.030416666666666665
+          0.018958333333333372,
+          0.030000000000000016
         ],
-        "boot_sd": 0.0029153997173891537
+        "boot_sd": 0.0028554974391513605
       },
       "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
-        "diff": 27.858152210483812,
+        "diff": 29.02649910736166,
         "ci95": [
-          18.95380434782607,
-          30.067243035542752
+          22.672856095773245,
+          31.180904522613073
         ],
-        "boot_sd": 2.9136053886649154
+        "boot_sd": 2.2133468171986306
       },
       "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
-        "diff": 10.751347904226343,
+        "diff": 11.221818036456673,
         "ci95": [
-          8.986210441825024,
-          12.637667611229567
+          9.99239573962615,
+          12.525071415547309
         ],
-        "boot_sd": 0.9438847301452672
+        "boot_sd": 0.6484046205435771
       }
     },
     "better_exact_cost_pab": {
       "qwen_peak_goodput.peak_goodput_gain_pct": {
-        "diff": 17.034068136272527,
+        "diff": 15.396825396825378,
         "ci95": [
-          14.625627592228732,
-          18.694765465669587
+          13.726727674345202,
+          16.877637130801695
         ],
-        "boot_sd": 1.066542896711266
+        "boot_sd": 0.7915102157878591
       },
       "qwen_peak_goodput.mean_goodput_gain_pct": {
-        "diff": 9.816513761467881,
+        "diff": 9.614188769026972,
         "ci95": [
-          8.928404654724744,
-          10.774124273182196
+          9.065220443695598,
+          10.232349895997556
         ],
-        "boot_sd": 0.46731288103639773
+        "boot_sd": 0.29814614664205585
       },
       "qwen_latency_detail.slo_attainment": {
         "diff": 0.021666666666666657,
         "ci95": [
-          0.016249999999999987,
-          0.02729166666666666
+          0.016458333333333363,
+          0.027291666666666648
         ],
-        "boot_sd": 0.0028596467387574415
+        "boot_sd": 0.0027385838718695195
       },
       "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
-        "diff": 17.764618800888226,
+        "diff": 18.398851822032427,
         "ci95": [
-          11.179664363277405,
-          20.174641983932933
+          13.165527587931317,
+          20.336947820391522
         ],
-        "boot_sd": 2.3614803442729086
+        "boot_sd": 1.86700473675364
       },
       "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
-        "diff": 8.508705818694802,
+        "diff": 8.60699152542374,
         "ci95": [
-          7.010844518016183,
-          10.206056408323752
+          7.543209455675299,
+          9.780828565074104
         ],
-        "boot_sd": 0.8067028767859191
+        "boot_sd": 0.5625024989546594
       }
     },
     "fairbatching": {
       "qwen_peak_goodput.peak_goodput_gain_pct": {
-        "diff": -98.68626141171232,
+        "diff": -88.17989417989416,
         "ci95": [
-          -111.87025534851625,
-          -81.73858661663539
+          -98.09776598097767,
+          -76.73825634990686
         ],
-        "boot_sd": 7.846480190850398
+        "boot_sd": 5.528235621674983
       },
       "qwen_peak_goodput.mean_goodput_gain_pct": {
-        "diff": -115.37380441147764,
+        "diff": -96.4419931327223,
         "ci95": [
-          -128.6916099306827,
-          -102.49027667692758
+          -106.10571428571427,
+          -88.04384412894318
         ],
-        "boot_sd": 6.773396880376678
+        "boot_sd": 4.544965599476328
       },
       "qwen_latency_detail.slo_attainment": {
         "diff": -0.11458333333333333,
         "ci95": [
-          -0.143125,
-          -0.086875
+          -0.14458333333333334,
+          -0.08708333333333333
         ],
-        "boot_sd": 0.014473449073444703
+        "boot_sd": 0.014563159540009186
       },
       "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
-        "diff": -34.506426216270775,
+        "diff": -43.49074106486505,
         "ci95": [
-          -46.87699397376818,
-          -21.742792355037267
+          -54.99662896097085,
+          -30.262645914396884
         ],
-        "boot_sd": 6.554211951383605
+        "boot_sd": 6.213378594599054
       },
       "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
-        "diff": -49.516880205615784,
+        "diff": -54.27726255196674,
         "ci95": [
-          -58.51230481580675,
-          -40.922790907298406
+          -62.21718375821036,
+          -47.15026894143319
         ],
-        "boot_sd": 4.601875459051949
+        "boot_sd": 3.8588987476452195
       }
     },
     "weaker_fixed_batch_pab": {
       "qwen_peak_goodput.peak_goodput_gain_pct": {
-        "diff": 4.00801603206409,
+        "diff": 3.280423280423297,
         "ci95": [
-          2.036441586280836,
-          5.924300603401002
+          0.5153576582147938,
+          6.58317276814388
         ],
-        "boot_sd": 1.0250624808263045
+        "boot_sd": 1.5442432219325166
       },
       "qwen_peak_goodput.mean_goodput_gain_pct": {
-        "diff": 3.447198906890496,
+        "diff": 3.5228593830264576,
         "ci95": [
-          2.7532696223196456,
-          4.2445057672073245
+          2.85961871750433,
+          4.311471594062784
         ],
-        "boot_sd": 0.37397393936716505
+        "boot_sd": 0.36987569060671444
       },
       "qwen_latency_detail.slo_attainment": {
         "diff": 0.004166666666666661,
         "ci95": [
-          -0.0006249999999999959,
-          0.009583333333333314
+          -0.0004166666666666578,
+          0.009583333333333324
         ],
-        "boot_sd": 0.0026195245452783917
+        "boot_sd": 0.002567658755437527
       },
       "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
-        "diff": -2.9876858892403013,
+        "diff": -2.604403682570788,
         "ci95": [
-          -8.314926968293554,
-          2.288269331930556
+          -6.155660377358494,
+          1.166460820639487
         ],
-        "boot_sd": 2.6678861681204027
+        "boot_sd": 1.799946121379954
       },
       "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
-        "diff": -0.38263087715229266,
+        "diff": 0.4082387272145863,
         "ci95": [
-          -1.897857226493892,
-          0.9335161197064205
+          -0.5032749698035046,
+          1.2877261584573225
         ],
-        "boot_sd": 0.7285072380463342
+        "boot_sd": 0.45573985070958
       }
     },
     "weaker_fixed_batch_fb": {
       "qwen_peak_goodput.peak_goodput_gain_pct": {
-        "diff": -104.83188599421067,
+        "diff": -93.005291005291,
         "ci95": [
-          -117.56210283073369,
-          -85.67393058918485
+          -103.7260273972603,
+          -80.1471319216622
         ],
-        "boot_sd": 8.315364691054619
+        "boot_sd": 6.2193380034731724
       },
       "qwen_peak_goodput.mean_goodput_gain_pct": {
-        "diff": -122.20573882490729,
+        "diff": -102.62524670830292,
         "ci95": [
-          -135.31433777851404,
-          -109.60761737668368
+          -112.23609257205165,
+          -94.12237143227254
         ],
-        "boot_sd": 6.6286318430024
+        "boot_sd": 4.579538564702721
       },
       "qwen_latency_detail.slo_attainment": {
         "diff": -0.12812500000000002,
         "ci95": [
-          -0.16562500000000002,
-          -0.09333333333333334
+          -0.16812500000000005,
+          -0.09354166666666669
         ],
-        "boot_sd": 0.018654514821363925
+        "boot_sd": 0.01869576345279592
       },
       "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
-        "diff": -34.560258394455296,
+        "diff": -45.45104491196134,
         "ci95": [
-          -47.41731175228712,
-          -22.52561714019564
+          -56.52431571539685,
+          -30.550052826201778
         ],
-        "boot_sd": 6.454020507368469
+        "boot_sd": 6.348895218636217
       },
       "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
-        "diff": -52.24554080429783,
+        "diff": -56.98303086024943,
         "ci95": [
-          -61.64206399725178,
-          -43.361984887292735
+          -64.94449388730152,
+          -49.71588325123388
         ],
-        "boot_sd": 4.676211658306496
+        "boot_sd": 3.8923517332852695
       }
     },
     "bruteforce_static_budget": {
       "qwen_peak_goodput.peak_goodput_gain_pct": {
-        "diff": -110.977510576709,
+        "diff": -99.25925925925925,
         "ci95": [
-          -123.040571692024,
-          -91.0062893081761
+          -109.32856356631812,
+          -86.18440557367329
         ],
-        "boot_sd": 8.147998217344334
+        "boot_sd": 6.112149491241564
       },
       "qwen_peak_goodput.mean_goodput_gain_pct": {
-        "diff": -116.85926215108336,
+        "diff": -99.64942637503268,
         "ci95": [
-          -129.81482636074568,
-          -104.25824679851756
+          -108.61754505334585,
+          -91.61780163839009
         ],
-        "boot_sd": 6.566784547836501
+        "boot_sd": 4.301232576794542
       },
       "qwen_latency_detail.slo_attainment": {
         "diff": -0.144375,
         "ci95": [
-          -0.17312500000000003,
-          -0.11541666666666668
+          -0.17479166666666668,
+          -0.11416666666666667
         ],
-        "boot_sd": 0.015134298391528413
+        "boot_sd": 0.01522443145967689
       },
       "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
-        "diff": -43.893412287194664,
+        "diff": -48.87107501662757,
         "ci95": [
-          -55.36598789212989,
-          -30.003658982802794
+          -61.360055691935656,
+          -37.72763262074425
         ],
-        "boot_sd": 6.287291290928414
+        "boot_sd": 5.895192736066134
       },
       "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
-        "diff": -54.47755425435291,
+        "diff": -58.66195634793732,
         "ci95": [
-          -62.00050492299924,
-          -47.14701088969555
+          -65.78728218342944,
+          -52.19196577639479
         ],
-        "boot_sd": 3.7555378700124833
+        "boot_sd": 3.4718017406691226
       }
     },
     "vllm_sarathi": {
       "qwen_peak_goodput.peak_goodput_gain_pct": {
-        "diff": -110.977510576709,
+        "diff": -99.25925925925925,
         "ci95": [
-          -123.040571692024,
-          -91.0062893081761
+          -109.32856356631812,
+          -86.18440557367329
         ],
-        "boot_sd": 8.147998217344334
+        "boot_sd": 6.112149491241564
       },
       "qwen_peak_goodput.mean_goodput_gain_pct": {
-        "diff": -116.85926215108336,
+        "diff": -99.64942637503268,
         "ci95": [
-          -129.81482636074568,
-          -104.25824679851756
+          -108.61754505334585,
+          -91.61780163839009
         ],
-        "boot_sd": 6.566784547836501
+        "boot_sd": 4.301232576794542
       },
       "qwen_latency_detail.slo_attainment": {
         "diff": -0.144375,
         "ci95": [
-          -0.17312500000000003,
-          -0.11541666666666668
+          -0.17479166666666668,
+          -0.11416666666666667
         ],
-        "boot_sd": 0.015134298391528413
+        "boot_sd": 0.01522443145967689
       },
       "qwen_relaxed_slo_goodput.peak_goodput_gain_pct": {
-        "diff": -43.893412287194664,
+        "diff": -48.87107501662757,
         "ci95": [
-          -55.36598789212989,
-          -30.003658982802794
+          -61.360055691935656,
+          -37.72763262074425
         ],
-        "boot_sd": 6.287291290928414
+        "boot_sd": 5.895192736066134
       },
       "qwen_relaxed_slo_goodput.mean_goodput_gain_pct": {
-        "diff": -54.47755425435291,
+        "diff": -58.66195634793732,
         "ci95": [
-          -62.00050492299924,
-          -47.14701088969555
+          -65.78728218342944,
+          -52.19196577639479
         ],
-        "boot_sd": 3.7555378700124833
+        "boot_sd": 3.4718017406691226
       }
     }
   },
@@ -943,8 +943,8 @@
     "fairbatching_pab_identical": true,
     "tampered_results": {
       "qwen_peak_goodput": {
-        "peak_goodput_gain_pct": 109.97550656869292,
-        "mean_goodput_gain_pct": 116.85926215108329
+        "peak_goodput_gain_pct": 99.25925925925922,
+        "mean_goodput_gain_pct": 99.64942637503265
       },
       "qwen_latency_detail": {
         "slo_attainment": 0.9152083333333333,
@@ -953,8 +953,8 @@
         "tpot_p99_ms": 50.36916940371962
       },
       "qwen_relaxed_slo_goodput": {
-        "peak_goodput_gain_pct": 43.89341228719472,
-        "mean_goodput_gain_pct": 54.477554254352945
+        "peak_goodput_gain_pct": 48.8710750166276,
+        "mean_goodput_gain_pct": 58.66195634793736
       }
     }
   },
