@@ -80,8 +80,8 @@ def workload_pool() -> list:
     return _POOL
 
 
-# Total wall-clock a scheduler may spend over all its runs of one evaluation
-# (the reference needs ~200 s on one core).  Exceeding it fails the method.
+# Total CPU time a scheduler program may spend over all its runs of one
+# evaluation (the reference needs ~100-200 s).  Exceeding it fails the method.
 METHOD_BUDGET_S = 3600.0
 
 LATENCY_CAP_FACTOR = 20.0  # latency values are clipped at 20x the SLO
@@ -110,7 +110,9 @@ def instance_specs(name: str, cfg: dict) -> list[dict]:
                     "experiment": name,
                     "load": load,
                     "k": k,
-                    "seed": S.derive_seed(SEED_BASE, name, load, k, "workload"),
+                    # As in the paper, the same trace windows are replayed at
+                    # every load of a sweep; only the time scale changes.
+                    "seed": S.derive_seed(SEED_BASE, name, k, "workload"),
                     "noise_seed": S.derive_seed(SEED_BASE, name, load, k, "noise"),
                 }
             )
@@ -147,17 +149,13 @@ def _run_task(task: tuple) -> tuple:
         # Already failed (scores worst everywhere): skip its remaining runs.
         return method, spec, None, "skipped after an earlier failure"
     if spent.get(method, 0.0) > METHOD_BUDGET_S:
-        return method, spec, None, "RunFailure: scheduler exceeded its total compute budget"
-    started = time.monotonic()
-    result = None
-    try:
-        result = _run_one(method, command, spec, log_dir)
-        return result
-    finally:
-        with lock:
-            spent[method] = spent.get(method, 0.0) + (time.monotonic() - started)
-            if result is None or result[3] is not None:
-                spent[("failed", method)] = True
+        return method, spec, None, "RunFailure: scheduler exceeded its total CPU budget"
+    result = _run_one(method, command, spec, log_dir)
+    with lock:
+        spent[method] = spent.get(method, 0.0) + result[4]
+        if result[3] is not None:
+            spent[("failed", method)] = True
+    return result[:4]
 
 
 def _run_one(method, command, spec, log_dir) -> tuple:
@@ -166,6 +164,7 @@ def _run_one(method, command, spec, log_dir) -> tuple:
     inst = S.make_instance(
         pool, spec["seed"], cfg["n_requests"], spec["load"], cfg["ttft_slo_ms"], cfg["tpot_slo_ms"]
     )
+    policy = None
     try:
         if isinstance(command, str):
             raise S.RunFailure(command)
@@ -178,8 +177,37 @@ def _run_one(method, command, spec, log_dir) -> tuple:
             policy = S.SubprocessPolicy(command, ROOT, log_path)
         records = S.simulate(inst, policy, spec["noise_seed"])
     except Exception as exc:  # any failure on the scheduler side fails the method
-        return method, spec, None, f"{type(exc).__name__}: {exc}"
-    return method, spec, records, None
+        return method, spec, None, f"{type(exc).__name__}: {exc}", getattr(policy, "cpu_used", 0.0)
+    return method, spec, records, None, getattr(policy, "cpu_used", 0.0)
+
+
+def available_cpus() -> int:
+    """CPUs this process may actually use: affinity, capped by a cgroup quota."""
+    try:
+        n = len(os.sched_getaffinity(0))
+    except AttributeError:
+        n = os.cpu_count() or 1
+    quota = None
+    try:
+        raw = Path("/sys/fs/cgroup/cpu.max").read_text().split()
+        if raw[0] != "max":
+            quota = float(raw[0]) / float(raw[1])
+    except (OSError, ValueError, IndexError):
+        try:
+            q = float(Path("/sys/fs/cgroup/cpu/cpu.cfs_quota_us").read_text())
+            period = float(Path("/sys/fs/cgroup/cpu/cpu.cfs_period_us").read_text())
+            if q > 0:
+                quota = q / period
+        except (OSError, ValueError):
+            pass
+    if quota is not None:
+        n = min(n, max(1, int(quota)))
+    for var in ("SLURM_CPUS_PER_TASK", "OMP_NUM_THREADS"):  # allocation hints
+        try:
+            n = min(n, int(os.environ[var]))
+        except (KeyError, ValueError):
+            pass
+    return max(1, min(n, 16))
 
 
 def summarize_sweep(cfg: dict, runs: dict) -> dict:
@@ -303,11 +331,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--outputs", type=Path, default=ROOT / "outputs")
     parser.add_argument("--scores", type=Path, default=ROOT / "scoring" / "scores_test.json")
-    try:
-        default_workers = len(os.sched_getaffinity(0))
-    except AttributeError:
-        default_workers = os.cpu_count() or 1
-    parser.add_argument("--workers", type=int, default=max(1, min(default_workers, 32)))
+    parser.add_argument("--workers", type=int, default=available_cpus())
     parser.add_argument("--log-dir", type=Path, default=None, help="write scheduler stderr here")
     args = parser.parse_args()
     if args.log_dir:

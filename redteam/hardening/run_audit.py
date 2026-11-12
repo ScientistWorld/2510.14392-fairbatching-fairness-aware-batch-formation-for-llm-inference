@@ -176,7 +176,7 @@ def main() -> None:
 
 def audit_main() -> None:
     RUNS.mkdir(parents=True, exist_ok=True)
-    log(f"cpus: {os.cpu_count()}")
+    log(f"os.cpu_count: {os.cpu_count()}; affinity: {len(os.sched_getaffinity(0))}")
     reference = json.loads((ROOT / "scoring" / "reference.json").read_text())
 
     # 1. Static-budget brute force: sweep on public train, select per experiment.
@@ -185,8 +185,12 @@ def audit_main() -> None:
     st_train = run_eval("eval/train/evaluate.py", out_static, RUNS / "scores_train_static.json",
                         ["--experiments", "qwen_peak_goodput,qwen_relaxed_slo_goodput"])
     chosen = {}
+    failed_static = st_train["_meta"]["failed_methods"] or {}
     for exp, tpot in (("qwen_peak_goodput", 50), ("qwen_relaxed_slo_goodput", 100)):
-        r = st_train["experiments"][exp]["results"]
+        r = {m: v for m, v in st_train["experiments"][exp]["results"].items()
+             if m.startswith("static_budget_") and m not in failed_static}
+        if not r:
+            raise SystemExit(f"static-budget sweep produced no valid result: {failed_static}")
         best = max(r, key=lambda m: (r[m]["peak_goodput_gain_pct"], r[m]["mean_goodput_gain_pct"]))
         chosen[tpot] = int(best.rsplit("_", 1)[1])
     (RUNS / "static_selection.json").write_text(json.dumps({"selected_budgets_by_tpot_slo": chosen,

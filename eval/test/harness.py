@@ -26,6 +26,7 @@ import csv
 import hashlib
 import json
 import math
+import os
 import queue
 import random
 import subprocess
@@ -72,11 +73,16 @@ PROFILE = {"a": 7.70, "b": 0.1515, "c": 3.97e-05, "max_batch_tokens": 8192}
 HORIZON_MS = 600_000.0  # simulated time allowed after the last arrival
 IDLE_MS = 5.0  # clock advance when a scheduler returns an empty batch
 MAX_ITERATIONS = 2_000_000
-# Wall-clock validity limits for scheduler programs (not metrics): a reply must
-# arrive within STEP_TIMEOUT_S and one run must finish within RUN_TIMEOUT_S.
-# The reference needs ~1-2 s per run.
-STEP_TIMEOUT_S = 10.0
-RUN_TIMEOUT_S = 300.0
+# Validity limits for scheduler programs (not metrics; simulated time never
+# depends on how long a scheduler thinks).  CPU limits use the scheduler
+# process's own CPU time, so a busy or oversubscribed machine cannot trip them;
+# the wall-clock limits only catch programs that stall (stop reading, sleep).
+# The reference needs ~1-3 s of CPU per run.
+STEP_TIMEOUT_S = 30.0  # wall-clock: one reply, or one write of a message
+RUN_WALL_FLOOR_S = 600.0  # per-run wall-clock backstop: max(floor, factor x CPU used)
+RUN_WALL_PER_CPU = 100.0
+RUN_CPU_LIMIT_S = 300.0  # scheduler CPU seconds per run
+CPU_CHECK_EVERY = 256  # messages between CPU-time checks
 
 
 class RunFailure(Exception):
@@ -513,6 +519,8 @@ class SubprocessPolicy:
         self.log_path = log_path
         self.proc = None
         self.started_at = None
+        self.cpu_used = 0.0
+        self.messages = 0
 
     def start(self, init_msg: dict) -> None:
         log = open(self.log_path, "w") if self.log_path else subprocess.DEVNULL
@@ -532,36 +540,66 @@ class SubprocessPolicy:
             if log is not subprocess.DEVNULL:
                 log.close()
         self.lines: queue.Queue = queue.Queue()
+        self.outbox: queue.Queue = queue.Queue()
+        self.written = threading.Event()
+        self.write_error: list = []
         threading.Thread(target=self._reader, daemon=True).start()
+        threading.Thread(target=self._writer, daemon=True).start()
         self.started_at = time.monotonic()
         self._send(init_msg)
 
     def _reader(self) -> None:
         assert self.proc is not None and self.proc.stdout is not None
-        for line in self.proc.stdout:
-            self.lines.put(line)
+        try:
+            for line in self.proc.stdout:
+                self.lines.put(line)
+        except (OSError, ValueError):
+            pass
         self.lines.put(None)
 
-    def _send(self, msg: dict) -> dict:
-        if time.monotonic() - self.started_at > RUN_TIMEOUT_S:
-            raise RunFailure("run exceeded its wall-clock limit")
-        payload = json.dumps(msg, separators=(",", ":")) + "\n"
-        error: list = []
-
-        def write() -> None:
+    def _writer(self) -> None:
+        while True:
+            payload = self.outbox.get()
+            if payload is None:
+                return
             try:
                 self.proc.stdin.write(payload)
                 self.proc.stdin.flush()
             except (BrokenPipeError, OSError, ValueError) as exc:
-                error.append(exc)
+                self.write_error.append(exc)
+            self.written.set()
 
-        writer = threading.Thread(target=write, daemon=True)
-        writer.start()
-        writer.join(STEP_TIMEOUT_S)
-        if writer.is_alive():
+    def _cpu_seconds(self) -> float | None:
+        """CPU time (user + system) consumed so far by the scheduler process."""
+        try:
+            with open(f"/proc/{self.proc.pid}/stat") as f:
+                fields = f.read().rsplit(")", 1)[1].split()
+            return (int(fields[11]) + int(fields[12])) / os.sysconf("SC_CLK_TCK")
+        except (OSError, ValueError, IndexError, AttributeError):
+            return None
+
+    def _check_limits(self) -> None:
+        cpu = self._cpu_seconds()
+        if cpu is not None:
+            self.cpu_used = cpu
+            if cpu > RUN_CPU_LIMIT_S:
+                raise RunFailure("scheduler exceeded its CPU limit for one run")
+        # A stalling program (sleeping, waiting) uses wall time but no CPU; an
+        # honest one on a busy machine uses both.
+        limit = max(RUN_WALL_FLOOR_S, RUN_WALL_PER_CPU * (cpu or 0.0))
+        if time.monotonic() - self.started_at > limit:
+            raise RunFailure("run exceeded its wall-clock backstop (scheduler stalled)")
+
+    def _send(self, msg: dict) -> dict:
+        self.messages += 1
+        if self.messages % CPU_CHECK_EVERY == 0 or time.monotonic() - self.started_at > RUN_WALL_FLOOR_S:
+            self._check_limits()
+        self.written.clear()
+        self.outbox.put(json.dumps(msg, separators=(",", ":")) + "\n")
+        if not self.written.wait(STEP_TIMEOUT_S):
             raise RunFailure("scheduler stopped reading its input")
-        if error:
-            raise RunFailure(f"scheduler pipe closed: {error[0]}")
+        if self.write_error:
+            raise RunFailure(f"scheduler pipe closed: {self.write_error[0]}")
         while True:
             try:
                 line = self.lines.get(timeout=STEP_TIMEOUT_S)
@@ -583,23 +621,21 @@ class SubprocessPolicy:
     def close(self) -> None:
         if self.proc is None:
             return
+        cpu = self._cpu_seconds()
+        if cpu is not None:
+            self.cpu_used = cpu
         if self.proc.poll() is None:
-            closer = threading.Thread(target=self._send_end, daemon=True)
-            closer.start()
-            closer.join(2.0)
+            self.written.clear()
+            self.outbox.put(json.dumps({"type": "end"}) + "\n")
+            self.written.wait(2.0)
+        self.outbox.put(None)
         try:
             self.proc.wait(timeout=5)
         except subprocess.TimeoutExpired:
             self.proc.kill()
             self.proc.wait()
-
-    def _send_end(self) -> None:
-        try:
-            self.proc.stdin.write(json.dumps({"type": "end"}) + "\n")
-            self.proc.stdin.flush()
-            self.proc.stdin.close()
-        except (BrokenPipeError, OSError, ValueError):
-            pass
+        if cpu is None:  # no /proc: fall back to wall-clock time
+            self.cpu_used = time.monotonic() - self.started_at
 
 
 # --------------------------------------------------------------------------

@@ -5,4 +5,4 @@ action: submit
 gpus: 0
 test: false
 milestone: core_claim
-notes: "Hardened gym: regenerate reference train/test scores from final code (scripts/reproduce.sh), then redteam/hardening/run_audit.py (better/weaker variants, shortcuts, static-budget brute force, train-oracle, tamper + determinism checks) and validate.py. CPU only, ~2.5 core-hours, resumable."
+notes: "Rerun after fixing oversubscription: CPU-time-based scheduler limits, quota-aware worker count, same trace windows replayed across loads, robust brute-force selection. Regenerates reference train/test scores (scripts/reproduce.sh), runs redteam/hardening/run_audit.py, then validate.py."

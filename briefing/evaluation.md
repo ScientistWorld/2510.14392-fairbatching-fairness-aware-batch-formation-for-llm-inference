@@ -45,9 +45,10 @@ fails the run):
 - total `new_tokens` per batch ≤ `max_batch_tokens` (8192);
 - an empty batch idles the engine for 5 ms (or until the next arrival);
 - a scheduler must keep reading its input and answer each message within
-  10 s; one run may take at most 300 s of wall-clock time, and all runs of one
-  scheduler in one evaluation at most 3600 s (the reference needs ~1-2 s per
-  run, ~200 s in total on one core).  These are validity limits, not metrics:
+  30 s; it may use at most 300 s of its own CPU time per run and 3600 s over
+  all its runs of one evaluation (the reference uses ~1 s per run), and a run
+  whose wall-clock time exceeds max(600 s, 100x its CPU time) counts as stalled.  These
+  are validity limits measured on the scheduler process, not metrics:
   simulated time never depends on how long the scheduler thinks.
 
 The batch runs from `now` to `now + duration`; all tokens it produces are
@@ -63,6 +64,8 @@ Instances of 400 requests are sampled from `data/qwen_trace_head.csv` (first
 2500 text requests of the Qwen-Bailian trace A): a window of real arrivals,
 rescaled so the offered rate is exactly the target RPS, with prompt/output
 length pairs bootstrapped from around that window and random request ids.
+Within a load sweep each workload instance is replayed at every load (only
+the time scale changes), as the paper replays its trace at scaling factors.
 Train instances use public seeds (`eval/train/evaluate.py`); the held-out test
 uses the same generator with undisclosed seeds, and all its code and data live
 in `eval/test/`.

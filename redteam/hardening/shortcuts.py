@@ -98,7 +98,9 @@ class TrainOracle(Policy):
         super().init(profile)
         self.impl.init(profile)
 
-    def _match(self, rid: int) -> None:
+    def _match(self, rid: int, arrival_ms: float) -> None:
+        """Identify the instance from its second request (id + arrival time,
+        which fixes the load).  The first request is always admitted anyway."""
         self.tried = True
         sys.path.insert(0, str(ROOT / "redteam" / "hardening"))
         import data.serving_sim as S
@@ -110,7 +112,8 @@ class TrainOracle(Policy):
             for spec in E.instance_specs(exp, cfg):
                 inst = S.make_instance(pool, spec["seed"], cfg["n_requests"], spec["load"],
                                        cfg["ttft_slo_ms"], cfg["tpot_slo_ms"])
-                if min(inst, key=lambda r: (r.arrival_ms, r.rid)).rid != rid:
+                second = sorted(inst, key=lambda r: (r.arrival_ms, r.rid))[1]
+                if second.rid != rid or abs(second.arrival_ms - arrival_ms) > 1e-6:
                     continue
                 best = None
                 for knobs in self.GRID:
@@ -126,8 +129,9 @@ class TrainOracle(Policy):
         self.impl.observe(now_ms, last_step_ms)
 
     def admit(self, request, admitted, now_ms):
-        if not self.tried:
-            self._match(request.rid)
+        self.seen = getattr(self, "seen", 0) + 1
+        if self.seen == 2 and not self.tried:
+            self._match(request.rid, request.arrival_ms)
         return self.impl.admit(request, admitted, now_ms)
 
     def drop(self, active, now_ms):
@@ -157,7 +161,7 @@ def slow_reply() -> None:
         reply = handle_message(policy, json.loads(line))
         if reply is None:
             break
-        time.sleep(15.0)
+        time.sleep(5.0)
         sys.stdout.write(json.dumps(reply) + "\n")
         sys.stdout.flush()
 
