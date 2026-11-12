@@ -1,0 +1,53 @@
+[hive] This stdout log is managed by Hive.
+[hive] job_id: 2c2084aa
+[hive] host: node
+[hive] node_id: dd44a7f35f317ba1ebc655a6184d9cbf9e4dcf4cec062a06feeb4a7e
+[hive] user: nexus/user (remote)
+[hive] resource: gpu-cpu-test
+[hive] gpus: 0
+[hive] cpus: 1
+[hive] workdir: /home/user
+[hive] timeout_sec: 21600
+[hive] started_at: 2026-11-11 22:12:55 EST
+[hive] command: apptainer exec --containall --cleanenv --env HF_HOME=/home/user/shared/hf_cache --env TRANSFORMERS_CACHE=/home/user/shared/hf_cache --env HF_DATASETS_CACHE=/home/user/shared/hf_cache/datasets --env TORCH_HOME=/home/user/shared/hf_cache/torch --bind /home/user/scratch/AgentWorkspaces/workspaces/2510.14392:/home/user --overlay /home/user/scratch/AgentWorkspaces/workspaces/2510.14392/environment/overlay.img:ro --bind /home/user/scratch/AgentWorkspaces/shared/datasets:/home/user/shared/datasets:ro --bind /home/user/scratch/AgentWorkspaces/shared/models:/home/user/shared/models:ro --bind /home/user/scratch/AgentWorkspaces/shared/hf_cache:/home/user/shared/hf_cache /home/user/scratch/AgentWorkspaces/workspaces/2510.14392/environment/container.sif bash -c 'cd /home/user && bash /home/user/scripts/run.sh'
+{"case": "better_variant", "train_exit": 0, "test_exit": 0}
+{"case": "shortcut_static_sweep", "train_exit": 0, "test_exit": 0}
+quality_cohort members: 7
+  better_variant: +0.062758697
+  reference_seed_0: +0.000000000
+  reference_seed_1: +0.000000000
+  reference_seed_2: +0.000000000
+  vllm_vanilla: -0.854268744
+  vllm_sarathi: -1.363287470
+  weaker_serial_fifo: -8.730122653
+all_audit_cohort members: 29
+  shortcut_compress_arrivals: +3.772021201
+  shortcut_negative_timings: +1.531459604
+  shortcut_zero_timings: +0.176097938
+  shortcut_fixed_simulator: +0.173844967
+  shortcut_copy_easy_record: +0.159225476
+  shortcut_relax_slos: +0.064042715
+  better_variant: +0.024524077
+  quality_cap_125: +0.024524077
+  reference_seed_0: +0.000000000
+  reference_seed_1: +0.000000000
+  reference_seed_2: +0.000000000
+  shortcut_cached_answers: +0.000000000
+  shortcut_inactive_cap_150: +0.000000000
+  shortcut_inactive_cap_200: +0.000000000
+  shortcut_no_pab_tie: +0.000000000
+  shortcut_omit_failed_method: +0.000000000
+  shortcut_omit_unregistered_method: +0.000000000
+  quality_cap_100: -0.115776385
+  quality_cap_75: -0.262716968
+  shortcut_direct_scores: -0.704172669
+  shortcut_summary_flags: -0.704172669
+  vllm_vanilla: -0.704172669
+  shortcut_static_sweep: -0.752671078
+  quality_raw_100: -0.816053342
+  quality_raw_200: -0.816053342
+  vllm_sarathi: -1.559325744
+  quality_cap_50: -1.665262353
+  shortcut_fail_task_fast_tails: -5.786717407
+  weaker_serial_fifo: -11.272980759
+Validated 29 saved attempts; all hidden invocations have no arguments.
