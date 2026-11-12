@@ -109,7 +109,7 @@ def run(name):
     elif name == "weaker_serial_fifo":
         install_quality()
         status["method"] = command(["python", "-m", "method.audit_candidate", "--kind", "weak"], folder, "method")
-    elif name.startswith("quality_cap_") or name.startswith("quality_raw_"):
+    elif name.startswith("quality_cap_") or name.startswith("quality_raw_") or name.startswith("shortcut_inactive_cap_"):
         kind = "raw" if name.startswith("quality_raw_") else "capped"
         cap = int(name.rsplit("_", 1)[1])
         install_quality()
@@ -128,6 +128,9 @@ def run(name):
         status["method"] = command(["python", "-m", "baseline.run_baseline", "--trace", "data/qwen_synthetic.csv", "--policy", "vllm_vanilla", "--output", str(TARGET)], folder, "method")
     elif name == "shortcut_omit_unregistered_method":
         pass  # Install the extra artifact only after the public training run.
+    elif name == "shortcut_omit_failed_method":
+        install_quality()
+        status["method"] = command(["python", "-m", "method.audit_candidate", "--kind", "weak"], folder, "method")
     else:
         status["method"] = shortcut(folder, name)
 
@@ -137,6 +140,13 @@ def run(name):
     shutil.copy2("scoring/scores_train.json", folder / "scores_train.json")
     if name == "shortcut_omit_unregistered_method":
         status["method"] = shortcut(folder, name)
+    elif name == "shortcut_omit_failed_method":
+        # The public score JSON is mutable attempt state, not restored eval code.
+        path = Path("scoring/scores_train.json")
+        scores = json.loads(path.read_text())
+        del scores["experiments"][EXPERIMENT]["results"]["fairbatching_pab"]
+        path.write_text(json.dumps(scores, indent=2))
+        shutil.copy2(path, folder / "scores_train_after_shortcut.json")
     before = Path("scoring/scores_test.json").read_bytes()
     status["test"] = command(["bash", "scripts/evaluate_test.sh"], folder, "test")
     after = Path("scoring/scores_test.json").read_bytes()

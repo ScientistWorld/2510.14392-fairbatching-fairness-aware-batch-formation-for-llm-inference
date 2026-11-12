@@ -18,10 +18,12 @@ def main():
         for seed in (0, 1, 2):
             records.append(run(f"reference_seed_{seed}"))
         records.append(run("weaker_serial_fifo"))
-        quality = [f"quality_cap_{cap}" for cap in (50, 75, 100, 125, 150, 200)]
+        quality = [f"quality_cap_{cap}" for cap in (50, 75, 100, 125)]
         quality += ["quality_raw_100", "quality_raw_200"]
         for name in quality:
             records.append(run(name))
+        for cap in (150, 200):
+            records.append(run(f"shortcut_inactive_cap_{cap}"))
         ref = json.loads(Path("redteam/reference_seed_0/scores_train.json").read_text())["experiments"][EXPERIMENT]["results"]["fairbatching_pab"]
         rows = {"reference": ref}
         for name in quality:
@@ -39,6 +41,7 @@ def main():
             "shortcut_fixed_simulator", "shortcut_cached_answers", "shortcut_no_pab_tie",
             "shortcut_summary_flags", "shortcut_direct_scores", "shortcut_empty_records",
             "shortcut_null_timings", "shortcut_omit_unregistered_method", "shortcut_fail_task_fast_tails",
+            "shortcut_omit_failed_method",
         ]
         for name in names:
             records.append(run(name))

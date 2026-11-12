@@ -1,0 +1,41 @@
+[hive] This stdout log is managed by Hive.
+[hive] job_id: a4725534
+[hive] host: node
+[hive] node_id: 947b3d90d1fa4922e54d5bfca8919c95eb43eebb3fdb241f7515a1fc
+[hive] user: nexus/user (remote)
+[hive] resource: gpu-cpu-test
+[hive] gpus: 0
+[hive] cpus: 1
+[hive] workdir: /home/user
+[hive] timeout_sec: 21600
+[hive] started_at: 2026-11-11 21:54:31 EST
+[hive] command: apptainer exec --containall --cleanenv --env HF_HOME=/home/user/shared/hf_cache --env TRANSFORMERS_CACHE=/home/user/shared/hf_cache --env HF_DATASETS_CACHE=/home/user/shared/hf_cache/datasets --env TORCH_HOME=/home/user/shared/hf_cache/torch --bind /home/user/scratch/AgentWorkspaces/workspaces/2510.14392:/home/user --overlay /home/user/scratch/AgentWorkspaces/workspaces/2510.14392/environment/overlay.img:ro --bind /home/user/scratch/AgentWorkspaces/shared/datasets:/home/user/shared/datasets:ro --bind /home/user/scratch/AgentWorkspaces/shared/models:/home/user/shared/models:ro --bind /home/user/scratch/AgentWorkspaces/shared/hf_cache:/home/user/shared/hf_cache /home/user/scratch/AgentWorkspaces/workspaces/2510.14392/environment/container.sif bash -c 'cd /home/user && bash /home/user/scripts/run.sh'
+{"case": "reference_seed_0", "train_exit": 0, "test_exit": 0}
+{"case": "reference_seed_1", "train_exit": 0, "test_exit": 0}
+{"case": "reference_seed_2", "train_exit": 0, "test_exit": 0}
+{"case": "weaker_serial_fifo", "train_exit": 0, "test_exit": 0}
+{"case": "quality_cap_50", "train_exit": 0, "test_exit": 0}
+{"case": "quality_cap_75", "train_exit": 0, "test_exit": 0}
+{"case": "quality_cap_100", "train_exit": 0, "test_exit": 0}
+{"case": "quality_cap_125", "train_exit": 0, "test_exit": 0}
+{"case": "quality_cap_150", "train_exit": 0, "test_exit": 0}
+{"case": "quality_cap_200", "train_exit": 0, "test_exit": 0}
+{"case": "quality_raw_100", "train_exit": 0, "test_exit": 0}
+{"case": "quality_raw_200", "train_exit": 0, "test_exit": 0}
+{"case": "better_variant", "train_exit": 0, "test_exit": 0}
+{"case": "shortcut_static_sweep", "train_exit": 0, "test_exit": 0}
+{"case": "shortcut_zero_timings", "train_exit": 0, "test_exit": 0}
+{"case": "shortcut_negative_timings", "train_exit": 0, "test_exit": 0}
+{"case": "shortcut_copy_easy_record", "train_exit": 0, "test_exit": 0}
+{"case": "shortcut_relax_slos", "train_exit": 0, "test_exit": 0}
+{"case": "shortcut_compress_arrivals", "train_exit": 0, "test_exit": 0}
+{"case": "shortcut_fixed_simulator", "train_exit": 0, "test_exit": 0}
+{"case": "shortcut_cached_answers", "train_exit": 0, "test_exit": 0}
+{"case": "shortcut_no_pab_tie", "train_exit": 0, "test_exit": 0}
+{"case": "shortcut_summary_flags", "train_exit": 0, "test_exit": 0}
+{"case": "shortcut_direct_scores", "train_exit": 0, "test_exit": 0}
+{"case": "shortcut_empty_records", "train_exit": 1, "test_exit": 1}
+{"case": "shortcut_null_timings", "train_exit": 1, "test_exit": 1}
+{"case": "shortcut_omit_unregistered_method", "train_exit": 0, "test_exit": 0}
+{"case": "shortcut_fail_task_fast_tails", "train_exit": 0, "test_exit": 0}
+Audit job finished; non-audit experiment files restored.

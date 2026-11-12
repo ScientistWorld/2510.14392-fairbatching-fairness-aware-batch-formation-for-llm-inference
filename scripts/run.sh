@@ -3,4 +3,4 @@ set -euo pipefail
 
 cd /home/user
 
-python -m redteam.run_all
+python -m redteam.run_followup
