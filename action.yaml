@@ -1,5 +1,3 @@
-action: submit
-gpus: 0
-test: false
+action: done
 milestone: core_claim
-notes: "Audit verification: rerun better scheduler and 20-configuration brute-force search using public train objectives only; regenerate normalized audit analysis."
+notes: "Scoring audit complete and committed: genuine variants ordered correctly, zero execution-seed spread, six shortcut wins and six ties; gym files restored."
