@@ -215,7 +215,7 @@ def _oracle_one(args):
     cfg = E.EXPERIMENTS[exp]
     inst = S.make_instance(E.workload_pool(), spec["seed"], cfg["n_requests"], spec["load"],
                            cfg["ttft_slo_ms"], cfg["tpot_slo_ms"])
-    second = sorted(inst, key=lambda r: (r.arrival_ms, r.rid))[1]
+    second = next(r for r in sorted(inst, key=lambda r: (r.arrival_ms, r.rid)) if r.arrival_ms > 0)
     best = None
     for knobs in ORACLE_GRID:
         recs = S.simulate(inst, S.InProcessPolicy(lambda: TunableFB(True, **knobs)), spec["noise_seed"])

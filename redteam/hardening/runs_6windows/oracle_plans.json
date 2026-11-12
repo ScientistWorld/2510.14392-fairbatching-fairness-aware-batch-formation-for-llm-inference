@@ -1,0 +1,592 @@
+{
+"442730:674.793": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"371052:286.432": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"939174:2485.021": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"294057:1077.077": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"294057:718.052": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"417151:0.0": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"442730:1012.189": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"768411:2135.21": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"768411:1423.474": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"939174:1656.681": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"371052:190.955": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"294057:538.539": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"768411:1067.605": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"939174:1242.511": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"442730:404.876": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"371052:143.216": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"294057:430.831": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"768411:854.084": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"442730:506.095": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"939174:994.008": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"371052:114.573": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"294057:359.026": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"442730:337.396": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"768411:711.737": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"371052:95.477": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"294057:307.736": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"442730:289.197": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"768411:610.06": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"939174:710.006": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"939174:828.34": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"371052:81.838": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"442730:253.047": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"294057:269.269": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"768411:533.803": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"939174:621.255": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"442730:224.931": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"294057:239.351": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"768411:474.491": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"939174:552.227": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"371052:63.652": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"442730:202.438": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"294057:215.415": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"768411:427.042": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"371052:71.608": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"939174:497.004": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"371052:57.286": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"475766:149.271": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"301787:250.075": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"961073:582.494": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"935848:304.624": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"238994:862.201": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"286030:9.136": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"745065:182.812": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"908219:47.976": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"506195:228.815": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"929567:566.597": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"371421:208.712": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"411286:250.698": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"737825:1143.71": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"888695:594.467": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"242805:789.773": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"371220:157.088": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"501073:1834.431": {
+"margin": 0.0,
+"shed": false,
+"srpt": false
+},
+"737825:857.782": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"888695:445.85": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"242805:592.33": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"501073:1375.823": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"189779:81.709": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"189779:61.282": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"371220:117.816": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"737825:686.226": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"242805:473.864": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"371220:94.253": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"888695:356.68": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"501073:1100.659": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"189779:49.026": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"737825:571.855": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"888695:297.233": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"242805:394.887": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"501073:917.215": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"371220:78.544": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"888695:254.771": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"189779:40.855": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"242805:338.474": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"501073:786.185": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"189779:35.018": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"737825:490.161": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"888695:222.925": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"242805:296.165": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"371220:58.908": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"501073:687.912": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"371220:67.324": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"888695:198.156": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"189779:30.641": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"737825:381.237": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"371220:52.363": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"501073:611.477": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"737825:428.891": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"189779:27.236": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"888695:178.34": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"242805:263.258": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"737825:343.113": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"371220:47.126": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"737825:311.921": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"501073:550.329": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"888695:162.127": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"189779:24.513": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"501073:500.299": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"242805:215.393": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"242805:236.932": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"888695:148.617": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"737825:285.927": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"189779:22.284": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"371220:42.842": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+},
+"242805:197.443": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"371220:39.272": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"501073:458.608": {
+"margin": 0.06,
+"shed": true,
+"srpt": true
+},
+"189779:20.427": {
+"margin": 0.06,
+"shed": true,
+"srpt": false
+}
+}

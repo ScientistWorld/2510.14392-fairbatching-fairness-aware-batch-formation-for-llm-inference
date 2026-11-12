@@ -42,7 +42,7 @@ EXPERIMENTS = {
         "ttft_slo_ms": 500.0,
         "tpot_slo_ms": 50.0,
         "loads": [1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0],
-        "instances": 6,
+        "instances": 12,
         "n_requests": 400,
     },
     "qwen_latency_detail": {
@@ -58,7 +58,7 @@ EXPERIMENTS = {
         "ttft_slo_ms": 1000.0,
         "tpot_slo_ms": 100.0,
         "loads": [1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0],
-        "instances": 6,
+        "instances": 12,
         "n_requests": 400,
     },
 }

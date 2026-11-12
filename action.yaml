@@ -5,4 +5,4 @@ action: submit
 gpus: 0
 test: false
 milestone: core_claim
-notes: "Resubmit of the resumable verification job (previous attempt was preempted and never rescheduled): reference train/test scores with stage markers, run_audit.py in small resumable groups, tamper check, analysis, validate.py."
+notes: "Final verification with 12 trace windows per load sweep (halves baseline-denominator noise): reference train/test scores, resumable run_audit.py groups, tamper check, analysis, validate.py."

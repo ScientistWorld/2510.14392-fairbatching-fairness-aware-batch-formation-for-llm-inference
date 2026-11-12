@@ -74,9 +74,9 @@ in `eval/test/`.
 
 | experiment | setting | metrics (coefficient) |
 |---|---|---|
-| `qwen_peak_goodput` (weight 0.5) | TTFT 500 / TPOT 50 ms; loads 1.0–5.0 RPS (step 0.5), 6 instances per load | `peak_goodput_gain_pct` (1.0, primary), `mean_goodput_gain_pct` (0.5) |
+| `qwen_peak_goodput` (weight 0.5) | TTFT 500 / TPOT 50 ms; loads 1.0–5.0 RPS (step 0.5), 12 instances per load | `peak_goodput_gain_pct` (1.0, primary), `mean_goodput_gain_pct` (0.5) |
 | `qwen_latency_detail` (weight 0.25) | TTFT 500 / TPOT 50 ms; 2.5 RPS, 12 instances | `ttft_p99_ms` (1.0, primary), `slo_attainment` (1.0), `tpot_p99_ms` (0.5), `ttft_p50_ms` (0.25) |
-| `qwen_relaxed_slo_goodput` (weight 0.25) | TTFT 1000 / TPOT 100 ms; loads 1.5–6.0 RPS (step 0.5), 6 instances per load | `peak_goodput_gain_pct` (1.0, primary), `mean_goodput_gain_pct` (0.5) |
+| `qwen_relaxed_slo_goodput` (weight 0.25) | TTFT 1000 / TPOT 100 ms; loads 1.5–6.0 RPS (step 0.5), 12 instances per load | `peak_goodput_gain_pct` (1.0, primary), `mean_goodput_gain_pct` (0.5) |
 
 - **effective RPS** at a load = offered RPS × fraction of requests that meet
   both SLOs (rejected and unfinished requests fail), averaged over the

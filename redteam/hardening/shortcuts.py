@@ -83,7 +83,8 @@ class TrainOracle(Policy):
     public, so every train instance can be replayed offline, with its exact
     noise seed, under several scheduler configurations ahead of time
     (``run_audit.precompute_oracle_plans``).  At run time this scheduler
-    recognises the instance from its second request (id + arrival time) and
+    recognises the instance from its first request with a non-zero arrival
+    time (id + arrival time, which also fixes the load) and
     uses the configuration that scored best on that very instance.  On
     instances it cannot recognise it is exactly FairBatching-PAB (the
     reference).
@@ -104,8 +105,8 @@ class TrainOracle(Policy):
         self.impl.init(profile)
 
     def admit(self, request, admitted, now_ms):
-        self.seen += 1
-        if self.seen == 2:
+        if not self.seen and request.arrival_ms > 0:
+            self.seen = 1
             knobs = self.plans.get(f"{request.rid}:{request.arrival_ms!r}")
             if knobs is not None:
                 sys.path.insert(0, str(ROOT / "redteam" / "hardening"))
