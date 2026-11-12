@@ -1,75 +1,199 @@
 # Overview
 
-FairBatching is an LLM inference scheduling paper. It argues that strict
-decode-prioritizing schedulers over-serve decode work, waste accumulated TPOT
-slack, and starve prefill bursts, causing poor TTFT tail latency.
+FairBatching is an LLM inference scheduling paper.  It argues that
+decode-prioritizing stall-free schedulers (Sarathi) over-serve decode work,
+waste accumulated TPOT slack and starve prefill bursts, while prefill-first
+schedulers (vLLM default) stall decodes.  It proposes per-token envelope
+deadlines, an adaptive time budget, three-stage batch formation and a prefill
+admission budget (PAB) for load control.
 
-This workspace packages a trace-driven reproduction of the scheduler logic and
-scores it against prefill-priority and Sarathi-style baselines on request-level
-TTFT, TPOT, SLO violation rate, and effective RPS.
+This gym runs schedulers as programs against an evaluator-owned simulator of a
+Qwen3-14B / H20-class node, on workloads sampled from the paper's own
+QwenTrace (Qwen-Bailian trace A head segment).  It scores single-node peak
+goodput over a load sweep (Table 3 / Figure 5), latency tails at the Table 4
+operating point, and peak goodput under the relaxed TTFT 1000 / TPOT 100 ms
+SLOs of Table 5.  Held-out workloads are generated only inside `eval/test/`.
 
 ---
 
 # Problem
 
-LLM serving systems must schedule a mix of prefill work for newly arrived
-requests and decode work for active generations. The problem is to maximize
-the number of requests that satisfy both latency objectives:
+An LLM inference engine serving many concurrent requests runs in discrete
+steps.  At every step its scheduler forms one batch that mixes two kinds of
+work:
 
-- TTFT: time from request arrival to first output token.
-- TPOT: worst average time per output token after the first token.
+- **prefill** of newly arrived prompts (a whole prompt or a chunk of it); a
+  request emits its first output token when its prefill completes;
+- **decode** of requests that are already generating: one new token per
+  request per step.
 
-The scheduler receives a trace of request arrivals, prompt lengths, output
-lengths, and per-request SLOs. It emits request-level completion timings.
-Success requires high effective requests per second while keeping both TTFT and
-TPOT violations low.
+The duration of a step grows with the number of new tokens in the batch and
+with the context (KV cache) the batch touches.  Every request carries two
+latency objectives:
+
+- **TTFT** (time to first token): the first token must be produced within
+  `ttft_slo_ms` of arrival;
+- **TPOT** (time per output token): output token `j` (0-based, the first token
+  is `j = 0`) must be produced by `arrival + ttft_slo_ms + tpot_slo_ms * j`.
+
+A request is served successfully only if it meets both.  The scheduler may
+also refuse (reject) a request before its prefill starts — for example to
+hand it to another node — but a rejected request counts as a failure.
+
+The task: given online arrivals (the scheduler never sees the future and never
+learns a request's output length in advance), choose admissions and batches
+so that as many requests as possible meet their objectives, across loads from
+light to heavy overload, while keeping first-token and per-token latency tails
+low.  The headline quantity is **goodput** (effective requests per second):
+offered request rate times the fraction of requests that meet both objectives.
+
+The workloads are real chat traffic (the head of the Qwen-Bailian To-C
+trace: prompt avg ~900 tokens, output avg ~380 tokens, bursty arrivals)
+replayed at controlled request rates on one simulated Qwen3-14B / H20-class
+GPU node.
 
 ---
 
 # Method
 
-FairBatching replaces static token-budget scheduling with SLO-aware batch
-formation.
+FairBatching (Lyu et al., 2025) replaces static token-budget, decode-first
+scheduling with SLO-aware batch formation.  `method/fairbatching.py` is a
+scheduler program implementing the paper's computational steps:
 
-The implementation in `method/simulator.py` follows the paper's computation:
+- **Envelope deadlines (Section 3.1):** token `j` of request `i` is due at
+  `arrival_i + ttft_slo + tpot_slo * j`; a request's slack is its next token's
+  deadline minus the current time.
+- **Adaptive time budget (Section 3.2):** the next batch may take
+  `max(min decode slack, min decode TPOT SLO)`; step time is estimated with the
+  linear model `a + b * new_tokens + c * context` (the evaluator's published
+  profile).  With no decode running, only the token budget applies.
+- **Fair batch formation (Section 3.3, Algorithm 1):** urgent decodes (slack
+  below `budget + min TPOT SLO`), then prefills, then the remaining decodes,
+  each group by ascending slack; items are packed while they fit the remaining
+  time and token budget, and a prefill that does not fit is chunked.
+- **Prefill admission budget (Section 3.4, Appendix A; `--variant pab`):** an
+  arriving request is rejected when the PAB computed over all admitted
+  requests is smaller than its prompt length.
 
-- envelope-line deadlines for each request's next token;
-- slack calculation from current time to the next deadline;
-- adaptive time budget based on decode-request slack and TPOT SLO;
-- linear batch-time estimator `a + b * total_new_tokens + c * total_context`;
-- three-stage packing of urgent decode tasks, prefill tasks, and non-urgent
-  decode tasks;
-- the PAB admission-control estimate from Appendix A for the PAB variant.
+`fairbatching` is FairBatching-vanilla, `fairbatching_pab` FairBatching-PAB
+(the reference every attempt is ranked against).
 
-Baselines implement prefill-prioritizing continuous batching and Sarathi-style
-decode-prioritizing stall-free batching.
+Baselines (`baseline/schedulers.py`): vLLM-vanilla (prefill-first continuous
+batching with an 8192-token budget) and vLLM-sarathi (stall-free batching:
+all decodes, then FCFS prefill chunks under a token budget tuned on the train
+split per SLO setting: 256 tokens at TPOT 50 ms, 512 at TPOT 100 ms).
 
 ---
 
 # Evaluation
 
-The reusable evaluator reads JSON artifacts produced by schedulers in
-`outputs/`. It does not import or execute code from `method/`.
+## What a method submits
 
-Metrics:
+A method is a **scheduler program**.  Register it with a manifest
+`outputs/schedulers/<name>.json`:
 
-- `effective_rps`: offered trace request rate multiplied by the fraction of
-  requests satisfying SLO, matching the paper's goodput definition.
-- `slo_violation_rate`: fraction of requests violating TTFT or TPOT.
-- `ttft_p99_ms`: 99th percentile time to first token.
-- `tpot_p99_ms`: 99th percentile worst per-request TPOT.
-- `envelope_tpot_p99_ms`: 99th percentile TPOT-like deadline measure used to
-  check whether token delivery remains within each request's TPOT SLO after the
-  first-token deadline.
+```json
+{"command": ["python", "path/to/your_scheduler.py", "--any", "args"]}
+```
 
-The default experiments are `single_node_qwen_trace`, a single-node workload
-using a synthetic trace shaped from the paper's QwenTrace aggregate length and
-SLO statistics at a scaled 2.4 RPS generator load point, and
-`qwen_slo_1000_100`, a relaxed-SLO variant with TTFT=1000ms and TPOT=100ms.
-SLO satisfaction is checked against request TTFT and deadline-based TPOT.
-The reported `tpot_p99_ms` is post-first-token decode speed, so it remains
-comparable to the paper's latency table while the deadline-based metric captures
-SLO compliance.
+The command is started with the workspace root as working directory
+(`python`/`python3` resolve to the evaluator's interpreter).  Every manifest in
+that directory is scored, by both evaluators, on every experiment.  The four
+shipped names (`fairbatching`, `fairbatching_pab`, `vllm_vanilla`,
+`vllm_sarathi`) are always scored; a missing or unreadable manifest scores as
+a failed run.
+
+## Protocol (JSON lines over stdin/stdout)
+
+The evaluator owns the workload, the clock, the hardware and all latency
+bookkeeping; the scheduler only makes decisions.  One run = one workload
+instance = one fresh process.
+
+1. `{"type": "init", "profile": {"a": .., "b": .., "c": .., "max_batch_tokens": 8192}}`
+   → reply anything (e.g. `{"ok": true}`).  `profile` is an offline linear fit
+   `step_ms ≈ a + b * new_tokens + c * total_context` of the hardware.  It is
+   an approximation: true step times also depend on prefill attention cost and
+   jitter.
+2. Repeated `{"type": "step", "now": t_ms, "last_step_ms": d | null,
+   "arrived": [rid, ...], "requests": [[rid, arrival_ms, prompt_len,
+   prefill_done, generated, ttft_slo_ms, tpot_slo_ms], ...]}`
+   → reply `{"reject": [rid, ...], "batch": [[rid, new_tokens], ...]}`.
+   `requests` lists every admitted, unfinished request (including the ones in
+   `arrived`, which are new this step); `last_step_ms` is the measured
+   duration of the previous batch.
+3. `{"type": "end"}` → exit.
+
+Rules, checked at every step (any violation, a crash or malformed output
+fails the run):
+
+- `reject` may name only requests whose prefill has not started;
+- a request appears at most once per batch; a prefill item gets
+  `1 ≤ new_tokens ≤ prompt_len − prefill_done`; a decode item gets exactly 1;
+- total `new_tokens` per batch ≤ `max_batch_tokens` (8192);
+- an empty batch idles the engine for 5 ms (or until the next arrival);
+- a scheduler must keep reading its input and answer each message within
+  10 s; one run may take at most 300 s of wall-clock time, and all runs of one
+  scheduler in one evaluation at most 3600 s (the reference needs ~1-2 s per
+  run, ~200 s in total on one core).  These are validity limits, not metrics:
+  simulated time never depends on how long the scheduler thinks.
+
+The batch runs from `now` to `now + duration`; all tokens it produces are
+emitted at its end.  A request finishes when its (hidden) output length is
+reached.  Requests still unfinished 600 s after the last arrival fail.
+`data/sched_client.py` implements the loop; subclass `Policy` and call
+`serve()`.  `data/serving_sim.py` is the same simulator the train evaluator
+uses (hardware model, workload sampling, metrics) for local development.
+
+## Workloads
+
+Instances of 400 requests are sampled from `data/qwen_trace_head.csv` (first
+2500 text requests of the Qwen-Bailian trace A): a window of real arrivals,
+rescaled so the offered rate is exactly the target RPS, with prompt/output
+length pairs bootstrapped from around that window and random request ids.
+Train instances use public seeds (`eval/train/evaluate.py`); the held-out test
+uses the same generator with undisclosed seeds, and all its code and data live
+in `eval/test/`.
+
+## Experiments and metrics
+
+| experiment | setting | metrics (coefficient) |
+|---|---|---|
+| `qwen_peak_goodput` (weight 0.5) | TTFT 500 / TPOT 50 ms; loads 1.0–5.0 RPS (step 0.5), 6 instances per load | `peak_goodput_gain_pct` (1.0, primary), `mean_goodput_gain_pct` (0.5) |
+| `qwen_latency_detail` (weight 0.25) | TTFT 500 / TPOT 50 ms; 2.5 RPS, 12 instances | `ttft_p99_ms` (1.0, primary), `slo_attainment` (1.0), `tpot_p99_ms` (0.5), `ttft_p50_ms` (0.25) |
+| `qwen_relaxed_slo_goodput` (weight 0.25) | TTFT 1000 / TPOT 100 ms; loads 1.5–6.0 RPS (step 0.5), 6 instances per load | `peak_goodput_gain_pct` (1.0, primary), `mean_goodput_gain_pct` (0.5) |
+
+- **effective RPS** at a load = offered RPS × fraction of requests that meet
+  both SLOs (rejected and unfinished requests fail), averaged over the
+  instances of that load.  `peak_*` is its maximum over the load sweep,
+  `mean_*` its mean over the sweep; both are reported as % gain over the
+  better of the evaluator's own frozen copies of the two baselines on the same
+  instances (so editing `baseline/` cannot move the comparison point).
+- **slo_attainment**: fraction of all offered requests meeting both SLOs.
+- **TTFT / TPOT percentiles** are over admitted requests (an admitted request
+  that never completes counts at 20× the SLO).  A request's TPOT is its worst
+  per-token rate `max_j (t_j − max(t_0, arrival + ttft_slo)) / j`, i.e. the
+  per-token rate measured from the later of its first token and its TTFT
+  deadline.
+- **Gate:** if `slo_attainment` falls below that of the weakest evaluator
+  baseline, every metric of `qwen_latency_detail` takes its worst value.
+- **Failure:** a method whose run fails anywhere gets the worst value of every
+  metric in every experiment (gain −100%, attainment 0, TTFT 10 000 ms, TPOT
+  1 000 ms).
+
+Everything is recomputed by the evaluator from its own simulation; nothing a
+scheduler prints other than its decisions is read.  Results are
+deterministic: the same scheduler on the same instances gives identical
+numbers.
+
+## Commands
+
+- `scripts/method.sh`, `scripts/baseline.sh`: register the shipped schedulers.
+- `scripts/evaluate_train.sh`: public train split → `scoring/scores_train.json`
+  (`python eval/train/evaluate.py --experiments qwen_peak_goodput --log-dir
+  tmp/logs` for a faster subset with scheduler stderr logs).
+- `scripts/evaluate_test.sh` (no arguments): held-out split →
+  `scoring/scores_test.json`.  Only the `results` entries are ranked.
+- `scripts/reproduce.sh`: register + train + test end to end (CPU only).
 
 ---
 

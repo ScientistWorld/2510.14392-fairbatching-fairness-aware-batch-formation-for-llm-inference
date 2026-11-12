@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
+# Register the paper's schedulers.  A method is a program that speaks the
+# scheduler protocol (briefing/evaluation.md); its manifest under
+# outputs/schedulers/ tells the evaluators how to launch it.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
-TRACE="${1:-data/qwen_synthetic.csv}"
-OUTDIR="${2:-outputs}"
-mkdir -p "$OUTDIR"
-python method/simulator.py --trace "$TRACE" --policy fairbatching --output "$OUTDIR/fairbatching.json"
-python method/simulator.py --trace "$TRACE" --policy fairbatching_pab --output "$OUTDIR/fairbatching_pab.json"
+OUTDIR="${1:-outputs}"
+mkdir -p "$OUTDIR/schedulers"
+cat > "$OUTDIR/schedulers/fairbatching.json" <<'JSON'
+{"command": ["python", "method/fairbatching.py", "--variant", "vanilla"]}
+JSON
+cat > "$OUTDIR/schedulers/fairbatching_pab.json" <<'JSON'
+{"command": ["python", "method/fairbatching.py", "--variant", "pab"]}
+JSON

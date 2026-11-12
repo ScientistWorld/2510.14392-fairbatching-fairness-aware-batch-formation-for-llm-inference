@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
+# Held-out evaluation: runs every scheduler registered under
+# outputs/schedulers/ on workloads that only eval/test/ can generate and
+# writes scoring/scores_test.json.  Takes no arguments.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
-OUTDIR="${1:-outputs}"
-EXPERIMENT_NAME="${2:-}"
-if [[ -n "$EXPERIMENT_NAME" ]]; then
-    python eval/test/evaluate.py --outputs "$OUTDIR" --scores scoring/scores_test.json --experiment-name "$EXPERIMENT_NAME"
-else
-    python eval/test/evaluate.py --outputs "$OUTDIR" --scores scoring/scores_test.json
-fi
+python eval/test/evaluate.py

@@ -1,179 +1,189 @@
 {
+  "_notes": "Scaled setup: a trace-driven simulator of one Qwen3-14B/H20-class node replaces the paper's vLLM deployment; workloads are sampled from the paper's QwenTrace head segment (first 2500 text requests of the Qwen-Bailian trace A). Goodput gains are measured against evaluator-owned copies of the two baselines. Paper numbers kept under keys starting with '_' are on the paper's own scale (Table 3 is a geometric mean over four models) and are context, not targets. Weights: single-node peak goodput is the paper's headline claim (0.5); the Table 4 latency detail (TTFT tail reduction while keeping TPOT) and the Table 5 SLO-versatility row share the rest.",
   "experiments": {
-    "single_node_qwen_trace": {
-      "description": "Single-node QwenTrace hybrid reference: peak effective RPS from Table 3 plus Qwen3-14B/RPS=2.5 latency tails from Table 4.",
-      "notes": "The paper reports Table 3 peak goodput as a geometric mean across models and Table 4 latency on Qwen3-14B at RPS=2.5. The paper does not separately tabulate deadline-based TPOT, so the reference uses the reported TPOT tail values for that auxiliary constraint.",
-      "weight": 0.7,
-      "primary_metric": "effective_rps",
+    "qwen_peak_goodput": {
+      "description": "Single-node peak goodput on QwenTrace (TTFT 500 ms / TPOT 50 ms): effective RPS swept over offered loads 1.0-5.0 RPS, as in Figure 5 / Table 3.",
+      "notes": "Gains are relative to the better of the evaluator's frozen vLLM-vanilla and vLLM-sarathi at the same instances. The paper reports +23.8% (FairBatching-vanilla) and +109% (FairBatching-PAB) over vLLM-vanilla on QwenTrace (Table 3, Section 5.2).",
+      "weight": 0.5,
+      "primary_metric": "peak_goodput_gain_pct",
       "metrics": {
-        "effective_rps": {
+        "peak_goodput_gain_pct": {
           "higher_is_better": true,
           "coefficient": 1.0,
-          "description": "Trace-level goodput: offered request rate multiplied by recomputed per-request SLO success rate."
+          "description": "Peak over the load sweep of effective RPS (offered RPS x fraction of requests meeting both SLOs; rejected requests fail), as % gain over the best evaluator baseline."
         },
-        "slo_violation_rate": {
-          "higher_is_better": false,
-          "coefficient": -1.0,
-          "description": "Fraction of requests that violate either the TTFT SLO or the deadline-based TPOT SLO."
+        "mean_goodput_gain_pct": {
+          "higher_is_better": true,
+          "coefficient": 0.5,
+          "description": "Mean effective RPS over all sweep loads (rewards graceful overload), as % gain over the best evaluator baseline."
+        }
+      },
+      "results": {
+        "vllm_vanilla": {
+          "type": "baseline"
         },
-        "ttft_slo_violation_rate": {
-          "higher_is_better": false,
-          "coefficient": -0.5,
-          "description": "Fraction of requests whose first-token latency exceeds that request's TTFT SLO."
+        "vllm_sarathi": {
+          "type": "baseline"
         },
-        "envelope_tpot_slo_violation_rate": {
-          "higher_is_better": false,
-          "coefficient": -0.7,
-          "description": "Fraction of requests whose deadline-based TPOT exceeds that request's TPOT SLO."
+        "fairbatching": {
+          "type": "proposed",
+          "peak_goodput_gain_pct": 23.8
         },
-        "ttft_p95_ms": {
-          "higher_is_better": false,
-          "coefficient": -0.2,
-          "description": "P95 first-token latency, included to catch methods that optimize only the extreme tail."
-        },
+        "fairbatching_pab": {
+          "type": "proposed",
+          "peak_goodput_gain_pct": 109.0
+        }
+      },
+      "_paper_table3_qwentrace_peak_effective_rps_geomean_4_models": {
+        "vllm_vanilla": 1.22,
+        "vllm_sarathi": 1.13,
+        "fairbatching": 1.51,
+        "fairbatching_pab": 2.56
+      }
+    },
+    "qwen_latency_detail": {
+      "description": "Latency detail at 2.5 RPS on QwenTrace (TTFT 500 ms / TPOT 50 ms), the Table 4 operating point (Qwen3-14B, RPS=2.5).",
+      "notes": "Latencies are over admitted requests (rejected ones excluded, as in Table 4); an admitted request that never completes counts at 20x the SLO. TPOT of a request is its worst per-token rate measured from the later of its first token and its TTFT deadline, the quantity whose Table 4 values (FB 50/50, Sarathi 46/49 at p95/p99) the paper reports. If SLO attainment falls below the weakest evaluator baseline, every metric of this experiment takes its worst value.",
+      "weight": 0.25,
+      "primary_metric": "ttft_p99_ms",
+      "metrics": {
         "ttft_p99_ms": {
           "higher_is_better": false,
-          "coefficient": -0.4,
-          "description": "P99 first-token latency, the paper's headline prefill-tail latency constraint."
+          "coefficient": 1.0,
+          "description": "P99 time to first token over admitted requests (ms)."
         },
-        "tpot_p95_ms": {
-          "higher_is_better": false,
-          "coefficient": -0.15,
-          "description": "P95 raw per-output-token latency, tracking token delivery smoothness outside the deadline-based SLO check."
+        "slo_attainment": {
+          "higher_is_better": true,
+          "coefficient": 1.0,
+          "description": "Fraction of all offered requests (rejections included) that meet both the TTFT and the per-token deadline SLO."
         },
         "tpot_p99_ms": {
           "higher_is_better": false,
-          "coefficient": -0.25,
-          "description": "P99 raw per-output-token latency, matching the latency table's token-delivery view."
+          "coefficient": 0.5,
+          "description": "P99 over admitted requests of the worst per-token output rate (ms/token)."
         },
-        "envelope_tpot_p95_ms": {
+        "ttft_p50_ms": {
           "higher_is_better": false,
-          "coefficient": -0.25,
-          "description": "P95 deadline-based TPOT latency, probing whether accumulated slack is used without broad TPOT regressions."
-        },
-        "envelope_tpot_p99_ms": {
-          "higher_is_better": false,
-          "coefficient": -0.6,
-          "description": "P99 deadline-based TPOT latency used for SLO compliance."
+          "coefficient": 0.25,
+          "description": "Median time to first token over admitted requests (ms)."
         }
       },
       "results": {
         "vllm_vanilla": {
           "type": "baseline",
-          "effective_rps": 1.22,
-          "ttft_p95_ms": 1061.0,
+          "ttft_p50_ms": 212.0,
           "ttft_p99_ms": 1842.0,
-          "tpot_p95_ms": 256.0,
-          "tpot_p99_ms": 614.0,
-          "envelope_tpot_p99_ms": 614.0
+          "tpot_p99_ms": 614.0
         },
         "vllm_sarathi": {
           "type": "baseline",
-          "effective_rps": 1.13,
-          "ttft_p95_ms": 2455.0,
+          "ttft_p50_ms": 377.0,
           "ttft_p99_ms": 4585.0,
-          "tpot_p95_ms": 46.0,
-          "tpot_p99_ms": 49.0,
-          "envelope_tpot_p99_ms": 49.0
+          "tpot_p99_ms": 49.0
         },
         "fairbatching": {
           "type": "proposed",
-          "effective_rps": 1.51,
-          "ttft_p95_ms": 1053.0,
+          "ttft_p50_ms": 213.0,
           "ttft_p99_ms": 1998.0,
-          "tpot_p95_ms": 50.0,
-          "tpot_p99_ms": 50.0,
-          "envelope_tpot_p99_ms": 50.0
+          "tpot_p99_ms": 50.0
         },
         "fairbatching_pab": {
           "type": "proposed",
-          "effective_rps": 2.56,
-          "ttft_p95_ms": 500.0,
+          "ttft_p50_ms": 198.0,
           "ttft_p99_ms": 504.0,
-          "tpot_p95_ms": 50.0,
-          "tpot_p99_ms": 50.0,
-          "envelope_tpot_p99_ms": 50.0
+          "tpot_p99_ms": 50.0
+        }
+      },
+      "_paper_table4_qwen3_14b_rps2_5_ms": {
+        "vllm_vanilla": {
+          "ttft_p95": 1061.0,
+          "tpot_p95": 256.0
+        },
+        "vllm_sarathi": {
+          "ttft_p95": 2455.0,
+          "tpot_p95": 46.0
+        },
+        "fairbatching": {
+          "ttft_p95": 1053.0,
+          "tpot_p95": 50.0
+        },
+        "fairbatching_pab": {
+          "ttft_p95": 500.0,
+          "tpot_p95": 50.0
         }
       }
     },
-    "qwen_slo_1000_100": {
-      "description": "SLO versatility check on QwenTrace-like workload with TTFT=1000ms and TPOT=100ms, corresponding to the Table 5 relaxed-SLO row.",
-      "notes": "The paper reports Table 5 as peak-goodput improvement over the stronger of vLLM-sarathi and vLLM-vanilla, not absolute goodput or latency tails. Constraint metrics are still scored from artifacts to prevent improvements that only relax SLO behavior.",
-      "weight": 0.3,
-      "primary_metric": "goodput_improvement_pct",
+    "qwen_relaxed_slo_goodput": {
+      "description": "SLO versatility (Table 5 row TTFT 1000 ms / TPOT 100 ms): peak goodput gain on QwenTrace swept over offered loads 1.5-6.0 RPS.",
+      "notes": "Table 5 reports peak-goodput improvement over the better of vLLM-sarathi and vLLM-vanilla; at TTFT=1000/TPOT=100 the paper reports +8.1% (FairBatching-vanilla) and +64.9% (FairBatching-PAB).",
+      "weight": 0.25,
+      "primary_metric": "peak_goodput_gain_pct",
       "metrics": {
-        "goodput_improvement_pct": {
+        "peak_goodput_gain_pct": {
           "higher_is_better": true,
           "coefficient": 1.0,
-          "description": "Effective RPS improvement over the best reproduced baseline for this experiment."
+          "description": "Peak over the load sweep of effective RPS, as % gain over the best evaluator baseline."
         },
-        "effective_rps": {
+        "mean_goodput_gain_pct": {
           "higher_is_better": true,
-          "coefficient": 0.4,
-          "description": "Trace-level goodput: offered request rate multiplied by recomputed per-request SLO success rate."
-        },
-        "slo_violation_rate": {
-          "higher_is_better": false,
-          "coefficient": -1.0,
-          "description": "Fraction of requests that violate either the TTFT SLO or the deadline-based TPOT SLO."
-        },
-        "ttft_slo_violation_rate": {
-          "higher_is_better": false,
-          "coefficient": -0.5,
-          "description": "Fraction of requests whose first-token latency exceeds that request's TTFT SLO."
-        },
-        "envelope_tpot_slo_violation_rate": {
-          "higher_is_better": false,
-          "coefficient": -0.7,
-          "description": "Fraction of requests whose deadline-based TPOT exceeds that request's TPOT SLO."
-        },
-        "ttft_p95_ms": {
-          "higher_is_better": false,
-          "coefficient": -0.15,
-          "description": "P95 first-token latency."
-        },
-        "ttft_p99_ms": {
-          "higher_is_better": false,
-          "coefficient": -0.3,
-          "description": "P99 first-token latency."
-        },
-        "tpot_p95_ms": {
-          "higher_is_better": false,
-          "coefficient": -0.1,
-          "description": "P95 raw per-output-token latency."
-        },
-        "tpot_p99_ms": {
-          "higher_is_better": false,
-          "coefficient": -0.2,
-          "description": "P99 raw per-output-token latency."
-        },
-        "envelope_tpot_p95_ms": {
-          "higher_is_better": false,
-          "coefficient": -0.2,
-          "description": "P95 deadline-based TPOT latency."
-        },
-        "envelope_tpot_p99_ms": {
-          "higher_is_better": false,
-          "coefficient": -0.5,
-          "description": "P99 deadline-based TPOT latency."
+          "coefficient": 0.5,
+          "description": "Mean effective RPS over all sweep loads, as % gain over the best evaluator baseline."
         }
       },
       "results": {
         "vllm_vanilla": {
           "type": "baseline",
-          "goodput_improvement_pct": 0.0
+          "peak_goodput_gain_pct": 0.0
         },
         "vllm_sarathi": {
           "type": "baseline",
-          "goodput_improvement_pct": 0.0
+          "peak_goodput_gain_pct": 0.0
         },
         "fairbatching": {
           "type": "proposed",
-          "goodput_improvement_pct": 8.1
+          "peak_goodput_gain_pct": 8.1
         },
         "fairbatching_pab": {
           "type": "proposed",
-          "goodput_improvement_pct": 64.9
+          "peak_goodput_gain_pct": 64.9
+        }
+      },
+      "_paper_table5_goodput_gain_pct": {
+        "fairbatching_vanilla": {
+          "500/50": 15.4,
+          "500/100": 7.5,
+          "500/150": 5.6,
+          "500/200": 6.1,
+          "1000/50": 11.6,
+          "1000/100": 8.1,
+          "1000/150": 3.9,
+          "1000/200": 2.8,
+          "1500/50": 8.3,
+          "1500/100": 4.8,
+          "1500/150": 2.6,
+          "1500/200": 0.6,
+          "2000/50": 6.8,
+          "2000/100": 4.5,
+          "2000/150": 1.5,
+          "2000/200": -0.4
+        },
+        "fairbatching_pab": {
+          "500/50": 112.6,
+          "500/100": 91.8,
+          "500/150": 84.9,
+          "500/200": 78.3,
+          "1000/50": 76.5,
+          "1000/100": 64.9,
+          "1000/150": 54.7,
+          "1000/200": 55.5,
+          "1500/50": 63.7,
+          "1500/100": 52.1,
+          "1500/150": 36.2,
+          "1500/200": 32.5,
+          "2000/50": 59.9,
+          "2000/100": 45.9,
+          "2000/150": 26.5,
+          "2000/200": 24.8
         }
       }
     }

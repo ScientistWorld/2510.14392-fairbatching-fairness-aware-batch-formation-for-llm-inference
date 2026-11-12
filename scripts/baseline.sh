@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
+# Register the paper's baseline schedulers (vLLM-vanilla, vLLM-sarathi).
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
-TRACE="${1:-data/qwen_synthetic.csv}"
-OUTDIR="${2:-outputs}"
-mkdir -p "$OUTDIR"
-PYTHONPATH="$PWD${PYTHONPATH:+:$PYTHONPATH}" python baseline/run_baseline.py --trace "$TRACE" --policy vllm_vanilla --output "$OUTDIR/vllm_vanilla.json"
-PYTHONPATH="$PWD${PYTHONPATH:+:$PYTHONPATH}" python baseline/run_baseline.py --trace "$TRACE" --policy vllm_sarathi --output "$OUTDIR/vllm_sarathi.json"
+OUTDIR="${1:-outputs}"
+mkdir -p "$OUTDIR/schedulers"
+cat > "$OUTDIR/schedulers/vllm_vanilla.json" <<'JSON'
+{"command": ["python", "baseline/schedulers.py", "--policy", "vllm_vanilla"]}
+JSON
+cat > "$OUTDIR/schedulers/vllm_sarathi.json" <<'JSON'
+{"command": ["python", "baseline/schedulers.py", "--policy", "vllm_sarathi"]}
+JSON

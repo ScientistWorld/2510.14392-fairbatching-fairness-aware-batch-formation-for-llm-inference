@@ -2,10 +2,14 @@
 set -euo pipefail
 
 cd /home/user
+echo "cpus: $(nproc)"
+python --version
 
+# Reference results (what every future attempt is ranked against).
 rm -rf outputs
-scripts/reproduce.sh "" outputs
+scripts/reproduce.sh outputs
 
-bash scripts/evaluate_train.sh outputs
-bash scripts/evaluate_test.sh outputs
-python validate.py --compare
+# Iteration-11 hardening audit: variants and shortcuts through the evaluators.
+python redteam/hardening/run_audit.py
+
+python validate.py
